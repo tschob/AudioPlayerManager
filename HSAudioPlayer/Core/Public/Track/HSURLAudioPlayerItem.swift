@@ -52,6 +52,18 @@ public class HSURLAudioPlayerItem: HSAudioPlayerItem {
 
 	// MARK: - Lifecycle
 
+	override func prepareForPlaying(avPlayerItem: AVPlayerItem) {
+		super.prepareForPlaying(avPlayerItem)
+		// Listen to the timedMetadata initialization. We can extract the meta data then
+		self.avPlayerItem?.addObserver(self, forKeyPath: Keys.TimedMetadata, options: NSKeyValueObservingOptions.Initial, context: nil)
+	}
+
+	override func cleanupAfterPlaying() {
+		// Remove the timedMetadata observer as the AVPlayerItem will be released now
+		self.avPlayerItem?.removeObserver(self, forKeyPath: Keys.TimedMetadata, context: nil)
+		super.cleanupAfterPlaying()
+	}
+
 	public override func getAVPlayerItem() -> AVPlayerItem? {
 		if let _url = self.url {
 			return AVPlayerItem(URL: _url)
@@ -95,4 +107,45 @@ public class HSURLAudioPlayerItem: HSAudioPlayerItem {
 		// There is no playable URL -> reuturn nil then
 		return nil
 	}
+
+	// MARK: - PRIVATE - 
+
+	private struct Keys {
+		static let TimedMetadata		= "timedMetadata"
+	}
+
+	private func extractMetadata() {
+		HSAudioPlayerLog("Extracting meta data of player item with url: \(url)")
+		for metadataItem in (self.avPlayerItem?.asset.commonMetadata ?? []) {
+			if let _key = metadataItem.commonKey {
+				switch _key {
+				case AVMetadataCommonKeyTitle		: self.nowPlayingInfo?[MPMediaItemPropertyTitle] = metadataItem.stringValue
+				case AVMetadataCommonKeyAlbumName	: self.nowPlayingInfo?[MPMediaItemPropertyAlbumTitle] = metadataItem.stringValue
+				case AVMetadataCommonKeyArtist		: self.nowPlayingInfo?[MPMediaItemPropertyArtist] = metadataItem.stringValue
+				case AVMetadataCommonKeyArtwork		:
+					if let
+						_data = metadataItem.dataValue,
+						_image = UIImage(data: _data) {
+						self.nowPlayingInfo?[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: _image)
+					}
+				default								: return
+				}
+			}
+		}
+		// Inform the player about the updated meta data
+		HSAudioPlayer.sharedInstance.didUpdateMetadata()
+	}
+}
+
+// MARK: - KVO
+
+extension HSURLAudioPlayerItem {
+
+	override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+		if (keyPath == Keys.TimedMetadata) {
+			// Extract the meta data if the timedMetadata changed
+			self.extractMetadata()
+		}
+	}
+
 }
