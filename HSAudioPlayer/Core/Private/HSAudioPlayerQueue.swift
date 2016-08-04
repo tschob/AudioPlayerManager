@@ -30,6 +30,7 @@ class HSAudioPlayerQueue: NSObject {
 			// Replace the items in the queue with the new ones
 			self.queue = _playerItems
 			self.currentItemQueueIndex = startPosition
+			self.currentItem?.cleanupAfterPlaying()
 			self.currentItem = _playerItems[startPosition]
 		} else {
 			self.queue.removeAll()
