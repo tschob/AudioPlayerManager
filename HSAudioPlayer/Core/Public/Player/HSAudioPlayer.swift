@@ -169,10 +169,12 @@ public class HSAudioPlayer: NSObject {
     }
 
     override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if (object as? NSObject == player) && (keyPath == "status") {
-            if self.player?.status == AVPlayerStatus.ReadyToPlay {
-				self.play(updateNowPlayingInfo: true)
-            }
+		if (object as? NSObject == self.player) {
+			if (keyPath == Keys.Status) {
+            	if self.player?.status == AVPlayerStatus.ReadyToPlay {
+					self.play(updateNowPlayingInfo: true)
+            	}
+			}
         }
     }
 
@@ -233,8 +235,6 @@ public class HSAudioPlayer: NSObject {
 		super.init()
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HSAudioPlayer.playerItemDidFinishPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
-
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidEnterBackground(_:)), name: UIApplicationDidEnterBackgroundNotification, object: nil)
 	}
 
 	deinit {
@@ -247,10 +247,19 @@ public class HSAudioPlayer: NSObject {
 		}
 	}
 
+	// MARK: - Lifecycle
+
+	func didUpdateMetadata() {
+		self.callPlayStateChangeCallbacks()
+	}
 
 	// MARK: - PRIVATE -
 
 	// MARK: - Properties
+
+	private struct Keys {
+		static let Status				= "status"
+	}
 
 	private static let HSAudioPlayerStateChangedPrefix	= "playerStateChanged"
 
@@ -280,7 +289,7 @@ public class HSAudioPlayer: NSObject {
 
 	private func initPlayer() {
 		if let _player = self.player {
-			_player.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.New, context: nil)
+			_player.addObserver(self, forKeyPath: Keys.Status, options: NSKeyValueObservingOptions.New, context: nil)
 			self.addedPlayerStateObserver = true
 		}
 
@@ -299,7 +308,7 @@ public class HSAudioPlayer: NSObject {
 		if (self.player != nil) {
 			if (self.addedPlayerStateObserver == true) {
 				self.addedPlayerStateObserver = false
-				self.player?.removeObserver(self, forKeyPath: "status", context: nil)
+				self.player?.removeObserver(self, forKeyPath: Keys.Status, context: nil)
 			}
 			self.stop()
 		}
