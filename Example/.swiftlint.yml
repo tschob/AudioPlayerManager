@@ -1,0 +1,105 @@
+###
+# Swiftlint configuration file.
+# Latest version supported: 0.11.1
+# Any newer version hasn't been checked yet and might not follow the style guide.
+###
+
+disabled_rules: # rule identifiers to exclude from running
+  - colon	# exaclty one space after the : >>> let abc: Void\n
+  - control_statement # no rounded brackets around conditions. we would need this the other way around
+  - todo # TODO can be written in the code but should be linked to a ticket on JIRA.
+  - nesting # func nesting max 1 level
+
+excluded: # paths to ignore during linting. overridden by `included`.
+  - Carthage
+  - Pods
+  - External
+
+# rule parameters
+function_parameter_count:
+  - 6 #warning
+  - 8 #error
+
+cyclomatic_complexity:
+  - 20 #warning
+  - 35 #error
+
+file_length:
+  - 600 #warning
+  - 800 #error
+
+function_body_length:
+  - 40 #warning
+  - 80 #error
+
+line_length:
+  - 300 #warning
+  - 350 #error
+
+type_body_length:
+  - 400 #warning
+  - 500 #error
+  
+opt_in_rules:
+  - missing_docs
+  - force_unwrapping
+
+custom_rules:
+  comments_space:
+    name: "Space After Comment"
+    regex: "(^ *//\w+)"
+    message: "There should be a space after //"
+    severity: error
+  comments_capitalized_ignore_possible_code:
+    name: "Capitalize First Word In Comment"
+    regex: "(^ +// +(?!swiftlint)[a-z]+)"
+    message: "The first word of a comment should be capitalized"
+    severity: error
+  empty_first_line:
+    name: "Empty First Line"
+    regex: "(^[ a-zA-Z ]*(?:protocol|extension|class|struct) (?!(?:var|let))[ a-zA-Z:]*\{\n *\S+)"
+    message: "There should be an empty line after a declaration"
+    severity: error
+  empty_line_after_guard:
+    name: "Empty Line After Guard"
+    regex: "(^ *guard[ a-zA-Z0-9=?.\(\),><!]*\{[ a-zA-Z0-9=?.\(\),><!]*\}\n *(?!(?:return|guard))\S+)"
+    message: "There should be an empty line after a guard"
+    severity: error
+  empty_line_after_super:
+    name: "Empty Line After Super"
+    regex: "(^ *super\.[ a-zA-Z0-9=?.\(\)\{\}:,><!]*\n *(?!(?:\}|return))\S+)"
+    message: "There should be an empty line after super"
+    severity: error
+  multiple_empty_lines:
+    name: "Multiple Empty Lines"
+    regex: "((?:\s*\n){3,})"
+    message: "There are too many line breaks"
+    severity: error
+  unnecessary_type:
+    name: "Unnecessary Type"
+    regex: "[ a-zA-Z0-9]*(?:let|var) [ a-zA-Z0-9]*: ([a-zA-Z0-9]*)[\? ]*= \1"
+    message: "Type Definition Not Needed"
+    severity: error
+
+####### enabled rules #######
+#  - comma # k,v >> k, v
+#  - file_length # max number of lines per file
+#  - force_cast # as!
+#  - force_try # try!
+#  - function_body_length # max length of function body
+#  - leading_whitespace # empty lines with whitespaces only
+#  - legacy_constructor # e.g CGPointMake(...) >>> CGPoint(x: ..., y: ...)
+#  - line_length # max length of a line
+#  - opening_brace # [].map(){ ... } >>> [].map() { ... }
+#  - operator_function_whitespace # func  thing () {...} >>> func thing() {...}
+#  - return_arrow_whitespace # func thing()->Bool >>> func thing() -> Bool
+#  - statement_position # }else if { >>> } else if {
+#  - trailing_newline # new line at the end of a file
+#  - trailing_semicolon # no ;
+#  - trailing_whitespace # no trailing whitespaced
+#  - type_body_length # max body length
+#  - type_name # types should start with a capital letter
+#  - valid_docs # docs should match the method signature
+#  - variable_name_min_length # variables should have a 3 letter minimum name and 40 maximum.
+#  - variable_name # variables should start with a lower case character or a capitalized one if `static`.
+#  - cyclomatic_complexity # limit the number of entries inside an enum or struct.

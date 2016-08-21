@@ -1,0 +1,21 @@
+language: objective-c
+osx_image: xcode7.3
+sudo: false
+env:
+  global:
+    - FRAMEWORK_NAME=HSAudioPlayer
+    - LC_CTYPE=en_US.UTF-8
+    - LANG=en_US.UTF-8
+    - WORKSPACE=HSAudioPlayer.xcworkspace
+    - IOS_FRAMEWORK_SCHEME="HSAudioPlayer"
+    - IOS_SDK=iphonesimulator
+    - IOS_EXAMPLE_SCHEME="Example"
+  matrix:
+    - DESTINATION="OS=8.4,name=iPhone 6"
+    - DESTINATION="OS=9.3,name=iPhone 5s"
+
+script:
+  - set -o pipefail
+  # Build Framework and Run Tests
+  - xctool -workspace "$WORKSPACE" -scheme "$IOS_FRAMEWORK_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION" | xcpretty
+  - pod lib lint
