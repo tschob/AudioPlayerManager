@@ -62,6 +62,10 @@ public class HSAudioPlayer: NSObject {
 	}
 
 	public func setup() {
+		self.setup(useNowPlayingInfoCenter: self.useNowPlayingInfoCenter, useRemoteControlEvents: self.useRemoteControlEvents)
+	}
+
+	public func setup(useNowPlayingInfoCenter useNowPlayingInfoCenter: Bool, useRemoteControlEvents: Bool) {
 		self.setupRemoteControlEvents()
 		self.setupAudioSession()
 	}
