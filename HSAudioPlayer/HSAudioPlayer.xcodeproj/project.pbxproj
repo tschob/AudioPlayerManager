@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A4866171D50A7D700CC4A04 /* HSAudioPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A48660C1D50A7D700CC4A04 /* HSAudioPlayer.framework */; };
-		3A48661C1D50A7D700CC4A04 /* HSAudioPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A48661B1D50A7D700CC4A04 /* HSAudioPlayerTests.swift */; };
 		3A48663D1D50B5BA00CC4A04 /* HSAudioPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A48663C1D50B5BA00CC4A04 /* HSAudioPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3A4866431D50B80400CC4A04 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4866421D50B80400CC4A04 /* MediaPlayer.framework */; };
 		3ACAE0D01D51F804009B20AD /* HSAudioPlayerQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0C31D51F804009B20AD /* HSAudioPlayerQueue.swift */; };
@@ -24,19 +22,8 @@
 		3ACAE0F91D52403F009B20AD /* HSURLAudioPlayerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0F01D52403F009B20AD /* HSURLAudioPlayerItem.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		3A4866181D50A7D700CC4A04 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A4866031D50A7D700CC4A04 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3A48660B1D50A7D700CC4A04;
-			remoteInfo = HSAudioPlayer;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		3A48660C1D50A7D700CC4A04 /* HSAudioPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HSAudioPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A4866161D50A7D700CC4A04 /* HSAudioPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HSAudioPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A48661B1D50A7D700CC4A04 /* HSAudioPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSAudioPlayerTests.swift; sourceTree = "<group>"; };
 		3A48661D1D50A7D700CC4A04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A48663C1D50B5BA00CC4A04 /* HSAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSAudioPlayer.h; sourceTree = "<group>"; };
@@ -64,14 +51,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3A4866131D50A7D700CC4A04 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3A4866171D50A7D700CC4A04 /* HSAudioPlayer.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -91,7 +70,6 @@
 			isa = PBXGroup;
 			children = (
 				3A48660C1D50A7D700CC4A04 /* HSAudioPlayer.framework */,
-				3A4866161D50A7D700CC4A04 /* HSAudioPlayerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -212,24 +190,6 @@
 			productReference = 3A48660C1D50A7D700CC4A04 /* HSAudioPlayer.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		3A4866151D50A7D700CC4A04 /* HSAudioPlayerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3A4866231D50A7D700CC4A04 /* Build configuration list for PBXNativeTarget "HSAudioPlayerTests" */;
-			buildPhases = (
-				3A4866121D50A7D700CC4A04 /* Sources */,
-				3A4866131D50A7D700CC4A04 /* Frameworks */,
-				3A4866141D50A7D700CC4A04 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3A4866191D50A7D700CC4A04 /* PBXTargetDependency */,
-			);
-			name = HSAudioPlayerTests;
-			productName = HSAudioPlayerTests;
-			productReference = 3A4866161D50A7D700CC4A04 /* HSAudioPlayerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -241,9 +201,6 @@
 				ORGANIZATIONNAME = "Hans Seiffert";
 				TargetAttributes = {
 					3A48660B1D50A7D700CC4A04 = {
-						CreatedOnToolsVersion = 7.3.1;
-					};
-					3A4866151D50A7D700CC4A04 = {
 						CreatedOnToolsVersion = 7.3.1;
 					};
 				};
@@ -261,20 +218,12 @@
 			projectRoot = "";
 			targets = (
 				3A48660B1D50A7D700CC4A04 /* HSAudioPlayer */,
-				3A4866151D50A7D700CC4A04 /* HSAudioPlayerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3A48660A1D50A7D700CC4A04 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3A4866141D50A7D700CC4A04 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -319,23 +268,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3A4866121D50A7D700CC4A04 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3A48661C1D50A7D700CC4A04 /* HSAudioPlayerTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		3A4866191D50A7D700CC4A04 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3A48660B1D50A7D700CC4A04 /* HSAudioPlayer */;
-			targetProxy = 3A4866181D50A7D700CC4A04 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		3A48661E1D50A7D700CC4A04 /* Debug */ = {
@@ -480,26 +413,6 @@
 			};
 			name = Release;
 		};
-		3A4866241D50A7D700CC4A04 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = HSAudioPlayerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = de.seiffert.hans.swift.hsaudioplayer.HSAudioPlayerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		3A4866251D50A7D700CC4A04 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = HSAudioPlayerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = de.seiffert.hans.swift.hsaudioplayer.HSAudioPlayerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -517,15 +430,6 @@
 			buildConfigurations = (
 				3A4866211D50A7D700CC4A04 /* Debug */,
 				3A4866221D50A7D700CC4A04 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3A4866231D50A7D700CC4A04 /* Build configuration list for PBXNativeTarget "HSAudioPlayerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3A4866241D50A7D700CC4A04 /* Debug */,
-				3A4866251D50A7D700CC4A04 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
