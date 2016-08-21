@@ -16,13 +16,53 @@ public class HSAudioPlayer: NSObject {
 
 	// MARK: - Properties
 
-	public static let sharedInstance						= HSAudioPlayer()
+	public static let sharedInstance				= HSAudioPlayer()
 
-	public static let PlayingTimeRefreshRate				= 0.1
+	// MARK: - Configuration
+
+	/// Set this to true if the `HSAudioPlayer` log should be enabled. The default is `false`.
+	public static var Verbose						= true
+
+	/// Set this to true if the `HSAudioPlayer` log should containt detailed information about the calling class, function and line. The default is `true`.
+	public static var DetailedLog					= true
+
+	/// Set this to true to use the systems `MPNowPlayingInfoCenter` (control center and lock screen). The default value is `true`.
+	public var useNowPlayingInfoCenter				= true
+
+	// Set this to true to receive control events
+	public var useRemoteControlEvents				= true {
+		didSet {
+			self.setupRemoteControlEvents()
+		}
+	}
+
+	// The `NSTimeInterval` of the players update interval. Eg. the PlaybackTimeChangeCallbacks will be called then.
+	public var playingTimeRefreshRate				: NSTimeInterval = 0.1
 
 	// MARK: - Initializaiton
 
+	public class func audioPlayer() -> HSAudioPlayer {
+		let audioPlayer = HSAudioPlayer()
+		audioPlayer.setup()
+		return audioPlayer
+	}
+
+	public class func audioPlayer(useNowPlayingInfoCenter useNowPlayingInfoCenter: Bool, useRemoteControlEvents: Bool) -> HSAudioPlayer {
+		let audioPlayer = HSAudioPlayer()
+		audioPlayer.useRemoteControlEvents = useRemoteControlEvents
+		audioPlayer.useNowPlayingInfoCenter = useNowPlayingInfoCenter
+		audioPlayer.setup()
+		return audioPlayer
+	}
+
+	public override init() {
+		super.init()
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HSAudioPlayer.playerItemDidFinishPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
+	}
+
 	public func setup() {
+		self.setupRemoteControlEvents()
 		self.setupAudioSession()
 	}
 
@@ -52,7 +92,7 @@ public class HSAudioPlayer: NSObject {
 			self.startPlaybackTimeChangeTimer()
 			self.callPlayStateChangeCallbacks()
 			if let _currentPlayerItem = self.currentPlayerItem() {
-				NSNotificationCenter.defaultCenter().postNotificationName(self.dynamicType.playerStateChangedNotificationKey(playerItem: _currentPlayerItem), object: nil)
+				NSNotificationCenter.defaultCenter().postNotificationName(self.playerStateChangedNotificationKey(playerItem: _currentPlayerItem), object: nil)
 			}
 		}
 	}
@@ -107,7 +147,7 @@ public class HSAudioPlayer: NSObject {
 			self.callPlaybackTimeChangeCallbacks()
 			self.callPlayStateChangeCallbacks()
 			if let _currentPlayerItem = self.currentPlayerItem() {
-				NSNotificationCenter.defaultCenter().postNotificationName(self.dynamicType.playerStateChangedNotificationKey(playerItem: _currentPlayerItem), object: nil)
+				NSNotificationCenter.defaultCenter().postNotificationName(self.playerStateChangedNotificationKey(playerItem: _currentPlayerItem), object: nil)
 			}
         }
     }
@@ -231,12 +271,6 @@ public class HSAudioPlayer: NSObject {
 
 	// MARK: - Initializaiton
 
-	override init() {
-		super.init()
-
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HSAudioPlayer.playerItemDidFinishPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
-	}
-
 	deinit {
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
@@ -258,10 +292,10 @@ public class HSAudioPlayer: NSObject {
 	// MARK: - Properties
 
 	private struct Keys {
-		static let Status				= "status"
+		static let Status	= "status"
 	}
 
-	private static let HSAudioPlayerStateChangedPrefix	= "playerStateChanged"
+	private let audioPlayerStateChangedPrefix		= "HSAudioPlayer.\(NSUUID().UUIDString).playerStateChanged"
 
 	private var player								: AVPlayer?
 
@@ -282,9 +316,8 @@ public class HSAudioPlayer: NSObject {
 	// MARK: - Initializaiton
 
 	private func setupAudioSession() {
-		UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
 		let _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-		let _ = try? AVAudioSession.sharedInstance().setActive(false)
+		let _ = try? AVAudioSession.sharedInstance().setActive(true)
 	}
 
 	private func initPlayer() {
@@ -293,12 +326,19 @@ public class HSAudioPlayer: NSObject {
 			self.addedPlayerStateObserver = true
 		}
 
-		UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
 		if (self.player?.respondsToSelector(Selector("setVolume:")) == true) {
 			self.player?.volume = 1.0
 		}
 		self.player?.allowsExternalPlayback = true
 		self.player?.usesExternalPlaybackWhileExternalScreenIsActive = true
+	}
+
+	private func setupRemoteControlEvents() {
+		if (self.useRemoteControlEvents == true) {
+			UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+		} else {
+			UIApplication.sharedApplication().endReceivingRemoteControlEvents()
+		}
 	}
 
 	// MARK: - Play
@@ -334,7 +374,9 @@ public class HSAudioPlayer: NSObject {
 	// MARK: - Internal helper
 
 	private func updateNowPlayingInfo() {
-		MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = self.currentPlayerItem()?.nowPlayingInfo
+		if (self.useNowPlayingInfoCenter == true) {
+			MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = self.currentPlayerItem()?.nowPlayingInfo
+		}
 	}
 
 	// MARK: - Plaback time change callback
@@ -357,7 +399,7 @@ public class HSAudioPlayer: NSObject {
 
 	private func startPlaybackTimeChangeTimer() {
 		self.stopPlaybackTimeChangeTimer = false
-		self.playbackPositionChangeTimer =  NSTimer.scheduledTimerWithTimeInterval(HSAudioPlayer.PlayingTimeRefreshRate, target: self, selector: #selector(HSAudioPlayer.callPlaybackTimeChangeCallbacks), userInfo: nil, repeats: true)
+		self.playbackPositionChangeTimer =  NSTimer.scheduledTimerWithTimeInterval(self.playingTimeRefreshRate, target: self, selector: #selector(HSAudioPlayer.callPlaybackTimeChangeCallbacks), userInfo: nil, repeats: true)
 		self.playbackPositionChangeTimer?.fire()
 	}
 
@@ -376,7 +418,7 @@ public class HSAudioPlayer: NSObject {
 
 extension HSAudioPlayer {
 
-	public class func playerStateChangedNotificationKey(playerItem playerItem: HSAudioPlayerItem) -> String {
-		return "\(HSAudioPlayer.HSAudioPlayerStateChangedPrefix)_\(playerItem.identifier() ?? "")"
+	public func playerStateChangedNotificationKey(playerItem playerItem: HSAudioPlayerItem) -> String {
+		return "\(self.audioPlayerStateChangedPrefix)_\(playerItem.identifier() ?? "")"
 	}
 }

@@ -14,7 +14,6 @@
 		3ACAE0D01D51F804009B20AD /* HSAudioPlayerQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0C31D51F804009B20AD /* HSAudioPlayerQueue.swift */; };
 		3ACAE0D31D51F804009B20AD /* HSMediaLibraryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0C61D51F804009B20AD /* HSMediaLibraryHelper.swift */; };
 		3ACAE0DC1D51F824009B20AD /* HSAudioPlayerLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0DB1D51F824009B20AD /* HSAudioPlayerLog.swift */; };
-		3ACAE0F11D52403F009B20AD /* HSAudioPlayerLogSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0E61D52403F009B20AD /* HSAudioPlayerLogSettings.swift */; };
 		3ACAE0F21D52403F009B20AD /* MPMediaItem+HSAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0E71D52403F009B20AD /* MPMediaItem+HSAudioPlayer.swift */; };
 		3ACAE0F31D52403F009B20AD /* HSAudioPlayer+MPMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0E91D52403F009B20AD /* HSAudioPlayer+MPMediaItem.swift */; };
 		3ACAE0F41D52403F009B20AD /* HSAudioPlayer+RemoteControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0EA1D52403F009B20AD /* HSAudioPlayer+RemoteControl.swift */; };
@@ -46,7 +45,6 @@
 		3ACAE0C31D51F804009B20AD /* HSAudioPlayerQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSAudioPlayerQueue.swift; sourceTree = "<group>"; };
 		3ACAE0C61D51F804009B20AD /* HSMediaLibraryHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSMediaLibraryHelper.swift; sourceTree = "<group>"; };
 		3ACAE0DB1D51F824009B20AD /* HSAudioPlayerLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSAudioPlayerLog.swift; sourceTree = "<group>"; };
-		3ACAE0E61D52403F009B20AD /* HSAudioPlayerLogSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSAudioPlayerLogSettings.swift; sourceTree = "<group>"; };
 		3ACAE0E71D52403F009B20AD /* MPMediaItem+HSAudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MPMediaItem+HSAudioPlayer.swift"; sourceTree = "<group>"; };
 		3ACAE0E91D52403F009B20AD /* HSAudioPlayer+MPMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HSAudioPlayer+MPMediaItem.swift"; sourceTree = "<group>"; };
 		3ACAE0EA1D52403F009B20AD /* HSAudioPlayer+RemoteControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HSAudioPlayer+RemoteControl.swift"; sourceTree = "<group>"; };
@@ -153,7 +151,6 @@
 		3ACAE0E51D52403F009B20AD /* Public */ = {
 			isa = PBXGroup;
 			children = (
-				3ACAE0E61D52403F009B20AD /* HSAudioPlayerLogSettings.swift */,
 				3ACAE0E71D52403F009B20AD /* MPMediaItem+HSAudioPlayer.swift */,
 				3ACAE0E81D52403F009B20AD /* Player */,
 				3ACAE0ED1D52403F009B20AD /* Track */,
@@ -319,7 +316,6 @@
 				3ACAE0F21D52403F009B20AD /* MPMediaItem+HSAudioPlayer.swift in Sources */,
 				3ACAE0F41D52403F009B20AD /* HSAudioPlayer+RemoteControl.swift in Sources */,
 				3ACAE0F31D52403F009B20AD /* HSAudioPlayer+MPMediaItem.swift in Sources */,
-				3ACAE0F11D52403F009B20AD /* HSAudioPlayerLogSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
