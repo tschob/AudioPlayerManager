@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.version          = File.read('VERSION')
   s.summary          = 'Small Wrapper around AVPlayer which let you play local and remote songs using a build in queue.'
   s.description      = 'HSAudioPlayer is a small audio player which takes care of the AVPlayer setup and usage. It uses an internal queue to play multiple items automatically in a row. All path based items which are supported from AVPlayer can be used (MPMediaItems and remote URLs).'
-  s.homepage         = 'https://github.com/tschob/HSAudioPlayer.git'
+  s.homepage         = 'https://github.com/tschob/HSAudioPlayer'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Hans Seiffert' => 'hans.seiffert@gmail.com' }
@@ -25,4 +25,5 @@ Pod::Spec.new do |s|
   s.public_header_files = 'HSAudioPlayer/**/*.h'
   
   s.frameworks = 'UIKit'
+  s.frameworks = 'MediaPlayer'
 end
