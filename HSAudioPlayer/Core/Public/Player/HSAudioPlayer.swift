@@ -252,7 +252,7 @@ public class HSAudioPlayer: NSObject {
 		self.playbackPositionChangeCallbacks.removeValueForKey(uid)
 	}
 
-	// MARK: - Helper 
+	// MARK: - Helper
 
 	public func isPlaying() -> Bool {
 		return self.player?.rate > 0

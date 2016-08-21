@@ -11,19 +11,21 @@ import UIKit
 extension HSAudioPlayer {
 
 	public func remoteControlReceivedWithEvent(event: UIEvent?) {
-		switch event!.subtype {
-		case UIEventSubtype.RemoteControlPlay:
-			self.play()
-		case UIEventSubtype.RemoteControlPause:
-			self.pause()
-		case UIEventSubtype.RemoteControlNextTrack:
-			self.forward()
-		case UIEventSubtype.RemoteControlPreviousTrack:
-			self.rewind()
-		case UIEventSubtype.RemoteControlTogglePlayPause:
-			self.togglePlayPause()
-		default:
-			break
+		if let _event = event {
+			switch _event.subtype {
+			case UIEventSubtype.RemoteControlPlay:
+				self.play()
+			case UIEventSubtype.RemoteControlPause:
+				self.pause()
+			case UIEventSubtype.RemoteControlNextTrack:
+				self.forward()
+			case UIEventSubtype.RemoteControlPreviousTrack:
+				self.rewind()
+			case UIEventSubtype.RemoteControlTogglePlayPause:
+				self.togglePlayPause()
+			default:
+				break
+			}
 		}
 	}
 }

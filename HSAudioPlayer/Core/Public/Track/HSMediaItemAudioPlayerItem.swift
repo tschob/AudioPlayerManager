@@ -17,7 +17,7 @@ public class HSMediaItemAudioPlayerItem: HSAudioPlayerItem {
 	public var mediaItem					: MPMediaItem?
 
 	public var mediaItemPersitentID			: MPMediaEntityPersistentID?
-	
+
 	// MARK: - Initialization
 
 	public convenience init?(mediaItemPersitentID: UInt64) {

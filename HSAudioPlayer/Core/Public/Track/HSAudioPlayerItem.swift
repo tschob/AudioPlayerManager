@@ -89,7 +89,7 @@ public class HSAudioPlayerItem : NSObject {
 		self.avPlayerItem = avPlayerItem
 		self.initNowPlayingInfo()
 	}
-	
+
 	func cleanupAfterPlaying() {
 		self.avPlayerItem = nil
 		self.nowPlayingInfo?.removeAll()

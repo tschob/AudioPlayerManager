@@ -108,7 +108,7 @@ public class HSURLAudioPlayerItem: HSAudioPlayerItem {
 		return nil
 	}
 
-	// MARK: - PRIVATE - 
+	// MARK: - PRIVATE -
 
 	private struct Keys {
 		static let TimedMetadata		= "timedMetadata"
