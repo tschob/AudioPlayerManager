@@ -1,5 +1,5 @@
 //
-//  HSPlayerViewController.swift
+//  HSEPlayerViewController.swift
 //  Example
 //
 //  Created by Hans Seiffert on 04.08.16.
@@ -10,7 +10,7 @@ import UIKit
 import HSAudioPlayer
 import MediaPlayer
 
-class HSPlayerViewController: UIViewController {
+class HSEPlayerViewController: UIViewController {
 
 	@IBOutlet private weak var rewindButton		: UIButton?
 	@IBOutlet private weak var stopButton		: UIButton?
@@ -66,7 +66,7 @@ class HSPlayerViewController: UIViewController {
 
 // MARK: - IBActions
 
-extension HSPlayerViewController {
+extension HSEPlayerViewController {
 
 	@IBAction func didPressRewindButton(sender: AnyObject) {
 		HSAudioPlayer.sharedInstance.rewind()

@@ -17,6 +17,8 @@ class HSEMusicLibraryViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		HSAudioPlayer.sharedInstance.setup()
+
 		let tempData = MPMediaQuery.songsQuery().items ?? []
 		self.data = []
 		for mediaItem in tempData {
@@ -30,10 +32,12 @@ class HSEMusicLibraryViewController: UIViewController {
 	}
 }
 
+// MARK: - UITableView delegates
+
 extension HSEMusicLibraryViewController: UITableViewDelegate, UITableViewDataSource {
 
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return data.count
+		return self.data.count
 	}
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

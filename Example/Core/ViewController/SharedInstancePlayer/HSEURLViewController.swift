@@ -34,6 +34,6 @@ extension HSEURLViewController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
-		HSAudioPlayer.sharedInstance.play(urlStrings: self.data, startPosition: indexPath.row)
+		self.player.play(urlStrings: self.data, startPosition: indexPath.row)
 	}
 }
