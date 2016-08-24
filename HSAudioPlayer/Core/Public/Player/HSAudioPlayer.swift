@@ -105,22 +105,32 @@ public class HSAudioPlayer: NSObject {
 		HSAudioPlayerLog("play(playerItem: \(playerItem))")
 		self.stop()
 		self.play([playerItem], startPosition: 0)
-		self.queueGeneration += 1
 	}
 
 	public func play(playerItems: [HSAudioPlayerItem], startPosition: Int) {
 		HSAudioPlayerLog("play(playerItems: \(playerItems.count) items, startPosition: \(startPosition))")
+		self.replace(playerItems, startPosition: startPosition)
+		// Start playing the new item
+		self.restartCurrentPlayerItem()
+    }
+
+	public func replace(playerItem: HSAudioPlayerItem) {
+		HSAudioPlayerLog("replace(playerItem: \(playerItem))")
+		self.replace([playerItem], startPosition: 0)
+	}
+
+	public func replace(playerItems: [HSAudioPlayerItem], startPosition: Int) {
+		HSAudioPlayerLog("replace(playerItems: \(playerItems.count) items, startPosition: \(startPosition))")
 		self.stop()
 		var reducedPlayerItems = [] as [HSAudioPlayerItem]
 		for index in 0..<playerItems.count {
 			let playerItem = playerItems[index]
-				reducedPlayerItems.append(playerItem)
+			reducedPlayerItems.append(playerItem)
 		}
 
 		self.queue.replace(reducedPlayerItems, startPosition: startPosition)
-
-		self.restartCurrentPlayerItem()
-    }
+		self.queueGeneration += 1
+	}
 
 	public func prepend(playerItems: [HSAudioPlayerItem], queueGeneration: Int) {
 		if (self.queueGeneration == queueGeneration) {
