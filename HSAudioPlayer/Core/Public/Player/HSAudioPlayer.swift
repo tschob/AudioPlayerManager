@@ -212,8 +212,14 @@ public class HSAudioPlayer: NSObject {
 		}
     }
 
-	public func seekToTime(time: CMTime) {
+	public func seek(toTime time: CMTime) {
 		self.player?.seekToTime(time)
+	}
+
+	public func seek(toProgress progress: Float) {
+		let progressInSeconds = Int64(progress * (self.currentPlayerItem()?.durationInSeconds() ?? 0))
+		let time = CMTimeMake(progressInSeconds, 1)
+		self.seek(toTime: time)
 	}
 
 	// MARK: - Internal helper
