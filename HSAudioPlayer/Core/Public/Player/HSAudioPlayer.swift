@@ -21,7 +21,7 @@ public class HSAudioPlayer: NSObject {
 	// MARK: - Configuration
 
 	/// Set this to true if the `HSAudioPlayer` log should be enabled. The default is `false`.
-	public static var Verbose						= true
+	public static var Verbose						= false
 
 	/// Set this to true if the `HSAudioPlayer` log should containt detailed information about the calling class, function and line. The default is `true`.
 	public static var DetailedLog					= true
