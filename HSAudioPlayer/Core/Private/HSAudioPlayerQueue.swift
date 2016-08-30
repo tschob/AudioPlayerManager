@@ -34,6 +34,8 @@ class HSAudioPlayerQueue: NSObject {
 			self.currentItem = _playerItems[startPosition]
 		} else {
 			self.queue.removeAll()
+			self.currentItem?.cleanupAfterPlaying()
+			self.currentItem = nil
 			self.currentItemQueueIndex = 0
 		}
 	}

@@ -166,12 +166,20 @@ public class HSAudioPlayer: NSObject {
         }
     }
 
-	public func stop() {
-		self.didStopPlayback = true
-		self.pause()
-		self.player?.seekToTime(CMTimeMake(0, 1))
-		self.callPlayStateChangeCallbacks()
-		self.callPlaybackTimeChangeCallbacks()
+	public func stop(clearQueue clearQueue: Bool = false) {
+		if (self.didStopPlayback == false) {
+			self.didStopPlayback = true
+			if (clearQueue == true) {
+				self.queue.replace(nil, startPosition: 0)
+				self.queueGeneration += 1
+				self.player?.replaceCurrentItemWithPlayerItem(nil)
+			} else {
+				self.pause()
+				self.player?.seekToTime(CMTimeMake(0, 1))
+			}
+			self.callPlayStateChangeCallbacks()
+			self.callPlaybackTimeChangeCallbacks()
+		}
 	}
 
 	// MARK: Forward
@@ -190,7 +198,7 @@ public class HSAudioPlayer: NSObject {
 	// MARK: Rewind
 
     public func canRewind() -> Bool {
-		if (self.currentPlayerItem()?.currentTimeInSeconds() > Float(1) || self.canRewindInQueue()) {
+		if ((self.currentPlayerItem()?.currentTimeInSeconds() > Float(1) && self.currentPlayerItem() != nil) || self.canRewindInQueue()) {
 			return true
 		}
         return false
