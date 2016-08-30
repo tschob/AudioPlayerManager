@@ -277,7 +277,7 @@ public class HSAudioPlayer: NSObject {
 
 	public func removePlayStateChangeCallback(sender: AnyObject) {
 		let uid = "\(unsafeAddressOf(sender))"
-		self.playbackPositionChangeCallbacks.removeValueForKey(uid)
+		self.playStateChangeCallbacks.removeValueForKey(uid)
 	}
 
 	// MARK: - Helper
