@@ -128,7 +128,7 @@ public class HSURLAudioPlayerItem: HSAudioPlayerItem {
 						_image = UIImage(data: _data) {
 						self.nowPlayingInfo?[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: _image)
 					}
-				default								: return
+				default								: continue
 				}
 			}
 		}

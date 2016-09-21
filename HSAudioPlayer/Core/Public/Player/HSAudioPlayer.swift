@@ -21,7 +21,7 @@ public class HSAudioPlayer: NSObject {
 	// MARK: - Configuration
 
 	/// Set this to true if the `HSAudioPlayer` log should be enabled. The default is `false`.
-	public static var Verbose						= true
+	public static var Verbose						= false
 
 	/// Set this to true if the `HSAudioPlayer` log should containt detailed information about the calling class, function and line. The default is `true`.
 	public static var DetailedLog					= true
@@ -105,22 +105,32 @@ public class HSAudioPlayer: NSObject {
 		HSAudioPlayerLog("play(playerItem: \(playerItem))")
 		self.stop()
 		self.play([playerItem], startPosition: 0)
-		self.queueGeneration += 1
 	}
 
 	public func play(playerItems: [HSAudioPlayerItem], startPosition: Int) {
 		HSAudioPlayerLog("play(playerItems: \(playerItems.count) items, startPosition: \(startPosition))")
+		self.replace(playerItems, startPosition: startPosition)
+		// Start playing the new item
+		self.restartCurrentPlayerItem()
+    }
+
+	public func replace(playerItem: HSAudioPlayerItem) {
+		HSAudioPlayerLog("replace(playerItem: \(playerItem))")
+		self.replace([playerItem], startPosition: 0)
+	}
+
+	public func replace(playerItems: [HSAudioPlayerItem], startPosition: Int) {
+		HSAudioPlayerLog("replace(playerItems: \(playerItems.count) items, startPosition: \(startPosition))")
 		self.stop()
 		var reducedPlayerItems = [] as [HSAudioPlayerItem]
 		for index in 0..<playerItems.count {
 			let playerItem = playerItems[index]
-				reducedPlayerItems.append(playerItem)
+			reducedPlayerItems.append(playerItem)
 		}
 
 		self.queue.replace(reducedPlayerItems, startPosition: startPosition)
-
-		self.restartCurrentPlayerItem()
-    }
+		self.queueGeneration += 1
+	}
 
 	public func prepend(playerItems: [HSAudioPlayerItem], queueGeneration: Int) {
 		if (self.queueGeneration == queueGeneration) {
@@ -156,12 +166,20 @@ public class HSAudioPlayer: NSObject {
         }
     }
 
-	public func stop() {
-		self.didStopPlayback = true
-		self.pause()
-		self.player?.seekToTime(CMTimeMake(0, 1))
-		self.callPlayStateChangeCallbacks()
-		self.callPlaybackTimeChangeCallbacks()
+	public func stop(clearQueue clearQueue: Bool = false) {
+		if (self.didStopPlayback == false) {
+			self.didStopPlayback = true
+			if (clearQueue == true) {
+				self.queue.replace(nil, startPosition: 0)
+				self.queueGeneration += 1
+				self.player?.replaceCurrentItemWithPlayerItem(nil)
+			} else {
+				self.pause()
+				self.player?.seekToTime(CMTimeMake(0, 1))
+			}
+			self.callPlayStateChangeCallbacks()
+			self.callPlaybackTimeChangeCallbacks()
+		}
 	}
 
 	// MARK: Forward
@@ -180,7 +198,7 @@ public class HSAudioPlayer: NSObject {
 	// MARK: Rewind
 
     public func canRewind() -> Bool {
-		if (self.currentPlayerItem()?.currentTimeInSeconds() > Float(1) || self.canRewindInQueue()) {
+		if ((self.currentPlayerItem()?.currentTimeInSeconds() > Float(1) && self.currentPlayerItem() != nil) || self.canRewindInQueue()) {
 			return true
 		}
         return false
@@ -202,8 +220,14 @@ public class HSAudioPlayer: NSObject {
 		}
     }
 
-	public func seekToTime(time: CMTime) {
+	public func seek(toTime time: CMTime) {
 		self.player?.seekToTime(time)
+	}
+
+	public func seek(toProgress progress: Float) {
+		let progressInSeconds = Int64(progress * (self.currentPlayerItem()?.durationInSeconds() ?? 0))
+		let time = CMTimeMake(progressInSeconds, 1)
+		self.seek(toTime: time)
 	}
 
 	// MARK: - Internal helper
@@ -253,7 +277,7 @@ public class HSAudioPlayer: NSObject {
 
 	public func removePlayStateChangeCallback(sender: AnyObject) {
 		let uid = "\(unsafeAddressOf(sender))"
-		self.playbackPositionChangeCallbacks.removeValueForKey(uid)
+		self.playStateChangeCallbacks.removeValueForKey(uid)
 	}
 
 	// MARK: - Helper
