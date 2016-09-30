@@ -262,8 +262,6 @@ public class HSAudioPlayer: NSObject {
 		self.playbackPositionChangeCallbacks.removeValueForKey(uid)
 	}
 
-
-
 	// MARK: - Play state change callback
 
 	public func addPlayStateChangeCallback(sender: AnyObject, callback: (playerItem: HSAudioPlayerItem?) -> Void) {
@@ -289,7 +287,6 @@ public class HSAudioPlayer: NSObject {
 	public func currentPlayerItem() -> HSAudioPlayerItem? {
 		return self.queue.currentPlayingItem()
 	}
-
 
 	// MARK: - INTERNAL -
 
@@ -330,7 +327,6 @@ public class HSAudioPlayer: NSObject {
 	private var queue								= HSAudioPlayerQueue()
 
 	private var didStopPlayback						= false
-
 
 	// MARK: Callbacks
 	private var playStateChangeCallbacks			= Dictionary<String, [((playerItem: HSAudioPlayerItem?) -> (Void))]>()
