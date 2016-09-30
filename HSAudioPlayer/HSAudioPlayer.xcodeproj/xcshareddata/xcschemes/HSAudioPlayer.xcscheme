@@ -28,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3A4866151D50A7D700CC4A04"
-               BuildableName = "HSAudioPlayerTests.xctest"
-               BlueprintName = "HSAudioPlayerTests"
-               ReferencedContainer = "container:HSAudioPlayer.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3A48660B1D50A7D700CC4A04"
-            BuildableName = "HSAudioPlayer.framework"
-            BlueprintName = "HSAudioPlayer"
-            ReferencedContainer = "container:HSAudioPlayer.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
