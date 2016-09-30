@@ -91,11 +91,11 @@ The following line will replace the current queue of the audio player with the c
 AudioPlayerManager.sharedInstance.play(url: self.trackUrl)
 ```
 
-If you want to play multiple items you can pass an array and start position. The audio player will replace the current queue with the given array and jump right to the item at the given position. The queue allows the user to rewind also to items with a lower index than the start position.
+If you want to play multiple items you can pass an array and start index. The audio player will replace the current queue with the given array and jump right to the item at the given index. The queue allows the user to rewind also to items with a lower index than the start index.
 
 ```
 let songs = (MPMediaQuery.songsQuery().items ?? [])
-AudioPlayerManager.sharedInstance.play(mediaItems: songs, startPosition: 5)
+AudioPlayerManager.sharedInstance.play(mediaItems: songs, startIndex: 5)
 ```
 
 
