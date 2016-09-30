@@ -7,37 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A48663D1D50B5BA00CC4A04 /* AudioPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A48663C1D50B5BA00CC4A04 /* AudioPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A48663D1D50B5BA00CC4A04 /* AudioPlayerManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A48663C1D50B5BA00CC4A04 /* AudioPlayerManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3A4866431D50B80400CC4A04 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4866421D50B80400CC4A04 /* MediaPlayer.framework */; };
-		3A7BFA411D9EC5DA007E521D /* AudioPlayerLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BFA3E1D9EC5DA007E521D /* AudioPlayerLog.swift */; };
-		3A7BFA421D9EC5DA007E521D /* AudioPlayerQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BFA3F1D9EC5DA007E521D /* AudioPlayerQueue.swift */; };
+		3A7BFA411D9EC5DA007E521D /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BFA3E1D9EC5DA007E521D /* Log.swift */; };
+		3A7BFA421D9EC5DA007E521D /* AudioTracksQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BFA3F1D9EC5DA007E521D /* AudioTracksQueue.swift */; };
 		3A7BFA431D9EC5DA007E521D /* MediaLibraryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BFA401D9EC5DA007E521D /* MediaLibraryHelper.swift */; };
-		3ACAE0F21D52403F009B20AD /* MPMediaItem+AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0E71D52403F009B20AD /* MPMediaItem+AudioPlayer.swift */; };
-		3ACAE0F31D52403F009B20AD /* AudioPlayer+MPMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0E91D52403F009B20AD /* AudioPlayer+MPMediaItem.swift */; };
-		3ACAE0F41D52403F009B20AD /* AudioPlayer+RemoteControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0EA1D52403F009B20AD /* AudioPlayer+RemoteControl.swift */; };
-		3ACAE0F51D52403F009B20AD /* AudioPlayer+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0EB1D52403F009B20AD /* AudioPlayer+URL.swift */; };
-		3ACAE0F61D52403F009B20AD /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0EC1D52403F009B20AD /* AudioPlayer.swift */; };
-		3ACAE0F71D52403F009B20AD /* AudioPlayerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0EE1D52403F009B20AD /* AudioPlayerItem.swift */; };
-		3ACAE0F81D52403F009B20AD /* MediaItemAudioPlayerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0EF1D52403F009B20AD /* MediaItemAudioPlayerItem.swift */; };
-		3ACAE0F91D52403F009B20AD /* URLAudioPlayerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0F01D52403F009B20AD /* URLAudioPlayerItem.swift */; };
+		3ACAE0F21D52403F009B20AD /* MPMediaItem+AudioPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0E71D52403F009B20AD /* MPMediaItem+AudioPlayerManager.swift */; };
+		3ACAE0F31D52403F009B20AD /* AudioPlayerManager+MPMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0E91D52403F009B20AD /* AudioPlayerManager+MPMediaItem.swift */; };
+		3ACAE0F41D52403F009B20AD /* AudioPlayerManager+RemoteControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0EA1D52403F009B20AD /* AudioPlayerManager+RemoteControl.swift */; };
+		3ACAE0F51D52403F009B20AD /* AudioPlayerManager+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0EB1D52403F009B20AD /* AudioPlayerManager+URL.swift */; };
+		3ACAE0F61D52403F009B20AD /* AudioPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0EC1D52403F009B20AD /* AudioPlayerManager.swift */; };
+		3ACAE0F71D52403F009B20AD /* AudioTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0EE1D52403F009B20AD /* AudioTrack.swift */; };
+		3ACAE0F81D52403F009B20AD /* MediaPlayerTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0EF1D52403F009B20AD /* MediaPlayerTrack.swift */; };
+		3ACAE0F91D52403F009B20AD /* AudioURLTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAE0F01D52403F009B20AD /* AudioURLTrack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3A48660C1D50A7D700CC4A04 /* AudioPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A48663C1D50B5BA00CC4A04 /* AudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlayer.h; sourceTree = "<group>"; };
-		3A48663E1D50B6A000CC4A04 /* AudioPlayer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AudioPlayer-Info.plist"; sourceTree = "<group>"; };
+		3A48660C1D50A7D700CC4A04 /* AudioPlayerManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioPlayerManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A48663C1D50B5BA00CC4A04 /* AudioPlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlayerManager.h; sourceTree = "<group>"; };
+		3A48663E1D50B6A000CC4A04 /* AudioPlayerManager-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AudioPlayerManager-Info.plist"; sourceTree = "<group>"; };
 		3A4866421D50B80400CC4A04 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		3A7BFA3E1D9EC5DA007E521D /* AudioPlayerLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayerLog.swift; sourceTree = "<group>"; };
-		3A7BFA3F1D9EC5DA007E521D /* AudioPlayerQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayerQueue.swift; sourceTree = "<group>"; };
+		3A7BFA3E1D9EC5DA007E521D /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		3A7BFA3F1D9EC5DA007E521D /* AudioTracksQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioTracksQueue.swift; sourceTree = "<group>"; };
 		3A7BFA401D9EC5DA007E521D /* MediaLibraryHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaLibraryHelper.swift; sourceTree = "<group>"; };
-		3ACAE0E71D52403F009B20AD /* MPMediaItem+AudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MPMediaItem+AudioPlayer.swift"; sourceTree = "<group>"; };
-		3ACAE0E91D52403F009B20AD /* AudioPlayer+MPMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioPlayer+MPMediaItem.swift"; sourceTree = "<group>"; };
-		3ACAE0EA1D52403F009B20AD /* AudioPlayer+RemoteControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioPlayer+RemoteControl.swift"; sourceTree = "<group>"; };
-		3ACAE0EB1D52403F009B20AD /* AudioPlayer+URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioPlayer+URL.swift"; sourceTree = "<group>"; };
-		3ACAE0EC1D52403F009B20AD /* AudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
-		3ACAE0EE1D52403F009B20AD /* AudioPlayerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayerItem.swift; sourceTree = "<group>"; };
-		3ACAE0EF1D52403F009B20AD /* MediaItemAudioPlayerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaItemAudioPlayerItem.swift; sourceTree = "<group>"; };
-		3ACAE0F01D52403F009B20AD /* URLAudioPlayerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLAudioPlayerItem.swift; sourceTree = "<group>"; };
+		3ACAE0E71D52403F009B20AD /* MPMediaItem+AudioPlayerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MPMediaItem+AudioPlayerManager.swift"; sourceTree = "<group>"; };
+		3ACAE0E91D52403F009B20AD /* AudioPlayerManager+MPMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioPlayerManager+MPMediaItem.swift"; sourceTree = "<group>"; };
+		3ACAE0EA1D52403F009B20AD /* AudioPlayerManager+RemoteControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioPlayerManager+RemoteControl.swift"; sourceTree = "<group>"; };
+		3ACAE0EB1D52403F009B20AD /* AudioPlayerManager+URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioPlayerManager+URL.swift"; sourceTree = "<group>"; };
+		3ACAE0EC1D52403F009B20AD /* AudioPlayerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayerManager.swift; sourceTree = "<group>"; };
+		3ACAE0EE1D52403F009B20AD /* AudioTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioTrack.swift; sourceTree = "<group>"; };
+		3ACAE0EF1D52403F009B20AD /* MediaPlayerTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPlayerTrack.swift; sourceTree = "<group>"; };
+		3ACAE0F01D52403F009B20AD /* AudioURLTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioURLTrack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +66,7 @@
 		3A48660D1D50A7D700CC4A04 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3A48660C1D50A7D700CC4A04 /* AudioPlayer.framework */,
+				3A48660C1D50A7D700CC4A04 /* AudioPlayerManager.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,7 +83,7 @@
 		3A48662E1D50A9B300CC4A04 /* PLists */ = {
 			isa = PBXGroup;
 			children = (
-				3A48663E1D50B6A000CC4A04 /* AudioPlayer-Info.plist */,
+				3A48663E1D50B6A000CC4A04 /* AudioPlayerManager-Info.plist */,
 			);
 			path = PLists;
 			sourceTree = "<group>";
@@ -91,7 +91,7 @@
 		3A48663B1D50B5BA00CC4A04 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				3A48663C1D50B5BA00CC4A04 /* AudioPlayer.h */,
+				3A48663C1D50B5BA00CC4A04 /* AudioPlayerManager.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -107,8 +107,8 @@
 		3ACAE0C11D51F804009B20AD /* Private */ = {
 			isa = PBXGroup;
 			children = (
-				3A7BFA3E1D9EC5DA007E521D /* AudioPlayerLog.swift */,
-				3A7BFA3F1D9EC5DA007E521D /* AudioPlayerQueue.swift */,
+				3A7BFA3E1D9EC5DA007E521D /* Log.swift */,
+				3A7BFA3F1D9EC5DA007E521D /* AudioTracksQueue.swift */,
 				3A7BFA401D9EC5DA007E521D /* MediaLibraryHelper.swift */,
 			);
 			path = Private;
@@ -117,7 +117,7 @@
 		3ACAE0E51D52403F009B20AD /* Public */ = {
 			isa = PBXGroup;
 			children = (
-				3ACAE0E71D52403F009B20AD /* MPMediaItem+AudioPlayer.swift */,
+				3ACAE0E71D52403F009B20AD /* MPMediaItem+AudioPlayerManager.swift */,
 				3ACAE0E81D52403F009B20AD /* Player */,
 				3ACAE0ED1D52403F009B20AD /* Track */,
 			);
@@ -127,10 +127,10 @@
 		3ACAE0E81D52403F009B20AD /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				3ACAE0E91D52403F009B20AD /* AudioPlayer+MPMediaItem.swift */,
-				3ACAE0EA1D52403F009B20AD /* AudioPlayer+RemoteControl.swift */,
-				3ACAE0EB1D52403F009B20AD /* AudioPlayer+URL.swift */,
-				3ACAE0EC1D52403F009B20AD /* AudioPlayer.swift */,
+				3ACAE0E91D52403F009B20AD /* AudioPlayerManager+MPMediaItem.swift */,
+				3ACAE0EA1D52403F009B20AD /* AudioPlayerManager+RemoteControl.swift */,
+				3ACAE0EB1D52403F009B20AD /* AudioPlayerManager+URL.swift */,
+				3ACAE0EC1D52403F009B20AD /* AudioPlayerManager.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -138,9 +138,9 @@
 		3ACAE0ED1D52403F009B20AD /* Track */ = {
 			isa = PBXGroup;
 			children = (
-				3ACAE0EE1D52403F009B20AD /* AudioPlayerItem.swift */,
-				3ACAE0EF1D52403F009B20AD /* MediaItemAudioPlayerItem.swift */,
-				3ACAE0F01D52403F009B20AD /* URLAudioPlayerItem.swift */,
+				3ACAE0EE1D52403F009B20AD /* AudioTrack.swift */,
+				3ACAE0EF1D52403F009B20AD /* MediaPlayerTrack.swift */,
+				3ACAE0F01D52403F009B20AD /* AudioURLTrack.swift */,
 			);
 			path = Track;
 			sourceTree = "<group>";
@@ -152,16 +152,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A48663D1D50B5BA00CC4A04 /* AudioPlayer.h in Headers */,
+				3A48663D1D50B5BA00CC4A04 /* AudioPlayerManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		3A48660B1D50A7D700CC4A04 /* AudioPlayer */ = {
+		3A48660B1D50A7D700CC4A04 /* AudioPlayerManager */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3A4866201D50A7D700CC4A04 /* Build configuration list for PBXNativeTarget "AudioPlayer" */;
+			buildConfigurationList = 3A4866201D50A7D700CC4A04 /* Build configuration list for PBXNativeTarget "AudioPlayerManager" */;
 			buildPhases = (
 				3A4866071D50A7D700CC4A04 /* Sources */,
 				3A4866081D50A7D700CC4A04 /* Frameworks */,
@@ -173,9 +173,9 @@
 			);
 			dependencies = (
 			);
-			name = AudioPlayer;
+			name = AudioPlayerManager;
 			productName = HSAudioPlayer;
-			productReference = 3A48660C1D50A7D700CC4A04 /* AudioPlayer.framework */;
+			productReference = 3A48660C1D50A7D700CC4A04 /* AudioPlayerManager.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -193,7 +193,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3A4866061D50A7D700CC4A04 /* Build configuration list for PBXProject "AudioPlayer" */;
+			buildConfigurationList = 3A4866061D50A7D700CC4A04 /* Build configuration list for PBXProject "AudioPlayerManager" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -205,7 +205,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3A48660B1D50A7D700CC4A04 /* AudioPlayer */,
+				3A48660B1D50A7D700CC4A04 /* AudioPlayerManager */,
 			);
 		};
 /* End PBXProject section */
@@ -242,17 +242,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A7BFA411D9EC5DA007E521D /* AudioPlayerLog.swift in Sources */,
-				3A7BFA421D9EC5DA007E521D /* AudioPlayerQueue.swift in Sources */,
-				3ACAE0F61D52403F009B20AD /* AudioPlayer.swift in Sources */,
-				3ACAE0F71D52403F009B20AD /* AudioPlayerItem.swift in Sources */,
-				3ACAE0F91D52403F009B20AD /* URLAudioPlayerItem.swift in Sources */,
-				3ACAE0F81D52403F009B20AD /* MediaItemAudioPlayerItem.swift in Sources */,
-				3ACAE0F51D52403F009B20AD /* AudioPlayer+URL.swift in Sources */,
+				3A7BFA411D9EC5DA007E521D /* Log.swift in Sources */,
+				3A7BFA421D9EC5DA007E521D /* AudioTracksQueue.swift in Sources */,
+				3ACAE0F61D52403F009B20AD /* AudioPlayerManager.swift in Sources */,
+				3ACAE0F71D52403F009B20AD /* AudioTrack.swift in Sources */,
+				3ACAE0F91D52403F009B20AD /* AudioURLTrack.swift in Sources */,
+				3ACAE0F81D52403F009B20AD /* MediaPlayerTrack.swift in Sources */,
+				3ACAE0F51D52403F009B20AD /* AudioPlayerManager+URL.swift in Sources */,
 				3A7BFA431D9EC5DA007E521D /* MediaLibraryHelper.swift in Sources */,
-				3ACAE0F21D52403F009B20AD /* MPMediaItem+AudioPlayer.swift in Sources */,
-				3ACAE0F41D52403F009B20AD /* AudioPlayer+RemoteControl.swift in Sources */,
-				3ACAE0F31D52403F009B20AD /* AudioPlayer+MPMediaItem.swift in Sources */,
+				3ACAE0F21D52403F009B20AD /* MPMediaItem+AudioPlayerManager.swift in Sources */,
+				3ACAE0F41D52403F009B20AD /* AudioPlayerManager+RemoteControl.swift in Sources */,
+				3ACAE0F31D52403F009B20AD /* AudioPlayerManager+MPMediaItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,12 +364,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "PLists/AudioPlayer-Info.plist";
+				INFOPLIST_FILE = "PLists/AudioPlayerManager-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = de.seiffert.hans.swift.audioplayer;
-				PRODUCT_NAME = AudioPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = de.seiffert.hans.swift.audioplayermanager;
+				PRODUCT_NAME = AudioPlayerManager;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -391,12 +391,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "PLists/AudioPlayer-Info.plist";
+				INFOPLIST_FILE = "PLists/AudioPlayerManager-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = de.seiffert.hans.swift.audioplayer;
-				PRODUCT_NAME = AudioPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = de.seiffert.hans.swift.audioplayermanager;
+				PRODUCT_NAME = AudioPlayerManager;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -404,7 +404,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3A4866061D50A7D700CC4A04 /* Build configuration list for PBXProject "AudioPlayer" */ = {
+		3A4866061D50A7D700CC4A04 /* Build configuration list for PBXProject "AudioPlayerManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3A48661E1D50A7D700CC4A04 /* Debug */,
@@ -413,7 +413,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3A4866201D50A7D700CC4A04 /* Build configuration list for PBXNativeTarget "AudioPlayer" */ = {
+		3A4866201D50A7D700CC4A04 /* Build configuration list for PBXNativeTarget "AudioPlayerManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3A4866211D50A7D700CC4A04 /* Debug */,

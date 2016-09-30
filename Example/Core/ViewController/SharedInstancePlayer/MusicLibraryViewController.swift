@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AudioPlayer
+import AudioPlayerManager
 import MediaPlayer
 
 class MusicLibraryViewController: UIViewController {
@@ -17,7 +17,7 @@ class MusicLibraryViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		AudioPlayer.sharedInstance.setup()
+		AudioPlayerManager.sharedInstance.setup()
 
 		let tempData = MPMediaQuery.songsQuery().items ?? []
 		self.data = []
@@ -49,6 +49,6 @@ extension MusicLibraryViewController: UITableViewDelegate, UITableViewDataSource
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
-		AudioPlayer.sharedInstance.play(mediaItems: self.data, startPosition: indexPath.row)
+		AudioPlayerManager.sharedInstance.play(mediaItems: self.data, startIndex: indexPath.row)
 	}
 }

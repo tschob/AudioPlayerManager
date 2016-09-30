@@ -11,21 +11,21 @@
 		3A48667E1D50C72100CC4A04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A4866771D50C72100CC4A04 /* Assets.xcassets */; };
 		3A48667F1D50C72100CC4A04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A4866781D50C72100CC4A04 /* LaunchScreen.storyboard */; };
 		3A4866801D50C72100CC4A04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A4866791D50C72100CC4A04 /* Main.storyboard */; };
-		3A7BFA441D9EC6B5007E521D /* AudioPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A7BFA3D1D9EC5CA007E521D /* AudioPlayer.framework */; };
 		8701E7D81D69066D00F21C2D /* MultiplePlayerInstancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7D71D69066D00F21C2D /* MultiplePlayerInstancesViewController.swift */; };
 		8701E7E41D6907DD00F21C2D /* MultiplePlayerInstancesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E31D6907DD00F21C2D /* MultiplePlayerInstancesTableViewCell.swift */; };
 		8701E7EA1D6907F300F21C2D /* MusicLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E71D6907F300F21C2D /* MusicLibraryViewController.swift */; };
 		8701E7EB1D6907F300F21C2D /* URLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E81D6907F300F21C2D /* URLViewController.swift */; };
 		8701E7EC1D6907F300F21C2D /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E91D6907F300F21C2D /* PlayerViewController.swift */; };
+		8795E3381D9EE5E2009ECAB0 /* AudioPlayerManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8795E3371D9EE28A009ECAB0 /* AudioPlayerManager.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3A7BFA3C1D9EC5CA007E521D /* PBXContainerItemProxy */ = {
+		8795E3361D9EE28A009ECAB0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3A7BFA381D9EC5CA007E521D /* AudioPlayer.xcodeproj */;
+			containerPortal = 8795E3321D9EE28A009ECAB0 /* AudioPlayerManager.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 3A48660C1D50A7D700CC4A04;
-			remoteInfo = AudioPlayer;
+			remoteInfo = AudioPlayerManager;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -50,12 +50,12 @@
 		3A4866781D50C72100CC4A04 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A4866791D50C72100CC4A04 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		3A4866901D50CA2A00CC4A04 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		3A7BFA381D9EC5CA007E521D /* AudioPlayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioPlayer.xcodeproj; path = ../AudioPlayer/AudioPlayer.xcodeproj; sourceTree = "<group>"; };
 		8701E7D71D69066D00F21C2D /* MultiplePlayerInstancesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiplePlayerInstancesViewController.swift; path = MultiplePlayerInstances/MultiplePlayerInstancesViewController.swift; sourceTree = "<group>"; };
 		8701E7E31D6907DD00F21C2D /* MultiplePlayerInstancesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiplePlayerInstancesTableViewCell.swift; path = Views/MultiplePlayerInstancesTableViewCell.swift; sourceTree = "<group>"; };
 		8701E7E71D6907F300F21C2D /* MusicLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicLibraryViewController.swift; sourceTree = "<group>"; };
 		8701E7E81D6907F300F21C2D /* URLViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLViewController.swift; sourceTree = "<group>"; };
 		8701E7E91D6907F300F21C2D /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		8795E3321D9EE28A009ECAB0 /* AudioPlayerManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioPlayerManager.xcodeproj; path = ../AudioPlayerManager/AudioPlayerManager.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A7BFA441D9EC6B5007E521D /* AudioPlayer.framework in Frameworks */,
+				8795E3381D9EE5E2009ECAB0 /* AudioPlayerManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,7 +73,7 @@
 		3A48664F1D50C69100CC4A04 = {
 			isa = PBXGroup;
 			children = (
-				3A7BFA381D9EC5CA007E521D /* AudioPlayer.xcodeproj */,
+				8795E3321D9EE28A009ECAB0 /* AudioPlayerManager.xcodeproj */,
 				3A48666F1D50C72100CC4A04 /* Core */,
 				3A4866761D50C72100CC4A04 /* Resources */,
 				3A4866741D50C72100CC4A04 /* PLists */,
@@ -135,14 +135,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3A7BFA391D9EC5CA007E521D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3A7BFA3D1D9EC5CA007E521D /* AudioPlayer.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		8701E7DB1D69067200F21C2D /* MultiplePlayerInstances */ = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +159,14 @@
 				8701E7E91D6907F300F21C2D /* PlayerViewController.swift */,
 			);
 			path = SharedInstancePlayer;
+			sourceTree = "<group>";
+		};
+		8795E3331D9EE28A009ECAB0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8795E3371D9EE28A009ECAB0 /* AudioPlayerManager.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -225,8 +225,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 3A7BFA391D9EC5CA007E521D /* Products */;
-					ProjectRef = 3A7BFA381D9EC5CA007E521D /* AudioPlayer.xcodeproj */;
+					ProductGroup = 8795E3331D9EE28A009ECAB0 /* Products */;
+					ProjectRef = 8795E3321D9EE28A009ECAB0 /* AudioPlayerManager.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -237,11 +237,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		3A7BFA3D1D9EC5CA007E521D /* AudioPlayer.framework */ = {
+		8795E3371D9EE28A009ECAB0 /* AudioPlayerManager.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = AudioPlayer.framework;
-			remoteRef = 3A7BFA3C1D9EC5CA007E521D /* PBXContainerItemProxy */;
+			path = AudioPlayerManager.framework;
+			remoteRef = 8795E3361D9EE28A009ECAB0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

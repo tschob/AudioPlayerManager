@@ -1,6 +1,6 @@
 //
-//  AudioPlayer.swift
-//  AudioPlayer
+//  AudioPlayerManager.swift
+//  AudioPlayerManager
 //
 //  Created by Hans Seiffert on 02.08.16.
 //  Copyright © 2016 Hans Seiffert. All rights reserved.
@@ -10,20 +10,20 @@ import Foundation
 import AVFoundation
 import MediaPlayer
 
-public class AudioPlayer: NSObject {
+public class AudioPlayerManager: NSObject {
 
 	// MARK: - PUBLIC -
 
 	// MARK: - Properties
 
-	public static let sharedInstance				= AudioPlayer()
+	public static let sharedInstance				= AudioPlayerManager()
 
 	// MARK: - Configuration
 
-	/// Set this to true if the `AudioPlayer` log should be enabled. The default is `false`.
-	public static var Verbose						= false
+	/// Set this to true if the `AudioPlayerManager` log should be enabled. The default is `false`.
+	public static var Verbose						= true
 
-	/// Set this to true if the `AudioPlayer` log should containt detailed information about the calling class, function and line. The default is `true`.
+	/// Set this to true if the `AudioPlayerManager` log should containt detailed information about the calling class, function and line. The default is `true`.
 	public static var DetailedLog					= true
 
 	/// Set this to true to use the systems `MPNowPlayingInfoCenter` (control center and lock screen). The default value is `true`.
@@ -39,33 +39,34 @@ public class AudioPlayer: NSObject {
 	// The `NSTimeInterval` of the players update interval. Eg. the PlaybackTimeChangeCallbacks will be called then.
 	public var playingTimeRefreshRate				: NSTimeInterval = 0.1
 
-	// MARK: - Initializaiton
-
-	public class func audioPlayer() -> AudioPlayer {
-		let audioPlayer = AudioPlayer()
-		audioPlayer.setup()
-		return audioPlayer
+	public var currentTrack							: AudioTrack? {
+		return self.queue.currentTrack
 	}
 
-	public class func audioPlayer(useNowPlayingInfoCenter useNowPlayingInfoCenter: Bool, useRemoteControlEvents: Bool) -> AudioPlayer {
-		let audioPlayer = AudioPlayer()
-		audioPlayer.useRemoteControlEvents = useRemoteControlEvents
-		audioPlayer.useNowPlayingInfoCenter = useNowPlayingInfoCenter
-		audioPlayer.setup()
-		return audioPlayer
+	// MARK: - Initializaiton
+
+	public class func standaloneInstance() -> AudioPlayerManager {
+		return self.standaloneInstance(useNowPlayingInfoCenter: nil, useRemoteControlEvents: nil)
+	}
+
+	public class func standaloneInstance(useNowPlayingInfoCenter useNowPlayingInfoCenter: Bool?, useRemoteControlEvents: Bool?) -> AudioPlayerManager {
+		let manager = AudioPlayerManager()
+		if let _useRemoteControlEvents = useRemoteControlEvents {
+			manager.useRemoteControlEvents = _useRemoteControlEvents
+		}
+		if let _useNowPlayingInfoCenter = useNowPlayingInfoCenter {
+			manager.useNowPlayingInfoCenter = _useNowPlayingInfoCenter
+		}
+		return manager
 	}
 
 	public override init() {
 		super.init()
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AudioPlayer.playerItemDidFinishPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AudioPlayerManager.trackDidFinishPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
 	}
 
 	public func setup() {
-		self.setup(useNowPlayingInfoCenter: self.useNowPlayingInfoCenter, useRemoteControlEvents: self.useRemoteControlEvents)
-	}
-
-	public func setup(useNowPlayingInfoCenter useNowPlayingInfoCenter: Bool, useRemoteControlEvents: Bool) {
 		self.setupRemoteControlEvents()
 		self.setupAudioSession()
 	}
@@ -95,60 +96,60 @@ public class AudioPlayer: NSObject {
 			self.didStopPlayback = false
 			self.startPlaybackTimeChangeTimer()
 			self.callPlayStateChangeCallbacks()
-			if let _currentPlayerItem = self.currentPlayerItem() {
-				NSNotificationCenter.defaultCenter().postNotificationName(self.playerStateChangedNotificationKey(playerItem: _currentPlayerItem), object: nil)
+			if let _currentTrack = self.currentTrack {
+				NSNotificationCenter.defaultCenter().postNotificationName(self.playerStateChangedNotificationKey(track: _currentTrack), object: nil)
 			}
 		}
 	}
 
-	public func play(playerItem: AudioPlayerItem) {
-		AudioPlayerLog("play(playerItem: \(playerItem))")
+	public func play(audioTrack: AudioTrack) {
+		Log("play(audioTrack: \(audioTrack))")
 		self.stop()
-		self.play([playerItem], startPosition: 0)
+		self.play([audioTrack], startIndex: 0)
 	}
 
-	public func play(playerItems: [AudioPlayerItem], startPosition: Int) {
-		AudioPlayerLog("play(playerItems: \(playerItems.count) items, startPosition: \(startPosition))")
-		self.replace(playerItems, startPosition: startPosition)
-		// Start playing the new item
-		self.restartCurrentPlayerItem()
+	public func play(audioTracks: [AudioTrack], startIndex: Int) {
+		Log("play(audioTracks: \(audioTracks.count) tracks, startIndex: \(startIndex))")
+		self.replace(audioTracks, startIndex: startIndex)
+		// Start playing the new track
+		self.restartCurrentTrack()
     }
 
-	public func replace(playerItem: AudioPlayerItem) {
-		AudioPlayerLog("replace(playerItem: \(playerItem))")
-		self.replace([playerItem], startPosition: 0)
+	public func replace(audioTrack: AudioTrack) {
+		Log("replace(audioTrack: \(audioTrack))")
+		self.replace([audioTrack], startIndex: 0)
 	}
 
-	public func replace(playerItems: [AudioPlayerItem], startPosition: Int) {
-		AudioPlayerLog("replace(playerItems: \(playerItems.count) items, startPosition: \(startPosition))")
+	public func replace(audioTracks: [AudioTrack], startIndex: Int) {
+		Log("replace(audioTracks: \(audioTracks.count) tracks, startIndex: \(startIndex))")
 		self.stop()
-		var reducedPlayerItems = [] as [AudioPlayerItem]
-		for index in 0..<playerItems.count {
-			let playerItem = playerItems[index]
-			reducedPlayerItems.append(playerItem)
+		var reducedTracks = [] as [AudioTrack]
+		for index in 0..<audioTracks.count {
+			let audioTrack = audioTracks[index]
+			reducedTracks.append(audioTrack)
 		}
 
-		self.queue.replace(reducedPlayerItems, startPosition: startPosition)
+		self.queue.replace(reducedTracks, startIndex: startIndex)
 		self.queueGeneration += 1
 	}
 
-	public func prepend(playerItems: [AudioPlayerItem], queueGeneration: Int) {
+	public func prepend(audioTracks: [AudioTrack], queueGeneration: Int) {
 		if (self.queueGeneration == queueGeneration) {
-			AudioPlayerLog("Queue generation (\(queueGeneration)) gets prepended with \(playerItems.count) player items.")
-			self.queue.prepend(playerItems)
+			Log("Queue generation (\(queueGeneration)) gets prepended with \(audioTracks.count) tracks.")
+			self.queue.prepend(audioTracks)
 			self.callPlayStateChangeCallbacks()
 		} else {
-			AudioPlayerLog("Queue generation (\(queueGeneration)) isn't the same as the current (\(self.queueGeneration)). Won't prepend \(playerItems.count) player items.")
+			Log("Queue generation (\(queueGeneration)) isn't the same as the current (\(self.queueGeneration)). Won't prepend \(audioTracks.count) tracks.")
 		}
 	}
 
-	public func append(playerItems: [AudioPlayerItem], queueGeneration: Int) {
+	public func append(audioTracks: [AudioTrack], queueGeneration: Int) {
 		if (self.queueGeneration == queueGeneration) {
-			AudioPlayerLog("Queue generation (\(queueGeneration)) gets appended with \(playerItems.count) player items.")
-			self.queue.append(playerItems)
+			Log("Queue generation (\(queueGeneration)) gets appended with \(audioTracks.count) tracks.")
+			self.queue.append(audioTracks)
 			self.callPlayStateChangeCallbacks()
 		} else {
-			AudioPlayerLog("Queue generation (\(queueGeneration)) isn't the same as the current (\(self.queueGeneration)). Won't append \(playerItems.count) player items.")
+			Log("Queue generation (\(queueGeneration)) isn't the same as the current (\(self.queueGeneration)). Won't append \(audioTracks.count) tracks.")
 		}
 	}
 
@@ -160,8 +161,8 @@ public class AudioPlayer: NSObject {
 			self.stopPlaybackTimeChangeTimer = true
 			self.callPlaybackTimeChangeCallbacks()
 			self.callPlayStateChangeCallbacks()
-			if let _currentPlayerItem = self.currentPlayerItem() {
-				NSNotificationCenter.defaultCenter().postNotificationName(self.playerStateChangedNotificationKey(playerItem: _currentPlayerItem), object: nil)
+			if let _currentTrack = self.currentTrack {
+				NSNotificationCenter.defaultCenter().postNotificationName(self.playerStateChangedNotificationKey(track: _currentTrack), object: nil)
 			}
         }
     }
@@ -170,7 +171,7 @@ public class AudioPlayer: NSObject {
 		if (self.didStopPlayback == false) {
 			self.didStopPlayback = true
 			if (clearQueue == true) {
-				self.queue.replace(nil, startPosition: 0)
+				self.queue.replace(nil, startIndex: 0)
 				self.queueGeneration += 1
 				self.player?.replaceCurrentItemWithPlayerItem(nil)
 			} else {
@@ -191,27 +192,27 @@ public class AudioPlayer: NSObject {
 	public func forward() {
 		self.stop()
 		if (self.queue.forward() == true) {
-			self.restartCurrentPlayerItem()
+			self.restartCurrentTrack()
 		}
     }
 
 	// MARK: Rewind
 
     public func canRewind() -> Bool {
-		if ((self.currentPlayerItem()?.currentTimeInSeconds() > Float(1) && self.currentPlayerItem() != nil) || self.canRewindInQueue()) {
+		if ((self.currentTrack?.currentTimeInSeconds() > Float(1) && self.currentTrack != nil) || self.canRewindInQueue()) {
 			return true
 		}
         return false
     }
 
     public func rewind() {
-		if (self.currentPlayerItem()?.currentTimeInSeconds() <= Float(1) && self.canRewindInQueue() == true) {
+		if (self.currentTrack?.currentTimeInSeconds() <= Float(1) && self.canRewindInQueue() == true) {
 			self.stop()
 			if (self.queue.rewind() == true) {
-				self.restartCurrentPlayerItem()
+				self.restartCurrentTrack()
 			}
 		} else {
-			// Move to the beginning of the player item if we aren't in the beginning.
+			// Move to the beginning of the track if we aren't in the beginning.
 			self.player?.seekToTime(CMTimeMake(0, 1))
 			// Update the now playing info to show the new playback time
 			self.updateNowPlayingInfo()
@@ -225,14 +226,14 @@ public class AudioPlayer: NSObject {
 	}
 
 	public func seek(toProgress progress: Float) {
-		let progressInSeconds = Int64(progress * (self.currentPlayerItem()?.durationInSeconds() ?? 0))
+		let progressInSeconds = Int64(progress * (self.currentTrack?.durationInSeconds() ?? 0))
 		let time = CMTimeMake(progressInSeconds, 1)
 		self.seek(toTime: time)
 	}
 
 	// MARK: - Internal helper
 
-    public func playerItemDidFinishPlaying() {
+    public func trackDidFinishPlaying() {
         self.forward()
     }
 
@@ -248,7 +249,7 @@ public class AudioPlayer: NSObject {
 
 	// MARK: - Playback time change callback
 
-	public func addPlaybackTimeChangeCallback(sender: AnyObject, callback: (playerItem: AudioPlayerItem) -> Void) {
+	public func addPlaybackTimeChangeCallback(sender: AnyObject, callback: (track: AudioTrack) -> Void) {
 		let uid = "\(unsafeAddressOf(sender))"
 		if var _callbacks = self.playbackPositionChangeCallbacks[uid] {
 			_callbacks.append(callback)
@@ -264,7 +265,7 @@ public class AudioPlayer: NSObject {
 
 	// MARK: - Play state change callback
 
-	public func addPlayStateChangeCallback(sender: AnyObject, callback: (playerItem: AudioPlayerItem?) -> Void) {
+	public func addPlayStateChangeCallback(sender: AnyObject, callback: (track: AudioTrack?) -> Void) {
 		let uid = "\(unsafeAddressOf(sender))"
 		if var _callbacks = self.playStateChangeCallbacks[uid] {
 			_callbacks.append(callback)
@@ -282,10 +283,6 @@ public class AudioPlayer: NSObject {
 
 	public func isPlaying() -> Bool {
 		return self.player?.rate > 0
-	}
-
-	public func currentPlayerItem() -> AudioPlayerItem? {
-		return self.queue.currentPlayingItem()
 	}
 
 	// MARK: - INTERNAL -
@@ -320,22 +317,22 @@ public class AudioPlayer: NSObject {
 		static let Status	= "status"
 	}
 
-	private let audioPlayerStateChangedPrefix		= "AudioPlayer.\(NSUUID().UUIDString).playerStateChanged"
+	private let audioPlayerManagerStateChangedPrefix	= "AudioPlayerManager.\(NSUUID().UUIDString).playerStateChanged"
 
-	private var player								: AVPlayer?
+	private var player									: AVPlayer?
 
-	private var queue								= AudioPlayerQueue()
+	private var queue									= AudioTracksQueue()
 
-	private var didStopPlayback						= false
+	private var didStopPlayback							= false
 
 	// MARK: Callbacks
-	private var playStateChangeCallbacks			= Dictionary<String, [((playerItem: AudioPlayerItem?) -> (Void))]>()
-	private var playbackPositionChangeCallbacks		= Dictionary<String, [((playerItem: AudioPlayerItem) -> (Void))]>()
+	private var playStateChangeCallbacks				= Dictionary<String, [((track: AudioTrack?) -> (Void))]>()
+	private var playbackPositionChangeCallbacks			= Dictionary<String, [((track: AudioTrack) -> (Void))]>()
 
-	private var playbackPositionChangeTimer			: NSTimer?
-	private var stopPlaybackTimeChangeTimer			= false
+	private var playbackPositionChangeTimer				: NSTimer?
+	private var stopPlaybackTimeChangeTimer				= false
 
-	private var addedPlayerStateObserver			= false
+	private var addedPlayerStateObserver				= false
 
 	// MARK: - Initializaiton
 
@@ -367,8 +364,8 @@ public class AudioPlayer: NSObject {
 
 	// MARK: - Play
 
-	private func restartCurrentPlayerItem() {
-		AudioPlayerLog("restartCurrentPlayerItem")
+	private func restartCurrentTrack() {
+		Log("restartCurrentTrack")
 		if (self.player != nil) {
 			if (self.addedPlayerStateObserver == true) {
 				self.addedPlayerStateObserver = false
@@ -377,14 +374,13 @@ public class AudioPlayer: NSObject {
 			self.stop()
 		}
 
-		if
-			let _currentPlayerItem  = self.queue.currentPlayingItem() {
+		if let _currentTrack  = self.queue.currentTrack {
 			self.player = AVPlayer()
 			self.initPlayer()
-			_currentPlayerItem.loadResource()
-			if let _avPlayerItem = _currentPlayerItem.getAVPlayerItem() {
-				_currentPlayerItem.prepareForPlaying(_avPlayerItem)
-				self.player?.replaceCurrentItemWithPlayerItem(_avPlayerItem)
+			_currentTrack.loadResource()
+			if let _playerItem = _currentTrack.getPlayerItem() {
+				_currentTrack.prepareForPlaying(_playerItem)
+				self.player?.replaceCurrentItemWithPlayerItem(_playerItem)
 			}
 		}
 	}
@@ -399,19 +395,19 @@ public class AudioPlayer: NSObject {
 
 	private func updateNowPlayingInfo() {
 		if (self.useNowPlayingInfoCenter == true) {
-			MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = self.currentPlayerItem()?.nowPlayingInfo
+			MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = self.currentTrack?.nowPlayingInfo
 		}
 	}
 
 	// MARK: - Plaback time change callback
 
 	func callPlaybackTimeChangeCallbacks() {
-		// Increase the current items playing time if the player is playing
-		if let _currentPlayerItem = self.currentPlayerItem() {
+		// Increase the current tracks playing time if the player is playing
+		if let _currentTrack = self.currentTrack {
 			for sender in self.playbackPositionChangeCallbacks.keys {
 				if let _callbacks = self.playbackPositionChangeCallbacks[sender] {
 					for playbackPositionChangeClosure in _callbacks {
-						playbackPositionChangeClosure(playerItem: _currentPlayerItem)
+						playbackPositionChangeClosure(track: _currentTrack)
 					}
 				}
 			}
@@ -423,7 +419,7 @@ public class AudioPlayer: NSObject {
 
 	private func startPlaybackTimeChangeTimer() {
 		self.stopPlaybackTimeChangeTimer = false
-		self.playbackPositionChangeTimer =  NSTimer.scheduledTimerWithTimeInterval(self.playingTimeRefreshRate, target: self, selector: #selector(AudioPlayer.callPlaybackTimeChangeCallbacks), userInfo: nil, repeats: true)
+		self.playbackPositionChangeTimer =  NSTimer.scheduledTimerWithTimeInterval(self.playingTimeRefreshRate, target: self, selector: #selector(AudioPlayerManager.callPlaybackTimeChangeCallbacks), userInfo: nil, repeats: true)
 		self.playbackPositionChangeTimer?.fire()
 	}
 
@@ -433,16 +429,16 @@ public class AudioPlayer: NSObject {
 		for sender in self.playStateChangeCallbacks.keys {
 			if let _callbacks = self.playStateChangeCallbacks[sender] {
 				for playStateChangeClosure in _callbacks {
-					playStateChangeClosure(playerItem: self.currentPlayerItem())
+					playStateChangeClosure(track: self.currentTrack)
 				}
 			}
 		}
 	}
 }
 
-extension AudioPlayer {
+extension AudioPlayerManager {
 
-	public func playerStateChangedNotificationKey(playerItem playerItem: AudioPlayerItem) -> String {
-		return "\(self.audioPlayerStateChangedPrefix)_\(playerItem.identifier() ?? "")"
+	public func playerStateChangedNotificationKey(track track: AudioTrack) -> String {
+		return "\(self.audioPlayerManagerStateChangedPrefix)_\(track.identifier() ?? "")"
 	}
 }

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AudioPlayer
+import AudioPlayerManager
 
 class URLViewController: UIViewController {
 
@@ -34,6 +34,6 @@ extension URLViewController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
-		AudioPlayer.sharedInstance.play(urlStrings: self.data, startPosition: indexPath.row)
+		AudioPlayerManager.sharedInstance.play(urlStrings: self.data, startIndex: indexPath.row)
 	}
 }

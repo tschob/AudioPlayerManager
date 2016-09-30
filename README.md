@@ -1,14 +1,14 @@
-# AudioPlayer
+# AudioPlayerManager
 
-[![Build Status](https://travis-ci.org/tschob/AudioPlayer.svg?branch=master)](https://travis-ci.org/tschob/AudioPlayer)
-[![CocoaPods compatible](https://img.shields.io/cocoapods/v/AudioPlayer.svg?style=flat)](http://cocoadocs.org/docsets/AudioPlayer)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/tschob/AudioPlayer)
-[![License](https://img.shields.io/cocoapods/l/AudioPlayer.svg?style=flat)](http://cocoadocs.org/docsets/AudioPlayer)
-[![Platform](https://img.shields.io/cocoapods/p/AudioPlayer.svg?style=flat)](http://cocoadocs.org/docsets/AudioPlayer)
+[![Build Status](https://travis-ci.org/tschob/AudioPlayerManager.svg?branch=master)](https://travis-ci.org/tschob/AudioPlayerManager)
+[![CocoaPods compatible](https://img.shields.io/cocoapods/v/AudioPlayerManager.svg?style=flat)](http://cocoadocs.org/docsets/AudioPlayerManager)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/tschob/AudioPlayerManager)
+[![License](https://img.shields.io/cocoapods/l/AudioPlayerManager.svg?style=flat)](http://cocoadocs.org/docsets/AudioPlayerManager)
+[![Platform](https://img.shields.io/cocoapods/p/AudioPlayerManager.svg?style=flat)](http://cocoadocs.org/docsets/AudioPlayerManager)
 
 ## Feature
 
-AudioPlayer is a small audio player which takes care of the AVPlayer setup and usage. It uses an internal queue to play multiple items automatically in a row. All path based items which are supported from AVPlayer can be used (MPMediaItems and remote URLs).
+AudioPlayerManager is a small audio player which takes care of the AVPlayer setup and usage. It uses an internal queue to play multiple items automatically in a row. All path based items which are supported from AVPlayer can be used (MPMediaItems and remote URLs).
 
 ## Requirements
 - iOS 8+
@@ -25,7 +25,7 @@ AudioPlayer is a small audio player which takes care of the AVPlayer setup and u
 $ gem install cocoapods
 ```
 
-To integrate AudioPlayer into your Xcode project using CocoaPods, specify it in your `Podfile`:
+To integrate AudioPlayerManager into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
@@ -33,7 +33,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'AudioPlayer'
+    pod 'AudioPlayerManager'
 end
 ```
 
@@ -48,12 +48,12 @@ $ pod install
 There two basic usages:
 - A singleton player which play one item at a time
 ```
-AudioPlayer.sharedInstance.setup()
+AudioPlayerManager.sharedInstance.setup()
 ```
 
 - Multiple player instances which can be used at the same time
 ```
-let audioPlayer = AudioPlayer.audioPlayer()
+let audioPlayer = AudioPlayerManager.audioPlayer()
 ```
 
 ### Setup
@@ -61,41 +61,41 @@ let audioPlayer = AudioPlayer.audioPlayer()
 In both usage cases you need to `setup()` the player instance before using it.
 
 ```
-AudioPlayer.sharedInstance.setup()
+AudioPlayerManager.sharedInstance.setup()
 ```
 This will setup the `AVAudioSession` playback plus activation state and initialize the remote control events plus now playing info center configuration. If you want to modify the basic settings you can this during or after calling `setup`.
 
 ```
-AudioPlayer.sharedInstance.setup(useNowPlayingInfoCenter: false, useRemoteControlEvents: false)
+AudioPlayerManager.sharedInstance.setup(useNowPlayingInfoCenter: false, useRemoteControlEvents: false)
 ```
 
 ```
-AudioPlayer.sharedInstance.setup()
-AudioPlayer.sharedInstance.playingTimeRefreshRate = 1.0
+AudioPlayerManager.sharedInstance.setup()
+AudioPlayerManager.sharedInstance.playingTimeRefreshRate = 1.0
 ```
 
 If you want to reveive remote control events you simply have to pass the events from the app delegate to the audio player instace
 
 ```
 override func remoteControlReceivedWithEvent(event: UIEvent?) {
-	AudioPlayer.sharedInstance.remoteControlReceivedWithEvent(event)
+	AudioPlayerManager.sharedInstance.remoteControlReceivedWithEvent(event)
 }
 ```
 
 ### Playback
 
-AudioPlayer can play local `MPMediaItem`s and stream items from a remote URL. You can pass either one or multiple items to the player.
+AudioPlayerManager can play local `MPMediaItem`s and stream items from a remote URL. You can pass either one or multiple items to the player.
 
 The following line will replace the current queue of the audio player with the chosen item. The playback will stop automatically if the item was played.
 ```
-AudioPlayer.sharedInstance.play(url: self.trackUrl)
+AudioPlayerManager.sharedInstance.play(url: self.trackUrl)
 ```
 
-If you want to play multiple items you can pass an array and start position. The audio player will replace the current queue with the given array and jump right to the item at the given position. The queue allows the user to rewind also to items with a lower index than the start position.
+If you want to play multiple items you can pass an array and start index. The audio player will replace the current queue with the given array and jump right to the item at the given index. The queue allows the user to rewind also to items with a lower index than the start index.
 
 ```
 let songs = (MPMediaQuery.songsQuery().items ?? [])
-AudioPlayer.sharedInstance.play(mediaItems: songs, startPosition: 5)
+AudioPlayerManager.sharedInstance.play(mediaItems: songs, startIndex: 5)
 ```
 
 
@@ -105,4 +105,4 @@ tschob, Hans Seiffert
 
 ## License
 
-AudioPlayer is available under the [MIT license](https://github.com/tschob/AudioPlayer/blob/master/LICENSE).
+AudioPlayerManager is available under the [MIT license](https://github.com/tschob/AudioPlayerManager/blob/master/LICENSE).

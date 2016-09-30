@@ -7,12 +7,12 @@
 //
 
 import UIKit
-import AudioPlayer
+import AudioPlayerManager
 import MediaPlayer
 
 class MultiplePlayerInstancesViewController: UIViewController {
 
-	private var data						: [(mediaItem: MPMediaItem, audioPlayer: AudioPlayer?)] = []
+	private var data						: [(mediaItem: MPMediaItem, audioPlayerManager: AudioPlayerManager?)] = []
 
 	@IBOutlet private weak var tableView: UITableView?
 
@@ -23,7 +23,7 @@ class MultiplePlayerInstancesViewController: UIViewController {
 		self.data = []
 		for mediaItem in tempData {
 			if (mediaItem.cloudItem == false && mediaItem.assetURL != nil) {
-				self.data.append((mediaItem: mediaItem, audioPlayer: nil))
+				self.data.append((mediaItem: mediaItem, audioPlayerManager: nil))
 				if (self.data.count >= 20) {
 					break
 				}
@@ -50,8 +50,8 @@ extension MultiplePlayerInstancesViewController: UITableViewDelegate, UITableVie
 
 		if let _cell = tableView.dequeueReusableCellWithIdentifier("multiplePlayerInstancesCell", forIndexPath: indexPath) as? MultiplePlayerInstancesTableViewCell {
 			let _mediItem = self.data[indexPath.row].mediaItem
-			let audioPlayer = self.data[indexPath.row].audioPlayer
-			_cell.setup(_mediItem, isPlaying: (audioPlayer?.isPlaying() ?? false))
+			let audioPlayerManager = self.data[indexPath.row].audioPlayerManager
+			_cell.setup(_mediItem, isPlaying: (audioPlayerManager?.isPlaying() ?? false))
 			return _cell
 		}
 		return UITableViewCell()
@@ -60,17 +60,18 @@ extension MultiplePlayerInstancesViewController: UITableViewDelegate, UITableVie
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
-		var audioPlayer = self.data[indexPath.row].audioPlayer
-		if (audioPlayer == nil) {
-			audioPlayer = AudioPlayer.audioPlayer()
-			audioPlayer?.useRemoteControlEvents = false
-			audioPlayer?.useNowPlayingInfoCenter = false
-			self.data[indexPath.row].audioPlayer = audioPlayer
+		var audioPlayerManager = self.data[indexPath.row].audioPlayerManager
+		if (audioPlayerManager == nil) {
+			audioPlayerManager = AudioPlayerManager.standaloneInstance()
+			audioPlayerManager?.setup()
+			audioPlayerManager?.useRemoteControlEvents = false
+			audioPlayerManager?.useNowPlayingInfoCenter = false
+			self.data[indexPath.row].audioPlayerManager = audioPlayerManager
 		}
-		if (audioPlayer?.isPlaying() == true) {
-			audioPlayer?.stop()
+		if (audioPlayerManager?.isPlaying() == true) {
+			audioPlayerManager?.stop()
 		} else {
-			audioPlayer?.play(mediaItem: self.data[indexPath.row].mediaItem)
+			audioPlayerManager?.play(mediaItem: self.data[indexPath.row].mediaItem)
 		}
 	}
 }
