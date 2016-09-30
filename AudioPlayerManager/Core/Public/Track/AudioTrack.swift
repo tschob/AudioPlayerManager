@@ -1,6 +1,6 @@
 //
-//  AudioPlayerItem.swift
-//  AudioPlayer
+//  AudioTrack.swift
+//  AudioPlayerManager
 //
 //  Created by Hans Seiffert on 02.08.16.
 //  Copyright © 2016 Hans Seiffert. All rights reserved.
@@ -10,13 +10,13 @@ import Foundation
 import AVFoundation
 import MediaPlayer
 
-public class AudioPlayerItem : NSObject {
+public class AudioTrack : NSObject {
 
 	// MARK: - PUBLIC -
 
 	// MARK: - Properties
 
-	public var avPlayerItem						: AVPlayerItem?
+	public var playerItem						: AVPlayerItem?
 
 	public var nowPlayingInfo					: [String : NSObject]?
 
@@ -26,7 +26,7 @@ public class AudioPlayerItem : NSObject {
 		// Reloads the resource in the child class if necessary.
 	}
 
-	public func getAVPlayerItem() -> AVPlayerItem? {
+	public func getPlayerItem() -> AVPlayerItem? {
 		// Return the AVPlayerItem in the subclasses
 		return nil
 	}
@@ -42,8 +42,8 @@ public class AudioPlayerItem : NSObject {
 	// MARK: - Helper
 
 	public func durationInSeconds() -> Float {
-		if let _avPlayerItem = self.avPlayerItem where _avPlayerItem.duration != kCMTimeIndefinite {
-			return Float(CMTimeGetSeconds(_avPlayerItem.duration))
+		if let _playerItem = self.playerItem where _playerItem.duration != kCMTimeIndefinite {
+			return Float(CMTimeGetSeconds(_playerItem.duration))
 		}
 		return Float(0)
 	}
@@ -56,8 +56,8 @@ public class AudioPlayerItem : NSObject {
 	}
 
 	public func currentTimeInSeconds() -> Float {
-		if let _avPlayerItem = self.avPlayerItem {
-			return Float(CMTimeGetSeconds(_avPlayerItem.currentTime()))
+		if let _playerItem = self.playerItem {
+			return Float(CMTimeGetSeconds(_playerItem.currentTime()))
 		}
 		return Float(0)
 	}
@@ -65,16 +65,16 @@ public class AudioPlayerItem : NSObject {
 	// MARK: - Displayable Time strings
 
 	public func displayablePlaybackTimeString() -> String {
-		return AudioPlayerItem.displayableStringFromTimeInterval(NSTimeInterval(self.currentTimeInSeconds()))
+		return AudioTrack.displayableStringFromTimeInterval(NSTimeInterval(self.currentTimeInSeconds()))
 	}
 
 	public func displayableDurationString() -> String {
-		return AudioPlayerItem.displayableStringFromTimeInterval(NSTimeInterval(self.durationInSeconds()))
+		return AudioTrack.displayableStringFromTimeInterval(NSTimeInterval(self.durationInSeconds()))
 	}
 
 	public func displayableTimeLeftString() -> String {
 		let timeLeft = self.durationInSeconds() - self.currentTimeInSeconds()
-		return "-\(AudioPlayerItem.displayableStringFromTimeInterval(NSTimeInterval(timeLeft)))"
+		return "-\(AudioTrack.displayableStringFromTimeInterval(NSTimeInterval(timeLeft)))"
 	}
 
 	public func isPlayable() -> Bool {
@@ -85,21 +85,21 @@ public class AudioPlayerItem : NSObject {
 
 	// MARK: - Lifecycle
 
-	func prepareForPlaying(avPlayerItem: AVPlayerItem) {
-		self.avPlayerItem = avPlayerItem
+	func prepareForPlaying(playerItem: AVPlayerItem) {
+		self.playerItem = playerItem
 		self.initNowPlayingInfo()
 	}
 
 	func cleanupAfterPlaying() {
-		self.avPlayerItem = nil
+		self.playerItem = nil
 		self.nowPlayingInfo?.removeAll()
 	}
 
 	// MARK: - Now playing info
 
 	public func updateNowPlayingInfoPlaybackDuration() {
-		if let _avPlayerItem = self.avPlayerItem {
-			let duration = NSNumber(integer: Int(CMTimeGetSeconds(_avPlayerItem.asset.duration)))
+		if let _playerItem = self.playerItem {
+			let duration = NSNumber(integer: Int(CMTimeGetSeconds(_playerItem.asset.duration)))
 			self.nowPlayingInfo?[MPMediaItemPropertyPlaybackDuration] = duration
 		}
 	}

@@ -1,6 +1,6 @@
 //
-//  MPMediaItem+AudioPlayer.swift
-//  AudioPlayer
+//  MPMediaItem+AudioPlayerManager.swift
+//  AudioPlayerManager
 //
 //  Created by Hans Seiffert on 02.08.16.
 //  Copyright © 2016 Hans Seiffert. All rights reserved.

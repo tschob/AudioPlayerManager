@@ -1,6 +1,6 @@
 //
-//  AudioPlayer+RemoteControl.swift
-//  AudioPlayer
+//  AudioPlayerManager+RemoteControl.swift
+//  AudioPlayerManager
 //
 //  Created by Hans Seiffert on 02.08.16.
 //  Copyright © 2016 Hans Seiffert. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension AudioPlayer {
+extension AudioPlayerManager {
 
 	public func remoteControlReceivedWithEvent(event: UIEvent?) {
 		if let _event = event {

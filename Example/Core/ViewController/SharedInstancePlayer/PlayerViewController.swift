@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AudioPlayer
+import AudioPlayerManager
 import MediaPlayer
 
 class PlayerViewController: UIViewController {
@@ -28,39 +28,39 @@ class PlayerViewController: UIViewController {
 		self.updateButtonStates()
 
 		// Listen to the player state updates. This state is updated if the play, pause or queue state changed.
-		AudioPlayer.sharedInstance.addPlayStateChangeCallback(self, callback: { [weak self] (playerItem: AudioPlayerItem?) in
+		AudioPlayerManager.sharedInstance.addPlayStateChangeCallback(self, callback: { [weak self] (track: AudioTrack?) in
 			self?.updateButtonStates()
-			self?.updateSongInformation(playerItem)
+			self?.updateSongInformation(track)
 		})
-		// Listen to the playback time changed. This event occurs every `AudioPlayer.PlayingTimeRefreshRate` seconds.
-		AudioPlayer.sharedInstance.addPlaybackTimeChangeCallback(self, callback: { [weak self] (playerItem: AudioPlayerItem?) in
-			self?.updatePlaybackTime(playerItem)
+		// Listen to the playback time changed. This event occurs every `AudioPlayerManager.PlayingTimeRefreshRate` seconds.
+		AudioPlayerManager.sharedInstance.addPlaybackTimeChangeCallback(self, callback: { [weak self] (track: AudioTrack?) in
+			self?.updatePlaybackTime(track)
 		})
 	}
 
 	deinit {
 		// Stop listening to the callbacks
-		AudioPlayer.sharedInstance.removePlayStateChangeCallback(self)
-		AudioPlayer.sharedInstance.removePlaybackTimeChangeCallback(self)
+		AudioPlayerManager.sharedInstance.removePlayStateChangeCallback(self)
+		AudioPlayerManager.sharedInstance.removePlaybackTimeChangeCallback(self)
 	}
 
 	func updateButtonStates() {
-		self.rewindButton?.enabled = AudioPlayer.sharedInstance.canRewind()
-		let imageName = (AudioPlayer.sharedInstance.isPlaying() == true ? "ic_pause" : "ic_play")
+		self.rewindButton?.enabled = AudioPlayerManager.sharedInstance.canRewind()
+		let imageName = (AudioPlayerManager.sharedInstance.isPlaying() == true ? "ic_pause" : "ic_play")
 		self.playPauseButton?.setImage(UIImage(named: imageName), forState: .Normal)
-		self.playPauseButton?.enabled = AudioPlayer.sharedInstance.canPlay()
-		self.forwardButton?.enabled = AudioPlayer.sharedInstance.canForward()
+		self.playPauseButton?.enabled = AudioPlayerManager.sharedInstance.canPlay()
+		self.forwardButton?.enabled = AudioPlayerManager.sharedInstance.canForward()
 	}
 
-	func updateSongInformation(playerItem: AudioPlayerItem?) {
-		self.songLabel?.text = "\((playerItem?.nowPlayingInfo?[MPMediaItemPropertyTitle] as? String) ?? "-")"
-		self.albumLabel?.text = "\((playerItem?.nowPlayingInfo?[MPMediaItemPropertyAlbumTitle] as? String) ?? "-")"
-		self.artistLabel?.text = "\((playerItem?.nowPlayingInfo?[MPMediaItemPropertyArtist] as? String) ?? "-")"
-		self.updatePlaybackTime(playerItem)
+	func updateSongInformation(track: AudioTrack?) {
+		self.songLabel?.text = "\((track?.nowPlayingInfo?[MPMediaItemPropertyTitle] as? String) ?? "-")"
+		self.albumLabel?.text = "\((track?.nowPlayingInfo?[MPMediaItemPropertyAlbumTitle] as? String) ?? "-")"
+		self.artistLabel?.text = "\((track?.nowPlayingInfo?[MPMediaItemPropertyArtist] as? String) ?? "-")"
+		self.updatePlaybackTime(track)
 	}
 
-	func updatePlaybackTime(playerItem: AudioPlayerItem?) {
-		self.positionLabel?.text = "\(playerItem?.displayablePlaybackTimeString() ?? "-")/\(playerItem?.displayableDurationString() ?? "-")"
+	func updatePlaybackTime(track: AudioTrack?) {
+		self.positionLabel?.text = "\(track?.displayablePlaybackTimeString() ?? "-")/\(track?.displayableDurationString() ?? "-")"
 	}
 }
 
@@ -69,18 +69,18 @@ class PlayerViewController: UIViewController {
 extension PlayerViewController {
 
 	@IBAction func didPressRewindButton(sender: AnyObject) {
-		AudioPlayer.sharedInstance.rewind()
+		AudioPlayerManager.sharedInstance.rewind()
 	}
 
 	@IBAction func didPressStopButton(sender: AnyObject) {
-		AudioPlayer.sharedInstance.stop()
+		AudioPlayerManager.sharedInstance.stop()
 	}
 
 	@IBAction func didPressPlayPauseButton(sender: AnyObject) {
-		AudioPlayer.sharedInstance.togglePlayPause()
+		AudioPlayerManager.sharedInstance.togglePlayPause()
 	}
 
 	@IBAction func didPressForwardButton(sender: AnyObject) {
-		AudioPlayer.sharedInstance.forward()
+		AudioPlayerManager.sharedInstance.forward()
 	}
 }

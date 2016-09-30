@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AudioPlayer
+import AudioPlayerManager
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -43,6 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	// MARK: Remote control
 
 	override func remoteControlReceivedWithEvent(event: UIEvent?) {
-		AudioPlayer.sharedInstance.remoteControlReceivedWithEvent(event)
+		AudioPlayerManager.sharedInstance.remoteControlReceivedWithEvent(event)
 	}
 }

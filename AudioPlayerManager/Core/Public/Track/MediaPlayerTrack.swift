@@ -1,6 +1,6 @@
 //
-//  HSMediaItemAudioPlayerItem.swift
-//  AudioPlayer
+//  MediaPlayerTrack.swift
+//  AudioPlayerManager
 //
 //  Created by Hans Seiffert on 02.08.16.
 //  Copyright © 2016 Hans Seiffert. All rights reserved.
@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 import MediaPlayer
 
-public class HSMediaItemAudioPlayerItem: AudioPlayerItem {
+public class MediaPlayerTrack: AudioTrack {
 
 	// MARK: - Properties
 
@@ -33,18 +33,18 @@ public class HSMediaItemAudioPlayerItem: AudioPlayerItem {
 		self.mediaItem = mediaItem
 	}
 
-	public class func playerItems(mediaItems: [MPMediaItem], startPosition: Int) -> (items: [HSMediaItemAudioPlayerItem], startPosition: Int) {
-		var reducedPlayerItems = [HSMediaItemAudioPlayerItem]()
-		var updatedPosition = startPosition
+	public class func items(mediaItems: [MPMediaItem], startIndex: Int) -> (tracks: [MediaPlayerTrack], startIndex: Int) {
+		var reducedTracks = [MediaPlayerTrack]()
+		var updatedIndex = startIndex
 		for index in 0..<mediaItems.count {
 			let mediaItem = mediaItems[index]
-			if let _playerItem = HSMediaItemAudioPlayerItem(mediaItem: mediaItem) {
-				reducedPlayerItems.append(_playerItem)
-			} else if (index <= startPosition && updatedPosition > 0) {
-				updatedPosition -= 1
+			if let _playerItem = MediaPlayerTrack(mediaItem: mediaItem) {
+				reducedTracks.append(_playerItem)
+			} else if (index <= startIndex && updatedIndex > 0) {
+				updatedIndex -= 1
 			}
 		}
-		return (items: reducedPlayerItems, startPosition: updatedPosition)
+		return (tracks: reducedTracks, startIndex: updatedIndex)
 	}
 
 	// MARK: - Lifecycle
@@ -55,7 +55,7 @@ public class HSMediaItemAudioPlayerItem: AudioPlayerItem {
 		}
 	}
 
-	public override func getAVPlayerItem() -> AVPlayerItem? {
+	public override func getPlayerItem() -> AVPlayerItem? {
 		if let _url = self.mediaItem?.assetURL {
 			return AVPlayerItem(URL: _url)
 		}
@@ -87,15 +87,15 @@ public class HSMediaItemAudioPlayerItem: AudioPlayerItem {
 		return self.mediaItem?.isPlayable() ?? true
 	}
 
-	public class func firstPlayableItem(mediaItems: [MPMediaItem], startPosition: Int) -> (playerItem: HSMediaItemAudioPlayerItem, index: Int)? {
+	public class func firstPlayable(mediaItems: [MPMediaItem], startIndex: Int) -> (track: MediaPlayerTrack, index: Int)? {
 		// Iterate through all media items
-		for index in startPosition..<mediaItems.count {
+		for index in startIndex..<mediaItems.count {
 			let mediaItem = mediaItems[index]
 			// Check whether it's playable
 			if (mediaItem.isPlayable() == true) {
-				// Create the player item from the first playable item and return it.
-				if let _playerItem = HSMediaItemAudioPlayerItem(mediaItem: mediaItem) {
-					return (playerItem: _playerItem, index: index)
+				// Create the player item from the first playable track and return it.
+				if let _track = MediaPlayerTrack(mediaItem: mediaItem) {
+					return (track: _track, index: index)
 				}
 			}
 		}

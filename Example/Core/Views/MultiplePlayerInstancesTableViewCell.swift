@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AudioPlayer
+import AudioPlayerManager
 import MediaPlayer
 
 class MultiplePlayerInstancesTableViewCell: UITableViewCell {
