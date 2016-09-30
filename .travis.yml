@@ -17,5 +17,6 @@ env:
 script:
   - set -o pipefail
   # Build Framework and Run Tests
-  - xctool -workspace "$WORKSPACE" -scheme "$IOS_FRAMEWORK_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION" | xcpretty
+  - xctool -workspace "$WORKSPACE" -scheme "$IOS_FRAMEWORK_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION"
+  - xctool -workspace "$WORKSPACE" -scheme "$IOS_EXAMPLE_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION"
   - pod lib lint
