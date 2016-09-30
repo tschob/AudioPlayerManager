@@ -28,13 +28,6 @@
 			remoteGlobalIDString = 3A48660C1D50A7D700CC4A04;
 			remoteInfo = HSAudioPlayer;
 		};
-		3A48668E1D50C7BF00CC4A04 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A4866871D50C7BF00CC4A04 /* HSAudioPlayer.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3A4866161D50A7D700CC4A04;
-			remoteInfo = HSAudioPlayerTests;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -141,7 +134,6 @@
 			isa = PBXGroup;
 			children = (
 				3A48668D1D50C7BF00CC4A04 /* HSAudioPlayer.framework */,
-				3A48668F1D50C7BF00CC4A04 /* HSAudioPlayerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -254,13 +246,6 @@
 			fileType = wrapper.framework;
 			path = HSAudioPlayer.framework;
 			remoteRef = 3A48668C1D50C7BF00CC4A04 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3A48668F1D50C7BF00CC4A04 /* HSAudioPlayerTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = HSAudioPlayerTests.xctest;
-			remoteRef = 3A48668E1D50C7BF00CC4A04 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
