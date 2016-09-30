@@ -7,26 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A1F80651D50DCE100E8BC14 /* HSAudioPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1F80611D50DC2E00E8BC14 /* HSAudioPlayer.framework */; };
-		3A1F80681D50DCFB00E8BC14 /* HSAudioPlayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A48668D1D50C7BF00CC4A04 /* HSAudioPlayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A48667A1D50C72100CC4A04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4866701D50C72100CC4A04 /* AppDelegate.swift */; };
 		3A48667E1D50C72100CC4A04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A4866771D50C72100CC4A04 /* Assets.xcassets */; };
 		3A48667F1D50C72100CC4A04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A4866781D50C72100CC4A04 /* LaunchScreen.storyboard */; };
 		3A4866801D50C72100CC4A04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A4866791D50C72100CC4A04 /* Main.storyboard */; };
-		8701E7D81D69066D00F21C2D /* HSEMultiplePlayerInstancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7D71D69066D00F21C2D /* HSEMultiplePlayerInstancesViewController.swift */; };
-		8701E7E41D6907DD00F21C2D /* HSEMultiplePlayerInstancesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E31D6907DD00F21C2D /* HSEMultiplePlayerInstancesTableViewCell.swift */; };
-		8701E7EA1D6907F300F21C2D /* HSEMusicLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E71D6907F300F21C2D /* HSEMusicLibraryViewController.swift */; };
-		8701E7EB1D6907F300F21C2D /* HSEURLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E81D6907F300F21C2D /* HSEURLViewController.swift */; };
-		8701E7EC1D6907F300F21C2D /* HSEPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E91D6907F300F21C2D /* HSEPlayerViewController.swift */; };
+		3A7BFA441D9EC6B5007E521D /* AudioPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A7BFA3D1D9EC5CA007E521D /* AudioPlayer.framework */; };
+		8701E7D81D69066D00F21C2D /* MultiplePlayerInstancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7D71D69066D00F21C2D /* MultiplePlayerInstancesViewController.swift */; };
+		8701E7E41D6907DD00F21C2D /* MultiplePlayerInstancesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E31D6907DD00F21C2D /* MultiplePlayerInstancesTableViewCell.swift */; };
+		8701E7EA1D6907F300F21C2D /* MusicLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E71D6907F300F21C2D /* MusicLibraryViewController.swift */; };
+		8701E7EB1D6907F300F21C2D /* URLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E81D6907F300F21C2D /* URLViewController.swift */; };
+		8701E7EC1D6907F300F21C2D /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E91D6907F300F21C2D /* PlayerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3A48668C1D50C7BF00CC4A04 /* PBXContainerItemProxy */ = {
+		3A7BFA3C1D9EC5CA007E521D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3A4866871D50C7BF00CC4A04 /* HSAudioPlayer.xcodeproj */;
+			containerPortal = 3A7BFA381D9EC5CA007E521D /* AudioPlayer.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 3A48660C1D50A7D700CC4A04;
-			remoteInfo = HSAudioPlayer;
+			remoteInfo = AudioPlayer;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -37,7 +36,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3A1F80681D50DCFB00E8BC14 /* HSAudioPlayer.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -45,20 +43,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3A1F80611D50DC2E00E8BC14 /* HSAudioPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HSAudioPlayer.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HAAudioPlayer-aakdefisfsoekfcwhqghkzdsobcf/Build/Products/Debug-iphoneos/HSAudioPlayer.framework"; sourceTree = "<group>"; };
 		3A4866581D50C69100CC4A04 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A4866701D50C72100CC4A04 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A4866751D50C72100CC4A04 /* Example-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Example-Info.plist"; sourceTree = "<group>"; };
 		3A4866771D50C72100CC4A04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A4866781D50C72100CC4A04 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A4866791D50C72100CC4A04 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		3A4866871D50C7BF00CC4A04 /* HSAudioPlayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HSAudioPlayer.xcodeproj; path = ../HSAudioPlayer/HSAudioPlayer.xcodeproj; sourceTree = "<group>"; };
 		3A4866901D50CA2A00CC4A04 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		8701E7D71D69066D00F21C2D /* HSEMultiplePlayerInstancesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HSEMultiplePlayerInstancesViewController.swift; path = MultiplePlayerInstances/HSEMultiplePlayerInstancesViewController.swift; sourceTree = "<group>"; };
-		8701E7E31D6907DD00F21C2D /* HSEMultiplePlayerInstancesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HSEMultiplePlayerInstancesTableViewCell.swift; path = Views/HSEMultiplePlayerInstancesTableViewCell.swift; sourceTree = "<group>"; };
-		8701E7E71D6907F300F21C2D /* HSEMusicLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSEMusicLibraryViewController.swift; sourceTree = "<group>"; };
-		8701E7E81D6907F300F21C2D /* HSEURLViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSEURLViewController.swift; sourceTree = "<group>"; };
-		8701E7E91D6907F300F21C2D /* HSEPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSEPlayerViewController.swift; sourceTree = "<group>"; };
+		3A7BFA381D9EC5CA007E521D /* AudioPlayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioPlayer.xcodeproj; path = ../AudioPlayer/AudioPlayer.xcodeproj; sourceTree = "<group>"; };
+		8701E7D71D69066D00F21C2D /* MultiplePlayerInstancesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiplePlayerInstancesViewController.swift; path = MultiplePlayerInstances/MultiplePlayerInstancesViewController.swift; sourceTree = "<group>"; };
+		8701E7E31D6907DD00F21C2D /* MultiplePlayerInstancesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiplePlayerInstancesTableViewCell.swift; path = Views/MultiplePlayerInstancesTableViewCell.swift; sourceTree = "<group>"; };
+		8701E7E71D6907F300F21C2D /* MusicLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicLibraryViewController.swift; sourceTree = "<group>"; };
+		8701E7E81D6907F300F21C2D /* URLViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLViewController.swift; sourceTree = "<group>"; };
+		8701E7E91D6907F300F21C2D /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A1F80651D50DCE100E8BC14 /* HSAudioPlayer.framework in Frameworks */,
+				3A7BFA441D9EC6B5007E521D /* AudioPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,7 +73,7 @@
 		3A48664F1D50C69100CC4A04 = {
 			isa = PBXGroup;
 			children = (
-				3A4866871D50C7BF00CC4A04 /* HSAudioPlayer.xcodeproj */,
+				3A7BFA381D9EC5CA007E521D /* AudioPlayer.xcodeproj */,
 				3A48666F1D50C72100CC4A04 /* Core */,
 				3A4866761D50C72100CC4A04 /* Resources */,
 				3A4866741D50C72100CC4A04 /* PLists */,
@@ -130,27 +127,26 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		3A4866881D50C7BF00CC4A04 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3A48668D1D50C7BF00CC4A04 /* HSAudioPlayer.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		3A4866931D50CA4F00CC4A04 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3A1F80611D50DC2E00E8BC14 /* HSAudioPlayer.framework */,
 				3A4866901D50CA2A00CC4A04 /* MediaPlayer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3A7BFA391D9EC5CA007E521D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3A7BFA3D1D9EC5CA007E521D /* AudioPlayer.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		8701E7DB1D69067200F21C2D /* MultiplePlayerInstances */ = {
 			isa = PBXGroup;
 			children = (
-				8701E7D71D69066D00F21C2D /* HSEMultiplePlayerInstancesViewController.swift */,
+				8701E7D71D69066D00F21C2D /* MultiplePlayerInstancesViewController.swift */,
 			);
 			name = MultiplePlayerInstances;
 			sourceTree = "<group>";
@@ -158,7 +154,7 @@
 		8701E7E51D6907E100F21C2D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8701E7E31D6907DD00F21C2D /* HSEMultiplePlayerInstancesTableViewCell.swift */,
+				8701E7E31D6907DD00F21C2D /* MultiplePlayerInstancesTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -166,9 +162,9 @@
 		8701E7E61D6907F300F21C2D /* SharedInstancePlayer */ = {
 			isa = PBXGroup;
 			children = (
-				8701E7E71D6907F300F21C2D /* HSEMusicLibraryViewController.swift */,
-				8701E7E81D6907F300F21C2D /* HSEURLViewController.swift */,
-				8701E7E91D6907F300F21C2D /* HSEPlayerViewController.swift */,
+				8701E7E71D6907F300F21C2D /* MusicLibraryViewController.swift */,
+				8701E7E81D6907F300F21C2D /* URLViewController.swift */,
+				8701E7E91D6907F300F21C2D /* PlayerViewController.swift */,
 			);
 			path = SharedInstancePlayer;
 			sourceTree = "<group>";
@@ -229,8 +225,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 3A4866881D50C7BF00CC4A04 /* Products */;
-					ProjectRef = 3A4866871D50C7BF00CC4A04 /* HSAudioPlayer.xcodeproj */;
+					ProductGroup = 3A7BFA391D9EC5CA007E521D /* Products */;
+					ProjectRef = 3A7BFA381D9EC5CA007E521D /* AudioPlayer.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -241,11 +237,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		3A48668D1D50C7BF00CC4A04 /* HSAudioPlayer.framework */ = {
+		3A7BFA3D1D9EC5CA007E521D /* AudioPlayer.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = HSAudioPlayer.framework;
-			remoteRef = 3A48668C1D50C7BF00CC4A04 /* PBXContainerItemProxy */;
+			path = AudioPlayer.framework;
+			remoteRef = 3A7BFA3C1D9EC5CA007E521D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -285,12 +281,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8701E7EC1D6907F300F21C2D /* HSEPlayerViewController.swift in Sources */,
+				8701E7EC1D6907F300F21C2D /* PlayerViewController.swift in Sources */,
 				3A48667A1D50C72100CC4A04 /* AppDelegate.swift in Sources */,
-				8701E7D81D69066D00F21C2D /* HSEMultiplePlayerInstancesViewController.swift in Sources */,
-				8701E7E41D6907DD00F21C2D /* HSEMultiplePlayerInstancesTableViewCell.swift in Sources */,
-				8701E7EA1D6907F300F21C2D /* HSEMusicLibraryViewController.swift in Sources */,
-				8701E7EB1D6907F300F21C2D /* HSEURLViewController.swift in Sources */,
+				8701E7D81D69066D00F21C2D /* MultiplePlayerInstancesViewController.swift in Sources */,
+				8701E7E41D6907DD00F21C2D /* MultiplePlayerInstancesTableViewCell.swift in Sources */,
+				8701E7EA1D6907F300F21C2D /* MusicLibraryViewController.swift in Sources */,
+				8701E7EB1D6907F300F21C2D /* URLViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,7 +387,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = de.seiffert.hans.swift.hsaudioplayer.example;
+				PRODUCT_BUNDLE_IDENTIFIER = de.seiffert.hans.swift.audioplayer.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "35c65a7a-c0c5-4add-ae0f-c5b38f3809d0";
 			};
@@ -408,7 +404,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-D RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = de.seiffert.hans.swift.hsaudioplayer.example;
+				PRODUCT_BUNDLE_IDENTIFIER = de.seiffert.hans.swift.audioplayer.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
