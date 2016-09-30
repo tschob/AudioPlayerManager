@@ -3,11 +3,11 @@ osx_image: xcode7.3
 sudo: false
 env:
   global:
-    - FRAMEWORK_NAME=AudioPlayer
+    - FRAMEWORK_NAME=AudioPlayerManager
     - LC_CTYPE=en_US.UTF-8
     - LANG=en_US.UTF-8
-    - WORKSPACE=AudioPlayer.xcworkspace
-    - IOS_FRAMEWORK_SCHEME="AudioPlayer"
+    - WORKSPACE=AudioPlayerManager.xcworkspace
+    - IOS_FRAMEWORK_SCHEME="AudioPlayerManager"
     - IOS_SDK=iphonesimulator
     - IOS_EXAMPLE_SCHEME="Example"
   matrix:
