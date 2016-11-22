@@ -5,6 +5,7 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/tschob/AudioPlayerManager)
 [![License](https://img.shields.io/cocoapods/l/AudioPlayerManager.svg?style=flat)](http://cocoadocs.org/docsets/AudioPlayerManager)
 [![Platform](https://img.shields.io/cocoapods/p/AudioPlayerManager.svg?style=flat)](http://cocoadocs.org/docsets/AudioPlayerManager)
+[![Language: Swift 2.3](https://img.shields.io/badge/Swift-2.3-orange.svg)](https://swift.org)
 
 ## Feature
 
@@ -12,6 +13,7 @@ AudioPlayerManager is a small audio player which takes care of the AVPlayer setu
 
 ## Requirements
 - iOS 8+
+- Xcode 8+
 
 ## Installation
 
