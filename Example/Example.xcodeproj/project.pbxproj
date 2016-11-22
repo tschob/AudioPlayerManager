@@ -11,15 +11,23 @@
 		3A48667E1D50C72100CC4A04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A4866771D50C72100CC4A04 /* Assets.xcassets */; };
 		3A48667F1D50C72100CC4A04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A4866781D50C72100CC4A04 /* LaunchScreen.storyboard */; };
 		3A4866801D50C72100CC4A04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A4866791D50C72100CC4A04 /* Main.storyboard */; };
+		3AC3E1681DE485DB00870499 /* AudioPlayerManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8795E3371D9EE28A009ECAB0 /* AudioPlayerManager.framework */; };
+		3AC3E1691DE485DB00870499 /* AudioPlayerManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8795E3371D9EE28A009ECAB0 /* AudioPlayerManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8701E7D81D69066D00F21C2D /* MultiplePlayerInstancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7D71D69066D00F21C2D /* MultiplePlayerInstancesViewController.swift */; };
 		8701E7E41D6907DD00F21C2D /* MultiplePlayerInstancesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E31D6907DD00F21C2D /* MultiplePlayerInstancesTableViewCell.swift */; };
 		8701E7EA1D6907F300F21C2D /* MusicLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E71D6907F300F21C2D /* MusicLibraryViewController.swift */; };
 		8701E7EB1D6907F300F21C2D /* URLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E81D6907F300F21C2D /* URLViewController.swift */; };
 		8701E7EC1D6907F300F21C2D /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E91D6907F300F21C2D /* PlayerViewController.swift */; };
-		8795E3381D9EE5E2009ECAB0 /* AudioPlayerManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8795E3371D9EE28A009ECAB0 /* AudioPlayerManager.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3AC3E16A1DE485DB00870499 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8795E3321D9EE28A009ECAB0 /* AudioPlayerManager.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 3A48660B1D50A7D700CC4A04;
+			remoteInfo = AudioPlayerManager;
+		};
 		8795E3361D9EE28A009ECAB0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8795E3321D9EE28A009ECAB0 /* AudioPlayerManager.xcodeproj */;
@@ -30,12 +38,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3A1F80671D50DCE100E8BC14 /* Embed Frameworks */ = {
+		3AC3E16C1DE485DB00870499 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				3AC3E1691DE485DB00870499 /* AudioPlayerManager.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -63,7 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8795E3381D9EE5E2009ECAB0 /* AudioPlayerManager.framework in Frameworks */,
+				3AC3E1681DE485DB00870499 /* AudioPlayerManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,11 +189,12 @@
 				3A4866551D50C69100CC4A04 /* Frameworks */,
 				3A4866561D50C69100CC4A04 /* Resources */,
 				3A7AB0F41D50CBFF00560B0F /* Run Swiftlint */,
-				3A1F80671D50DCE100E8BC14 /* Embed Frameworks */,
+				3AC3E16C1DE485DB00870499 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3AC3E16B1DE485DB00870499 /* PBXTargetDependency */,
 			);
 			name = Example;
 			productName = Example;
@@ -198,12 +208,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Hans Seiffert";
 				TargetAttributes = {
 					3A4866571D50C69100CC4A04 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = BY48Q678R7;
+						LastSwiftMigration = 0810;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -292,6 +304,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		3AC3E16B1DE485DB00870499 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AudioPlayerManager;
+			targetProxy = 3AC3E16A1DE485DB00870499 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		3A48666A1D50C69100CC4A04 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -307,8 +327,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -335,6 +357,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -353,8 +376,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -373,6 +398,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -381,24 +408,30 @@
 		3A48666D1D50C69100CC4A04 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = BY48Q678R7;
 				INFOPLIST_FILE = "PLists/Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = de.seiffert.hans.swift.audioplayer.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "35c65a7a-c0c5-4add-ae0f-c5b38f3809d0";
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
 		3A48666E1D50C69100CC4A04 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = BY48Q678R7;
 				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
 				INFOPLIST_FILE = "PLists/Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -407,6 +440,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.seiffert.hans.swift.audioplayer.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};

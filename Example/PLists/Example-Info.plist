@@ -24,6 +24,8 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Media Library access is needed to play tracks from the Media library.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
