@@ -10,11 +10,11 @@ import UIKit
 
 // MARK: - Log
 
-func Log(message: AnyObject = "", file: String = #file, function: String = #function, line: Int = #line) {
-	if (AudioPlayerManager.Verbose == true) {
-		if (AudioPlayerManager.DetailedLog == true),
-			let className = NSURL(string: file)?.lastPathComponent?.componentsSeparatedByString(".").first {
-			let log = "\(NSDate()) - [\(className)].\(function)[\(line)]: \(message)"
+func Log(_ message: String = "", file: String = #file, function: String = #function, line: Int = #line) {
+	if (AudioPlayerManager.verbose == true) {
+		if (AudioPlayerManager.detailedLog == true),
+			let className = URL(string: file)?.lastPathComponent.components(separatedBy: ".").first {
+			let log = "\(Date()) - [\(className)].\(function)[\(line)]: \(message)"
 			print(log)
 		} else {
 			print(message)

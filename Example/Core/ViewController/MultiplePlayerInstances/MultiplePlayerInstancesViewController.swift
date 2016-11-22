@@ -12,17 +12,17 @@ import MediaPlayer
 
 class MultiplePlayerInstancesViewController: UIViewController {
 
-	private var data						: [(mediaItem: MPMediaItem, audioPlayerManager: AudioPlayerManager?)] = []
+	fileprivate var data						: [(mediaItem: MPMediaItem, audioPlayerManager: AudioPlayerManager?)] = []
 
-	@IBOutlet private weak var tableView: UITableView?
+	@IBOutlet fileprivate weak var tableView: UITableView?
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		let tempData = MPMediaQuery.songsQuery().items ?? []
+		let tempData = MPMediaQuery.songs().items ?? []
 		self.data = []
 		for mediaItem in tempData {
-			if (mediaItem.cloudItem == false && mediaItem.assetURL != nil) {
+			if (mediaItem.isCloudItem == false && mediaItem.assetURL != nil) {
 				self.data.append((mediaItem: mediaItem, audioPlayerManager: nil))
 				if (self.data.count >= 20) {
 					break
@@ -30,7 +30,7 @@ class MultiplePlayerInstancesViewController: UIViewController {
 			}
 		}
 
-		NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(updateTableView), userInfo: nil, repeats: true).fire()
+		Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateTableView), userInfo: nil, repeats: true).fire()
 	}
 
 	func updateTableView() {
@@ -42,27 +42,27 @@ class MultiplePlayerInstancesViewController: UIViewController {
 
 extension MultiplePlayerInstancesViewController: UITableViewDelegate, UITableViewDataSource {
 
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return self.data.count
 	}
 
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-		if let _cell = tableView.dequeueReusableCellWithIdentifier("multiplePlayerInstancesCell", forIndexPath: indexPath) as? MultiplePlayerInstancesTableViewCell {
+		if let _cell = tableView.dequeueReusableCell(withIdentifier: "multiplePlayerInstancesCell", for: indexPath) as? MultiplePlayerInstancesTableViewCell {
 			let _mediItem = self.data[indexPath.row].mediaItem
 			let audioPlayerManager = self.data[indexPath.row].audioPlayerManager
-			_cell.setup(_mediItem, isPlaying: (audioPlayerManager?.isPlaying() ?? false))
+			_cell.setup(with: _mediItem, isPlaying: (audioPlayerManager?.isPlaying() ?? false))
 			return _cell
 		}
 		return UITableViewCell()
 	}
 
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
 
 		var audioPlayerManager = self.data[indexPath.row].audioPlayerManager
 		if (audioPlayerManager == nil) {
-			audioPlayerManager = AudioPlayerManager.standaloneInstance()
+			audioPlayerManager = AudioPlayerManager.makeStandalonePlayer()
 			audioPlayerManager?.setup()
 			audioPlayerManager?.useRemoteControlEvents = false
 			audioPlayerManager?.useNowPlayingInfoCenter = false

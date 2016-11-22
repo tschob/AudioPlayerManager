@@ -11,8 +11,8 @@ import MediaPlayer
 
 class HSMediaLibraryHelper: NSObject {
 
-	class func mediaItem(persistentID persistentID: MPMediaEntityPersistentID) -> MPMediaItem? {
-		let predicate = MPMediaPropertyPredicate(value: NSNumber(unsignedLongLong: persistentID), forProperty: MPMediaItemPropertyPersistentID, comparisonType: .EqualTo)
+	class func mediaItem(persistentID: MPMediaEntityPersistentID) -> MPMediaItem? {
+		let predicate = MPMediaPropertyPredicate(value: NSNumber(value: persistentID as UInt64), forProperty: MPMediaItemPropertyPersistentID, comparisonType: .equalTo)
 		return MPMediaQuery(filterPredicates: Set(arrayLiteral: predicate)).items?.first
 	}
 }

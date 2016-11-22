@@ -12,9 +12,9 @@ class AudioTracksQueue: NSObject {
 
 	// MARK: - Private variables
 
-	private(set) var currentTrack		: AudioTrack?
+	fileprivate(set) var currentTrack		: AudioTrack?
 
-	private var previousTrack			: AudioTrack? {
+	fileprivate var previousTrack			: AudioTrack? {
 		let previousIndex = self.currentItemQueueIndex - 1
 		if (previousIndex >= 0) {
 			return self.queue[previousIndex]
@@ -22,14 +22,14 @@ class AudioTracksQueue: NSObject {
 		return nil
 	}
 
-	private var queue					= [AudioTrack]()
-	private var currentItemQueueIndex	= 0
+	fileprivate var queue					= [AudioTrack]()
+	fileprivate var currentItemQueueIndex	= 0
 
-	private var history					= [AudioTrack]()
+	fileprivate var history					= [AudioTrack]()
 
 	// MARK: Set
 
-	func replace(tracks: [AudioTrack]?, startIndex: Int) {
+	func replace(_ tracks: [AudioTrack]?, at startIndex: Int) {
 		if let _tracks = tracks {
 			// Add the current track to the history
 			if let _currentTrack = self.currentTrack {
@@ -48,15 +48,15 @@ class AudioTracksQueue: NSObject {
 		}
 	}
 
-	func prepend(tracks: [AudioTrack]) {
+	func prepend(_ tracks: [AudioTrack]) {
 		// Insert the tracks at the beginning of the queue
-		self.queue.insertContentsOf(tracks, at: 0)
+		self.queue.insert(contentsOf: tracks, at: 0)
 		// Adjust the current index to the new size
 		self.currentItemQueueIndex += tracks.count
 	}
 
-	func append(tracks: [AudioTrack]) {
-		self.queue.appendContentsOf(tracks)
+	func append(_ tracks: [AudioTrack]) {
+		self.queue.append(contentsOf: tracks)
 	}
 
 	// MARK: Forward
@@ -68,7 +68,7 @@ class AudioTracksQueue: NSObject {
 	func forward() -> Bool {
 		if (self.canForward() == true),
 			let _currentTrack = self.currentTrack,
-			_followingTrack = self.followingTrack() {
+			let _followingTrack = self.followingTrack() {
 				// Add current track to the history
 				_currentTrack.cleanupAfterPlaying()
 				// Replace the current track with the new one
@@ -82,7 +82,7 @@ class AudioTracksQueue: NSObject {
 		return false
 	}
 
-	private func followingTrack() -> AudioTrack? {
+	fileprivate func followingTrack() -> AudioTrack? {
 		let followingIndex = self.currentItemQueueIndex + 1
 		if (followingIndex < self.queue.count) {
 			return self.queue[followingIndex]
@@ -117,7 +117,7 @@ class AudioTracksQueue: NSObject {
 
 	// History
 
-	private func appendCurrentPlayingItemToQueue() {
+	fileprivate func appendCurrentPlayingItemToQueue() {
 		if let _currentTrack = self.currentTrack {
 			self.history.append(_currentTrack)
 		}

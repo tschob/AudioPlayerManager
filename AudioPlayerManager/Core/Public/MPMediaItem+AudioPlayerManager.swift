@@ -16,6 +16,6 @@ extension MPMediaItem {
 	- returns: A `Bool` which is true if the item is playable (the item isn't a cloud item and the asset URL exists.)
 	*/
 	public func isPlayable() -> Bool {
-		return (self.cloudItem == false && self.assetURL != nil)
+		return (self.isCloudItem == false && self.assetURL != nil)
 	}
 }
