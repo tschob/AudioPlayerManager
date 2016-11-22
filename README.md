@@ -5,7 +5,7 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/tschob/AudioPlayerManager)
 [![License](https://img.shields.io/cocoapods/l/AudioPlayerManager.svg?style=flat)](http://cocoadocs.org/docsets/AudioPlayerManager)
 [![Platform](https://img.shields.io/cocoapods/p/AudioPlayerManager.svg?style=flat)](http://cocoadocs.org/docsets/AudioPlayerManager)
-[![Language: Swift 2.3](https://img.shields.io/badge/Swift-2.3-orange.svg)](https://swift.org)
+[![Language: Swift 3](https://img.shields.io/badge/Swift-3-orange.svg)](https://swift.org)
 
 ## Feature
 
@@ -50,7 +50,7 @@ $ pod install
 There two basic usages:
 - A singleton player which play one item at a time
 ```
-AudioPlayerManager.sharedInstance.setup()
+AudioPlayerManager.shared.setup()
 ```
 
 - Multiple player instances which can be used at the same time
@@ -63,24 +63,21 @@ let audioPlayer = AudioPlayerManager.audioPlayer()
 In both usage cases you need to `setup()` the player instance before using it.
 
 ```
-AudioPlayerManager.sharedInstance.setup()
+AudioPlayerManager.shared.setup()
 ```
-This will setup the `AVAudioSession` playback plus activation state and initialize the remote control events plus now playing info center configuration. If you want to modify the basic settings you can this during or after calling `setup`.
+This will setup the `AVAudioSession` playback plus activation state and initialize the remote control events plus now playing info center configuration. If you want to modify the basic settings you can this after calling `setup`.
+
 
 ```
-AudioPlayerManager.sharedInstance.setup(useNowPlayingInfoCenter: false, useRemoteControlEvents: false)
-```
-
-```
-AudioPlayerManager.sharedInstance.setup()
-AudioPlayerManager.sharedInstance.playingTimeRefreshRate = 1.0
+AudioPlayerManager.shared.setup()
+AudioPlayerManager.shared.playingTimeRefreshRate = 1.0
 ```
 
 If you want to reveive remote control events you simply have to pass the events from the app delegate to the audio player instace
 
 ```
-override func remoteControlReceivedWithEvent(event: UIEvent?) {
-	AudioPlayerManager.sharedInstance.remoteControlReceivedWithEvent(event)
+override func remoteControlReceived(with event: UIEvent?) {
+	AudioPlayerManager.shared.remoteControlReceivedWithEvent(event)
 }
 ```
 
@@ -90,14 +87,14 @@ AudioPlayerManager can play local `MPMediaItem`s and stream items from a remote 
 
 The following line will replace the current queue of the audio player with the chosen item. The playback will stop automatically if the item was played.
 ```
-AudioPlayerManager.sharedInstance.play(url: self.trackUrl)
+AudioPlayerManager.shared.play(url: self.trackUrl)
 ```
 
 If you want to play multiple items you can pass an array and start index. The audio player will replace the current queue with the given array and jump right to the item at the given index. The queue allows the user to rewind also to items with a lower index than the start index.
 
 ```
 let songs = (MPMediaQuery.songsQuery().items ?? [])
-AudioPlayerManager.sharedInstance.play(mediaItems: songs, startIndex: 5)
+AudioPlayerManager.shared.play(mediaItems: songs, at: 5)
 ```
 
 
