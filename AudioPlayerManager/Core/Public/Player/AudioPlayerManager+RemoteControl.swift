@@ -10,18 +10,18 @@ import UIKit
 
 extension AudioPlayerManager {
 
-	public func remoteControlReceivedWithEvent(event: UIEvent?) {
+	public func remoteControlReceivedWithEvent(_ event: UIEvent?) {
 		if let _event = event {
 			switch _event.subtype {
-			case UIEventSubtype.RemoteControlPlay:
+			case UIEventSubtype.remoteControlPlay:
 				self.play()
-			case UIEventSubtype.RemoteControlPause:
+			case UIEventSubtype.remoteControlPause:
 				self.pause()
-			case UIEventSubtype.RemoteControlNextTrack:
+			case UIEventSubtype.remoteControlNextTrack:
 				self.forward()
-			case UIEventSubtype.RemoteControlPreviousTrack:
+			case UIEventSubtype.remoteControlPreviousTrack:
 				self.rewind()
-			case UIEventSubtype.RemoteControlTogglePlayPause:
+			case UIEventSubtype.remoteControlTogglePlayPause:
 				self.togglePlayPause()
 			default:
 				break

@@ -17,12 +17,12 @@ class MusicLibraryViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		AudioPlayerManager.sharedInstance.setup()
+		AudioPlayerManager.shared.setup()
 
-		let tempData = MPMediaQuery.songsQuery().items ?? []
+		let tempData = MPMediaQuery.songs().items ?? []
 		self.data = []
 		for mediaItem in tempData {
-			if (mediaItem.cloudItem == false && mediaItem.assetURL != nil) {
+			if (mediaItem.isCloudItem == false && mediaItem.assetURL != nil) {
 				self.data.append(mediaItem)
 				if (self.data.count >= 20) {
 					break
@@ -36,19 +36,19 @@ class MusicLibraryViewController: UIViewController {
 
 extension MusicLibraryViewController: UITableViewDelegate, UITableViewDataSource {
 
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return self.data.count
 	}
 
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("musicLibraryCell", forIndexPath: indexPath)
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "musicLibraryCell", for: indexPath)
 		cell.textLabel?.text = self.data[indexPath.row].title
 		return cell
 	}
 
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
 
-		AudioPlayerManager.sharedInstance.play(mediaItems: self.data, startIndex: indexPath.row)
+		AudioPlayerManager.shared.play(mediaItems: self.data, at: indexPath.row)
 	}
 }

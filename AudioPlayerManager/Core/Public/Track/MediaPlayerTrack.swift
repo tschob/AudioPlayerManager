@@ -10,13 +10,13 @@ import Foundation
 import AVFoundation
 import MediaPlayer
 
-public class MediaPlayerTrack: AudioTrack {
+open class MediaPlayerTrack: AudioTrack {
 
 	// MARK: - Properties
 
-	public var mediaItem					: MPMediaItem?
+	open var mediaItem					: MPMediaItem?
 
-	public var mediaItemPersitentID			: MPMediaEntityPersistentID?
+	open var mediaItemPersitentID			: MPMediaEntityPersistentID?
 
 	// MARK: - Initialization
 
@@ -33,7 +33,7 @@ public class MediaPlayerTrack: AudioTrack {
 		self.mediaItem = mediaItem
 	}
 
-	public class func items(mediaItems: [MPMediaItem], startIndex: Int) -> (tracks: [MediaPlayerTrack], startIndex: Int) {
+	open class func makeTracks(of mediaItems: [MPMediaItem], withStartIndex startIndex: Int) -> (tracks: [MediaPlayerTrack], startIndex: Int) {
 		var reducedTracks = [MediaPlayerTrack]()
 		var updatedIndex = startIndex
 		for index in 0..<mediaItems.count {
@@ -49,32 +49,32 @@ public class MediaPlayerTrack: AudioTrack {
 
 	// MARK: - Lifecycle
 
-	public override func loadResource() {
+	open override func loadResource() {
 		if let _mediaItemPersitentID = self.mediaItemPersitentID {
 			self.mediaItem = HSMediaLibraryHelper.mediaItem(persistentID: _mediaItemPersitentID)
 		}
 	}
 
-	public override func getPlayerItem() -> AVPlayerItem? {
+	open override func getPlayerItem() -> AVPlayerItem? {
 		if let _url = self.mediaItem?.assetURL {
-			return AVPlayerItem(URL: _url)
+			return AVPlayerItem(url: _url)
 		}
 		return nil
 	}
 
 	// MARK: - Now playing info
 
-	public override func initNowPlayingInfo() {
+	open override func initNowPlayingInfo() {
 		super.initNowPlayingInfo()
 
 		if let title = self.mediaItem?.title {
-			self.nowPlayingInfo?[MPMediaItemPropertyTitle] = title
+			self.nowPlayingInfo?[MPMediaItemPropertyTitle] = title as NSObject?
 		}
 		if let artistName = self.mediaItem?.artist {
-			self.nowPlayingInfo?[MPMediaItemPropertyArtist] = artistName
+			self.nowPlayingInfo?[MPMediaItemPropertyArtist] = artistName as NSObject?
 		}
 		if let albumTitle = self.mediaItem?.albumTitle {
-			self.nowPlayingInfo?[MPMediaItemPropertyAlbumTitle] = albumTitle
+			self.nowPlayingInfo?[MPMediaItemPropertyAlbumTitle] = albumTitle as NSObject?
 		}
 		if let albumCover = self.mediaItem?.artwork {
 			self.nowPlayingInfo?[MPMediaItemPropertyArtwork] = albumCover
@@ -83,11 +83,11 @@ public class MediaPlayerTrack: AudioTrack {
 
 	// MARK: - Helper
 
-	public override func isPlayable() -> Bool {
+	open override func isPlayable() -> Bool {
 		return self.mediaItem?.isPlayable() ?? true
 	}
 
-	public class func firstPlayable(mediaItems: [MPMediaItem], startIndex: Int) -> (track: MediaPlayerTrack, index: Int)? {
+	open class func firstPlayable(_ mediaItems: [MPMediaItem], startIndex: Int) -> (track: MediaPlayerTrack, index: Int)? {
 		// Iterate through all media items
 		for index in startIndex..<mediaItems.count {
 			let mediaItem = mediaItems[index]
@@ -103,7 +103,7 @@ public class MediaPlayerTrack: AudioTrack {
 		return nil
 	}
 
-	public override func identifier() -> String? {
+	open override func identifier() -> String? {
 		if let _mediaItemPersitentID = self.mediaItemPersitentID {
 			return "\(_mediaItemPersitentID)"
 		}

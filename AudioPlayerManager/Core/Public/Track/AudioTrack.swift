@@ -10,30 +10,30 @@ import Foundation
 import AVFoundation
 import MediaPlayer
 
-public class AudioTrack : NSObject {
+open class AudioTrack : NSObject {
 
 	// MARK: - PUBLIC -
 
 	// MARK: - Properties
 
-	public var playerItem						: AVPlayerItem?
+	open var playerItem						: AVPlayerItem?
 
-	public var nowPlayingInfo					: [String : NSObject]?
+	open var nowPlayingInfo					: [String : NSObject]?
 
 	// MARK: - Lifecycle
 
-	public func loadResource() {
+	open func loadResource() {
 		// Reloads the resource in the child class if necessary.
 	}
 
-	public func getPlayerItem() -> AVPlayerItem? {
+	open func getPlayerItem() -> AVPlayerItem? {
 		// Return the AVPlayerItem in the subclasses
 		return nil
 	}
 
 	// MARK: - Now playing info
 
-	public func initNowPlayingInfo() {
+	open func initNowPlayingInfo() {
 		// Init the now playing info here
 		self.nowPlayingInfo = [String : NSObject]()
 		self.updateNowPlayingInfoPlaybackDuration()
@@ -41,21 +41,21 @@ public class AudioTrack : NSObject {
 
 	// MARK: - Helper
 
-	public func durationInSeconds() -> Float {
-		if let _playerItem = self.playerItem where _playerItem.duration != kCMTimeIndefinite {
+	open func durationInSeconds() -> Float {
+		if let _playerItem = self.playerItem, _playerItem.duration != kCMTimeIndefinite {
 			return Float(CMTimeGetSeconds(_playerItem.duration))
 		}
 		return Float(0)
 	}
 
-	public func currentProgress() -> Float {
+	open func currentProgress() -> Float {
 		if (self.durationInSeconds() > 0) {
 			return self.currentTimeInSeconds() / self.durationInSeconds()
 		}
 		return Float(0)
 	}
 
-	public func currentTimeInSeconds() -> Float {
+	open func currentTimeInSeconds() -> Float {
 		if let _playerItem = self.playerItem {
 			return Float(CMTimeGetSeconds(_playerItem.currentTime()))
 		}
@@ -64,20 +64,20 @@ public class AudioTrack : NSObject {
 
 	// MARK: - Displayable Time strings
 
-	public func displayablePlaybackTimeString() -> String {
-		return AudioTrack.displayableStringFromTimeInterval(NSTimeInterval(self.currentTimeInSeconds()))
+	open func displayablePlaybackTimeString() -> String {
+		return AudioTrack.displayableString(from: TimeInterval(self.currentTimeInSeconds()))
 	}
 
-	public func displayableDurationString() -> String {
-		return AudioTrack.displayableStringFromTimeInterval(NSTimeInterval(self.durationInSeconds()))
+	open func displayableDurationString() -> String {
+		return AudioTrack.displayableString(from: TimeInterval(self.durationInSeconds()))
 	}
 
-	public func displayableTimeLeftString() -> String {
+	open func displayableTimeLeftString() -> String {
 		let timeLeft = self.durationInSeconds() - self.currentTimeInSeconds()
-		return "-\(AudioTrack.displayableStringFromTimeInterval(NSTimeInterval(timeLeft)))"
+		return "-\(AudioTrack.displayableString(from: TimeInterval(timeLeft)))"
 	}
 
-	public func isPlayable() -> Bool {
+	open func isPlayable() -> Bool {
 		return true
 	}
 
@@ -85,7 +85,7 @@ public class AudioTrack : NSObject {
 
 	// MARK: - Lifecycle
 
-	func prepareForPlaying(playerItem: AVPlayerItem) {
+	func prepareForPlaying(_ playerItem: AVPlayerItem) {
 		self.playerItem = playerItem
 		self.initNowPlayingInfo()
 	}
@@ -97,30 +97,30 @@ public class AudioTrack : NSObject {
 
 	// MARK: - Now playing info
 
-	public func updateNowPlayingInfoPlaybackDuration() {
+	open func updateNowPlayingInfoPlaybackDuration() {
 		if let _playerItem = self.playerItem {
-			let duration = NSNumber(integer: Int(CMTimeGetSeconds(_playerItem.asset.duration)))
+			let duration = NSNumber(value: Int(CMTimeGetSeconds(_playerItem.asset.duration)) as Int)
 			self.nowPlayingInfo?[MPMediaItemPropertyPlaybackDuration] = duration
 		}
 	}
 
 	// MARK: - Helper
 
-	public func identifier() -> String? {
+	open func identifier() -> String? {
 		// Return an unqiue identifier of the item in the subclasses
 		return nil
 	}
 
 	// MARK: NSTimeInterval
 
-	class func displayableStringFromTimeInterval(timeInterval: NSTimeInterval) -> String {
-		let dateComponentsFormatter = NSDateComponentsFormatter()
-		dateComponentsFormatter.zeroFormattingBehavior = NSDateComponentsFormatterZeroFormattingBehavior.Pad
+	class func displayableString(from timeInterval: TimeInterval) -> String {
+		let dateComponentsFormatter = DateComponentsFormatter()
+		dateComponentsFormatter.zeroFormattingBehavior = DateComponentsFormatter.ZeroFormattingBehavior.pad
 		if (timeInterval >= 60 * 60) {
-			dateComponentsFormatter.allowedUnits = [.Hour, .Minute, .Second]
+			dateComponentsFormatter.allowedUnits = [.hour, .minute, .second]
 		} else {
-			dateComponentsFormatter.allowedUnits = [.Minute, .Second]
+			dateComponentsFormatter.allowedUnits = [.minute, .second]
 		}
-		return dateComponentsFormatter.stringFromTimeInterval(timeInterval) ?? "0:00"
+		return dateComponentsFormatter.string(from: timeInterval) ?? "0:00"
 	}
 }

@@ -12,13 +12,13 @@ import MediaPlayer
 
 class MultiplePlayerInstancesTableViewCell: UITableViewCell {
 
-	@IBOutlet private weak var titleLabel: UILabel?
+	@IBOutlet fileprivate weak var titleLabel: UILabel?
 	@IBOutlet weak var playIconImageView: UIImageView?
 	@IBOutlet weak var stopIconImageView: UIImageView?
 
-	func setup(mediaItem: MPMediaItem, isPlaying: Bool) {
+	func setup(with mediaItem: MPMediaItem, isPlaying: Bool) {
 		self.titleLabel?.text = mediaItem.title
-		self.playIconImageView?.hidden = (isPlaying == true)
-		self.stopIconImageView?.hidden = (isPlaying == false)
+		self.playIconImageView?.isHidden = (isPlaying == true)
+		self.stopIconImageView?.isHidden = (isPlaying == false)
 	}
 }

@@ -10,19 +10,19 @@ import Foundation
 import AVFoundation
 import MediaPlayer
 
-public class AudioURLTrack: AudioTrack {
+open class AudioURLTrack: AudioTrack {
 
 	// MARK: - Properties
 
-	public var url		: NSURL?
+	open var url		: URL?
 
 	// MARK: - Initialization
 
 	public convenience init?(urlString: String) {
-		self.init(url: NSURL(string: urlString))
+		self.init(url: URL(string: urlString))
 	}
 
-	public convenience init?(url: NSURL?) {
+	public convenience init?(url: URL?) {
 		guard url != nil else {
 			return nil
 		}
@@ -30,11 +30,11 @@ public class AudioURLTrack: AudioTrack {
 		self.url = url
 	}
 
-	public class func items(urlStrings: [String], startIndex: Int) -> (tracks: [AudioURLTrack], startIndex: Int) {
-		return self.items(AudioURLTrack.convertToURLs(urlStrings), startIndex: startIndex)
+	open class func makeTracks(of urlStrings: [String], withStartIndex startIndex: Int) -> (tracks: [AudioURLTrack], startIndex: Int) {
+		return self.makeTracks(of: AudioURLTrack.convertToURLs(urlStrings), withStartIndex: startIndex)
 	}
 
-	public class func items(urls: [NSURL?], startIndex: Int) -> (tracks: [AudioURLTrack], startIndex: Int) {
+	open class func makeTracks(of urls: [URL?], withStartIndex startIndex: Int) -> (tracks: [AudioURLTrack], startIndex: Int) {
 		var reducedTracks = [AudioURLTrack]()
 		var reducedStartIndex = startIndex
 		// Iterate through all given URLs and create the tracks
@@ -52,10 +52,10 @@ public class AudioURLTrack: AudioTrack {
 
 	// MARK: - Lifecycle
 
-	override func prepareForPlaying(avPlayerItem: AVPlayerItem) {
+	override func prepareForPlaying(_ avPlayerItem: AVPlayerItem) {
 		super.prepareForPlaying(avPlayerItem)
 		// Listen to the timedMetadata initialization. We can extract the meta data then
-		self.playerItem?.addObserver(self, forKeyPath: Keys.TimedMetadata, options: NSKeyValueObservingOptions.Initial, context: nil)
+		self.playerItem?.addObserver(self, forKeyPath: Keys.TimedMetadata, options: NSKeyValueObservingOptions.initial, context: nil)
 	}
 
 	override func cleanupAfterPlaying() {
@@ -64,39 +64,39 @@ public class AudioURLTrack: AudioTrack {
 		super.cleanupAfterPlaying()
 	}
 
-	public override func getPlayerItem() -> AVPlayerItem? {
+	open override func getPlayerItem() -> AVPlayerItem? {
 		if let _url = self.url {
-			return AVPlayerItem(URL: _url)
+			return AVPlayerItem(url: _url)
 		}
 		return nil
 	}
 
 	// MARK: - Now playing info
 
-	public override func initNowPlayingInfo() {
+	open override func initNowPlayingInfo() {
 		super.initNowPlayingInfo()
 
-		self.nowPlayingInfo?[MPMediaItemPropertyTitle] = self.url?.lastPathComponent
+		self.nowPlayingInfo?[MPMediaItemPropertyTitle] = self.url?.lastPathComponent as NSObject?
 	}
 
 	// MARK: - Helper
 
-	public override func identifier() -> String? {
+	open override func identifier() -> String? {
 		if let _urlAbsoluteString = self.url?.absoluteString {
 			return _urlAbsoluteString
 		}
 		return super.identifier()
 	}
 
-	public class func convertToURLs(strings: [String]) -> [NSURL?] {
-		var urls: [NSURL?] = []
+	open class func convertToURLs(_ strings: [String]) -> [URL?] {
+		var urls: [URL?] = []
 		for string in strings {
-			urls.append(NSURL(string: string))
+			urls.append(URL(string: string))
 		}
 		return urls
 	}
 
-	public class func firstPlayableItem(urls: [NSURL?], startIndex: Int) -> (track: AudioURLTrack, index: Int)? {
+	open class func firstPlayableItem(_ urls: [URL?], at startIndex: Int) -> (track: AudioURLTrack, index: Int)? {
 		// Iterate through all URLs and check whether it's not nil
 		for index in startIndex..<urls.count {
 			if let _track = AudioURLTrack(url: urls[index]) {
@@ -110,22 +110,22 @@ public class AudioURLTrack: AudioTrack {
 
 	// MARK: - PRIVATE -
 
-	private struct Keys {
+	fileprivate struct Keys {
 		static let TimedMetadata		= "timedMetadata"
 	}
 
-	private func extractMetadata() {
+	fileprivate func extractMetadata() {
 		Log("Extracting meta data of player item with url: \(url)")
 		for metadataItem in (self.playerItem?.asset.commonMetadata ?? []) {
 			if let _key = metadataItem.commonKey {
 				switch _key {
-				case AVMetadataCommonKeyTitle		: self.nowPlayingInfo?[MPMediaItemPropertyTitle] = metadataItem.stringValue
-				case AVMetadataCommonKeyAlbumName	: self.nowPlayingInfo?[MPMediaItemPropertyAlbumTitle] = metadataItem.stringValue
-				case AVMetadataCommonKeyArtist		: self.nowPlayingInfo?[MPMediaItemPropertyArtist] = metadataItem.stringValue
+				case AVMetadataCommonKeyTitle		: self.nowPlayingInfo?[MPMediaItemPropertyTitle] = metadataItem.stringValue as NSObject?
+				case AVMetadataCommonKeyAlbumName	: self.nowPlayingInfo?[MPMediaItemPropertyAlbumTitle] = metadataItem.stringValue as NSObject?
+				case AVMetadataCommonKeyArtist		: self.nowPlayingInfo?[MPMediaItemPropertyArtist] = metadataItem.stringValue as NSObject?
 				case AVMetadataCommonKeyArtwork		:
 					if let
 						_data = metadataItem.dataValue,
-						_image = UIImage(data: _data) {
+						let _image = UIImage(data: _data) {
 						self.nowPlayingInfo?[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: _image)
 					}
 				default								: continue
@@ -133,7 +133,7 @@ public class AudioURLTrack: AudioTrack {
 			}
 		}
 		// Inform the player about the updated meta data
-		AudioPlayerManager.sharedInstance.didUpdateMetadata()
+		AudioPlayerManager.shared.didUpdateMetadata()
 	}
 }
 
@@ -141,8 +141,8 @@ public class AudioURLTrack: AudioTrack {
 
 extension AudioURLTrack {
 
-	override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-		if (keyPath == Keys.TimedMetadata) {
+	override open func observeValue(forKeyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+		if (forKeyPath == Keys.TimedMetadata) {
 			// Extract the meta data if the timedMetadata changed
 			self.extractMetadata()
 		}

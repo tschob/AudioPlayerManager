@@ -420,7 +420,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.seiffert.hans.swift.audioplayer.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -440,7 +440,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.seiffert.hans.swift.audioplayer.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

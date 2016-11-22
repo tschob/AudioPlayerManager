@@ -21,19 +21,19 @@ class URLViewController: UIViewController {
 
 extension URLViewController: UITableViewDelegate, UITableViewDataSource {
 
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return data.count
 	}
 
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("urlLibraryCell", forIndexPath: indexPath)
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "urlLibraryCell", for: indexPath)
 		cell.textLabel?.text = self.data[indexPath.row]
 		return cell
 	}
 
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
 
-		AudioPlayerManager.sharedInstance.play(urlStrings: self.data, startIndex: indexPath.row)
+		AudioPlayerManager.shared.play(urlStrings: self.data, at: indexPath.row)
 	}
 }
