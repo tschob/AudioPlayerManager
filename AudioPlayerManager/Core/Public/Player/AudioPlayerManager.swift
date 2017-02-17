@@ -23,7 +23,7 @@ open class AudioPlayerManager: NSObject {
 	/// Set this to true if the `AudioPlayerManager` log should be enabled. The default is `false`.
 	open static var verbose						= true
 
-	/// Set this to true if the `AudioPlayerManager` log should containt detailed information about the calling class, function and line. The default is `true`.
+	/// Set this to true if the `AudioPlayerManager` log should contain detailed information about the calling class, function and line. The default is `true`
 	open static var detailedLog					= true
 
 	/// Set this to true to use the systems `MPNowPlayingInfoCenter` (control center and lock screen). The default value is `true`.
