@@ -19,3 +19,4 @@ script:
   # Build Framework and Run Tests
   - xctool -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION"
   - pod lib lint
+  
