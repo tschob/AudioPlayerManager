@@ -59,10 +59,10 @@ extension AudioPlayerManager {
 		return false
 	}
 
-	public func isPlaying(persistentID id: MPMediaEntityPersistentID) -> Bool {
+	public func isPlaying(persistentID pid: MPMediaEntityPersistentID) -> Bool {
 		if (self.isPlaying() == true),
 			let _currentTrack = self.currentTrack as? MediaPlayerTrack {
-			return ("\(id)" == _currentTrack.identifier())
+			return ("\(pid)" == _currentTrack.identifier())
 		}
 		return false
 	}
