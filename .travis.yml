@@ -1,21 +1,21 @@
 language: objective-c
-osx_image: xcode8.1
+osx_image: xcode8.2.1
 sudo: false
 env:
   global:
-    - FRAMEWORK_NAME=AudioPlayerManager
     - LC_CTYPE=en_US.UTF-8
     - LANG=en_US.UTF-8
-    - WORKSPACE=AudioPlayerManager.xcworkspace
-    - IOS_FRAMEWORK_SCHEME="AudioPlayerManager"
+    - WORKSPACE=Example/Example.xcworkspace
+    - IOS_SCHEME="Example"
     - IOS_SDK=iphonesimulator
-    - IOS_EXAMPLE_SCHEME="Example"
   matrix:
     - DESTINATION="OS=8.4,name=iPhone 6"
     - DESTINATION="OS=9.3,name=iPhone 5s"
+    - DESTINATION="OS=10.2,name=iPhone 7"
 
 script:
   - set -o pipefail
+  - pod install
   # Build Framework and Run Tests
-  - xctool -workspace "$WORKSPACE" -scheme "$IOS_FRAMEWORK_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION"
+  - xctool -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION"
   - pod lib lint
