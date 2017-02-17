@@ -11,31 +11,13 @@
 		3A48667E1D50C72100CC4A04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A4866771D50C72100CC4A04 /* Assets.xcassets */; };
 		3A48667F1D50C72100CC4A04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A4866781D50C72100CC4A04 /* LaunchScreen.storyboard */; };
 		3A4866801D50C72100CC4A04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A4866791D50C72100CC4A04 /* Main.storyboard */; };
-		3AC3E1681DE485DB00870499 /* AudioPlayerManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8795E3371D9EE28A009ECAB0 /* AudioPlayerManager.framework */; };
-		3AC3E1691DE485DB00870499 /* AudioPlayerManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8795E3371D9EE28A009ECAB0 /* AudioPlayerManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4DE8862074CFDA41D63BB199 /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C505AEEFCAC28D7269FAB3FB /* Pods_Example.framework */; };
 		8701E7D81D69066D00F21C2D /* MultiplePlayerInstancesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7D71D69066D00F21C2D /* MultiplePlayerInstancesViewController.swift */; };
 		8701E7E41D6907DD00F21C2D /* MultiplePlayerInstancesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E31D6907DD00F21C2D /* MultiplePlayerInstancesTableViewCell.swift */; };
 		8701E7EA1D6907F300F21C2D /* MusicLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E71D6907F300F21C2D /* MusicLibraryViewController.swift */; };
 		8701E7EB1D6907F300F21C2D /* URLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E81D6907F300F21C2D /* URLViewController.swift */; };
 		8701E7EC1D6907F300F21C2D /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701E7E91D6907F300F21C2D /* PlayerViewController.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		3AC3E16A1DE485DB00870499 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8795E3321D9EE28A009ECAB0 /* AudioPlayerManager.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 3A48660B1D50A7D700CC4A04;
-			remoteInfo = AudioPlayerManager;
-		};
-		8795E3361D9EE28A009ECAB0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8795E3321D9EE28A009ECAB0 /* AudioPlayerManager.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3A48660C1D50A7D700CC4A04;
-			remoteInfo = AudioPlayerManager;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		3AC3E16C1DE485DB00870499 /* Embed Frameworks */ = {
@@ -44,7 +26,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3AC3E1691DE485DB00870499 /* AudioPlayerManager.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,12 +40,14 @@
 		3A4866781D50C72100CC4A04 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A4866791D50C72100CC4A04 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		3A4866901D50CA2A00CC4A04 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		80E1452D6511A1FEFC66A5E3 /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		8701E7D71D69066D00F21C2D /* MultiplePlayerInstancesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiplePlayerInstancesViewController.swift; path = MultiplePlayerInstances/MultiplePlayerInstancesViewController.swift; sourceTree = "<group>"; };
 		8701E7E31D6907DD00F21C2D /* MultiplePlayerInstancesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiplePlayerInstancesTableViewCell.swift; path = Views/MultiplePlayerInstancesTableViewCell.swift; sourceTree = "<group>"; };
 		8701E7E71D6907F300F21C2D /* MusicLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicLibraryViewController.swift; sourceTree = "<group>"; };
 		8701E7E81D6907F300F21C2D /* URLViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLViewController.swift; sourceTree = "<group>"; };
 		8701E7E91D6907F300F21C2D /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
-		8795E3321D9EE28A009ECAB0 /* AudioPlayerManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioPlayerManager.xcodeproj; path = ../AudioPlayerManager/AudioPlayerManager.xcodeproj; sourceTree = "<group>"; };
+		C505AEEFCAC28D7269FAB3FB /* Pods_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFA0BF518F11E0821714D1FD /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,22 +55,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AC3E1681DE485DB00870499 /* AudioPlayerManager.framework in Frameworks */,
+				4DE8862074CFDA41D63BB199 /* Pods_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06F4675C49713E52BF609962 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				80E1452D6511A1FEFC66A5E3 /* Pods-Example.debug.xcconfig */,
+				FFA0BF518F11E0821714D1FD /* Pods-Example.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		3A48664F1D50C69100CC4A04 = {
 			isa = PBXGroup;
 			children = (
-				8795E3321D9EE28A009ECAB0 /* AudioPlayerManager.xcodeproj */,
 				3A48666F1D50C72100CC4A04 /* Core */,
 				3A4866761D50C72100CC4A04 /* Resources */,
 				3A4866741D50C72100CC4A04 /* PLists */,
 				3A4866591D50C69100CC4A04 /* Products */,
 				3A4866931D50CA4F00CC4A04 /* Frameworks */,
+				06F4675C49713E52BF609962 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -140,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				3A4866901D50CA2A00CC4A04 /* MediaPlayer.framework */,
+				C505AEEFCAC28D7269FAB3FB /* Pods_Example.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -170,14 +163,6 @@
 			path = SharedInstancePlayer;
 			sourceTree = "<group>";
 		};
-		8795E3331D9EE28A009ECAB0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8795E3371D9EE28A009ECAB0 /* AudioPlayerManager.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -185,16 +170,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A48666C1D50C69100CC4A04 /* Build configuration list for PBXNativeTarget "Example" */;
 			buildPhases = (
+				E0680EA9E2D93823D49240DC /* [CP] Check Pods Manifest.lock */,
 				3A4866541D50C69100CC4A04 /* Sources */,
 				3A4866551D50C69100CC4A04 /* Frameworks */,
 				3A4866561D50C69100CC4A04 /* Resources */,
-				3A7AB0F41D50CBFF00560B0F /* Run Swiftlint */,
 				3AC3E16C1DE485DB00870499 /* Embed Frameworks */,
+				1BAFFA1571C46688DA768932 /* [CP] Embed Pods Frameworks */,
+				1F268542196D3F9316D22129 /* [CP] Copy Pods Resources */,
+				87E1A48A1E57B79700A152B2 /* Run SwiftLint */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				3AC3E16B1DE485DB00870499 /* PBXTargetDependency */,
 			);
 			name = Example;
 			productName = Example;
@@ -235,28 +222,12 @@
 			mainGroup = 3A48664F1D50C69100CC4A04;
 			productRefGroup = 3A4866591D50C69100CC4A04 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 8795E3331D9EE28A009ECAB0 /* Products */;
-					ProjectRef = 8795E3321D9EE28A009ECAB0 /* AudioPlayerManager.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				3A4866571D50C69100CC4A04 /* Example */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		8795E3371D9EE28A009ECAB0 /* AudioPlayerManager.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AudioPlayerManager.framework;
-			remoteRef = 8795E3361D9EE28A009ECAB0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3A4866561D50C69100CC4A04 /* Resources */ = {
@@ -272,19 +243,63 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3A7AB0F41D50CBFF00560B0F /* Run Swiftlint */ = {
+		1BAFFA1571C46688DA768932 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Run Swiftlint";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Example/Pods-Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1F268542196D3F9316D22129 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Example/Pods-Example-resources.sh\"\n";
+		};
+		87E1A48A1E57B79700A152B2 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"";
+		};
+		E0680EA9E2D93823D49240DC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -303,14 +318,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		3AC3E16B1DE485DB00870499 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AudioPlayerManager;
-			targetProxy = 3AC3E16A1DE485DB00870499 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		3A48666A1D50C69100CC4A04 /* Debug */ = {
@@ -407,8 +414,8 @@
 		};
 		3A48666D1D50C69100CC4A04 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80E1452D6511A1FEFC66A5E3 /* Pods-Example.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -416,7 +423,7 @@
 				INFOPLIST_FILE = "PLists/Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "-D DEBUG";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = de.seiffert.hans.swift.audioplayer.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -426,17 +433,20 @@
 		};
 		3A48666E1D50C69100CC4A04 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FFA0BF518F11E0821714D1FD /* Pods-Example.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = BY48Q678R7;
-				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"RELEASE=1",
+				);
 				INFOPLIST_FILE = "PLists/Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "-D RELEASE";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = de.seiffert.hans.swift.audioplayer.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
