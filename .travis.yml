@@ -16,7 +16,9 @@ env:
 
 script:
   - set -o pipefail
+  # Build the Example project
+  - pod repo update
   - pod install
-  # Build Framework and Run Tests
   - xctool -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION"
+  - cd ..
   - pod lib lint
