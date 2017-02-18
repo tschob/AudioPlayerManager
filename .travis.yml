@@ -7,7 +7,7 @@ env:
     - LANG=en_US.UTF-8
     - WORKSPACE=Example/Example.xcworkspace
     - IOS_SCHEME="Example"
-    - IOS_SDK=iphonesimulator
+    - IOS_SDK=iphonesimulator10.2
   matrix:
     - DESTINATION="OS=8.4,name=iPhone 6"
     - DESTINATION="OS=9.3,name=iPhone 5s"
