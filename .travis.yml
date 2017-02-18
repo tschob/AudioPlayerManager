@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode8.2.1
+osx_image: xcode8.2
 sudo: false
 env:
   global:
@@ -19,4 +19,3 @@ script:
   # Build Framework and Run Tests
   - xctool -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION"
   - pod lib lint
-  
