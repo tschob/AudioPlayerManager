@@ -1,0 +1,19 @@
+PODS:
+  - AudioPlayerManager (1.2.0)
+  - SwiftLint (0.16.1)
+
+DEPENDENCIES:
+  - AudioPlayerManager (from `../`)
+  - SwiftLint (~> 0.16)
+
+EXTERNAL SOURCES:
+  AudioPlayerManager:
+    :path: ../
+
+SPEC CHECKSUMS:
+  AudioPlayerManager: 25e8ec1f3943aec64b759c6b6242c1808e52650a
+  SwiftLint: b8b683208cc09640898f16318a7a452274e91f61
+
+PODFILE CHECKSUM: d6d44715c5d1340b50fc056269765958831b1b25
+
+COCOAPODS: 1.1.1

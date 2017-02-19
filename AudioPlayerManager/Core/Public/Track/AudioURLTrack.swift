@@ -123,10 +123,10 @@ open class AudioURLTrack: AudioTrack {
 				case AVMetadataCommonKeyAlbumName	: self.nowPlayingInfo?[MPMediaItemPropertyAlbumTitle] = metadataItem.stringValue as NSObject?
 				case AVMetadataCommonKeyArtist		: self.nowPlayingInfo?[MPMediaItemPropertyArtist] = metadataItem.stringValue as NSObject?
 				case AVMetadataCommonKeyArtwork		:
-					if let
-						_data = metadataItem.dataValue,
+					if
+						let _data = metadataItem.dataValue,
 						let _image = UIImage(data: _data) {
-						self.nowPlayingInfo?[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: _image)
+							self.nowPlayingInfo?[MPMediaItemPropertyArtwork] = self.mediaItemArtwork(from: _image)
 					}
 				default								: continue
 				}
@@ -134,6 +134,16 @@ open class AudioURLTrack: AudioTrack {
 		}
 		// Inform the player about the updated meta data
 		AudioPlayerManager.shared.didUpdateMetadata()
+	}
+
+	fileprivate func mediaItemArtwork(from image: UIImage) -> MPMediaItemArtwork {
+		if #available(iOS 10.0, *) {
+			return MPMediaItemArtwork.init(boundsSize: image.size, requestHandler: { (size: CGSize) -> UIImage in
+				return image
+			})
+		} else {
+			return MPMediaItemArtwork(image: image)
+		}
 	}
 }
 
