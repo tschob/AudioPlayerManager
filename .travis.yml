@@ -3,15 +3,16 @@ language: objective-c
 cache:
   - cocoapods
 
+env:
+  matrix:
+    - DESTINATION="platform=iOS Simulator,name=iPhone 5s,OS=9.3"
+    - DESTINATION="platform=iOS Simulator,name=iPhone 7,OS=10.2"
+
 podfile: Example/Podfile
 before_install:
   - gem install cocoapods
   - pod repo update
   - pod install --project-directory=Example
-
-matrix:
-  - DESTINATION="platform=iOS Simulator,name=iPhone 5s,OS=9.3"
-  - DESTINATION="platform=iOS Simulator,name=iPhone 7,OS=10.2"
 
 script:
 - set -o pipefail && xcodebuild build -workspace Example/Example.xcworkspace -scheme Example -destination "$DESTINATION" | xcpretty
