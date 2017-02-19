@@ -15,5 +15,6 @@ before_install:
   - pod install --project-directory=Example
 
 script:
-- set -o pipefail && xcodebuild build -workspace Example/Example.xcworkspace -scheme Example -destination "$DESTINATION" | xcpretty
+- set -o pipefail 
+- xcodebuild build -workspace Example/Example.xcworkspace -scheme Example -destination "$DESTINATION"
 - pod lib lint --allow-warnings
