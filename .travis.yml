@@ -1,23 +1,18 @@
-language: objective-c
 osx_image: xcode8.2
-sudo: false
-env:
-  global:
-    - LC_CTYPE=en_US.UTF-8
-    - LANG=en_US.UTF-8
-    - WORKSPACE=Example.xcworkspace
-    - IOS_SCHEME="Example"
-    - IOS_SDK=iphonesimulator
-  matrix:
-    - DESTINATION="OS=9.3,name=iPhone 5s"
-    - DESTINATION="OS=10.2,name=iPhone 7"
+language: objective-c
+cache:
+  - cocoapods
+
+podfile: Example/Podfile
+before_install:
+  - gem install cocoapods
+  - pod repo update
+  - pod install --project-directory=Example
+
+matrix:
+  - DESTINATION="platform=iOS Simulator,name=iPhone 5s,OS=9.3"
+  - DESTINATION="platform=iOS Simulator,name=iPhone 7,OS=10.2"
 
 script:
-  - set -o pipefail
-  - cd Example
-  # Build the Example project
-  - pod repo update
-  - pod install
-  - xctool -workspace "$WORKSPACE" -scheme "$IOS_SCHEME" -sdk "$IOS_SDK" -destination "$DESTINATION"
-  - cd ..
-  - pod lib lint
+- set -o pipefail && xcodebuild build -workspace Example/Example.xcworkspace -scheme Example -destination "$DESTINATION" | xcpretty
+- pod lib lint --allow-warnings
