@@ -6,7 +6,7 @@ cache:
 env:
   matrix:
     - DESTINATION="platform=iOS Simulator,name=iPhone 5s,OS=9.3"
-    - DESTINATION="platform=iOS Simulator,name=iPhone 7,OS=10.2"
+    - DESTINATION="platform=iOS Simulator,name=iPhone 7,OS=10.1"
 
 podfile: Example/Podfile
 before_install:
