@@ -99,7 +99,9 @@ public class AudioTrack : NSObject {
 
 	public func updateNowPlayingInfoPlaybackDuration() {
 		if let _playerItem = self.playerItem {
-			let duration = NSNumber(integer: Int(CMTimeGetSeconds(_playerItem.asset.duration)))
+			let timeInSeconds = CMTimeGetSeconds(_playerItem.asset.duration)
+			// Check ig the time isn't NaN. This can happen eg. for podcasts
+			let duration : NSNumber? = ((timeInSeconds.isNaN == false) ? NSNumber(integer: Int(timeInSeconds)) : nil)
 			self.nowPlayingInfo?[MPMediaItemPropertyPlaybackDuration] = duration
 		}
 	}
