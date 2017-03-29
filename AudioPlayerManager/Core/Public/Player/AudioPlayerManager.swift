@@ -171,15 +171,15 @@ open class AudioPlayerManager: NSObject {
 		if (self.didStopPlayback == false) {
 			self.didStopPlayback = true
 			if (clearQueue == true) {
-				self.queue.replace(nil, at: 0)
-				self.queueGeneration += 1
-				self.player?.replaceCurrentItem(with: nil)
+				self.clearQueue()
 			} else {
 				self.player?.seek(to: CMTimeMake(0, 1))
 				self.pause()
 			}
 			self.callPlayStateChangeCallbacks()
 			self.callPlaybackTimeChangeCallbacks()
+		} else if (clearQueue == true) {
+			self.clearQueue()
 		}
 	}
 
@@ -413,6 +413,12 @@ open class AudioPlayerManager: NSObject {
 			self.currentTrack?.updateNowPlayingInfoPlaybackTime()
 			MPNowPlayingInfoCenter.default().nowPlayingInfo = self.currentTrack?.nowPlayingInfo
 		}
+	}
+
+	private func clearQueue() {
+		self.queue.replace(nil, at: 0)
+		self.queueGeneration += 1
+		self.player?.replaceCurrentItem(with: nil)
 	}
 
 	// MARK: - Plaback time change callback
