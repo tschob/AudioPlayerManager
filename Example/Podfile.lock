@@ -1,5 +1,5 @@
 PODS:
-  - AudioPlayerManager (1.2.1)
+  - AudioPlayerManager (1.2.2)
   - SwiftLint (0.16.1)
 
 DEPENDENCIES:
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  AudioPlayerManager: 3039a3a12ff6bc656851980a059d135957efb351
+  AudioPlayerManager: f5ff13527c456e21290e62c35382a98d6d85b476
   SwiftLint: b8b683208cc09640898f16318a7a452274e91f61
 
 PODFILE CHECKSUM: 115f54042865946e67a13b38c1aae066b31e217e
