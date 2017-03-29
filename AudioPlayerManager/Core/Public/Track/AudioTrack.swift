@@ -57,7 +57,13 @@ open class AudioTrack : NSObject {
 
 	open func currentTimeInSeconds() -> Float {
 		if let _playerItem = self.playerItem {
-			return Float(CMTimeGetSeconds(_playerItem.currentTime()))
+			let currentTime = Float(CMTimeGetSeconds(_playerItem.currentTime()))
+			let duration = self.durationInSeconds()
+			guard (duration <= 0.0 || currentTime <= duration) else {
+				return duration
+			}
+
+			return currentTime
 		}
 		return Float(0)
 	}
@@ -101,9 +107,16 @@ open class AudioTrack : NSObject {
 		if let _playerItem = self.playerItem {
 			let timeInSeconds = CMTimeGetSeconds(_playerItem.asset.duration)
 			// Check ig the time isn't NaN. This can happen eg. for podcasts
-			let duration = ((timeInSeconds.isNaN == false) ? NSNumber(value: Int(timeInSeconds) as Int) : nil)
+			let duration = ((timeInSeconds.isNaN == false) ? NSNumber(value: Float(timeInSeconds)) : nil)
 			self.nowPlayingInfo?[MPMediaItemPropertyPlaybackDuration] = duration
 		}
+	}
+
+	open func updateNowPlayingInfoPlaybackTime() {
+		let currentTime = self.currentTimeInSeconds()
+		// Check ig the time isn't NaN.
+		let currentTimeAsNumber : NSNumber? = ((currentTime.isNaN == false) ? NSNumber(value: Float(currentTime)) : nil)
+		self.nowPlayingInfo?[MPNowPlayingInfoPropertyElapsedPlaybackTime] = currentTimeAsNumber
 	}
 
 	// MARK: - Helper

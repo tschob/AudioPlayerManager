@@ -91,7 +91,7 @@ open class AudioPlayerManager: NSObject {
 		if let _player = self.player {
 			_player.play()
 			if (updateNowPlayingInfo == true || self.didStopPlayback == true) {
-				self.updateNowPlayingInfo()
+				self.updateNowPlayingInfoIfNeeded()
 			}
 			self.didStopPlayback = false
 			self.startPlaybackTimeChangeTimer()
@@ -225,7 +225,7 @@ open class AudioPlayerManager: NSObject {
 			// Move to the beginning of the track if we aren't in the beginning.
 			self.player?.seek(to: CMTimeMake(0, 1))
 			// Update the now playing info to show the new playback time
-			self.updateNowPlayingInfo()
+			self.updateNowPlayingInfoIfNeeded()
 			// Call the callbacks to inform about the new time
 			self.callPlaybackTimeChangeCallbacks()
 		}
@@ -407,8 +407,10 @@ open class AudioPlayerManager: NSObject {
 
 	// MARK: - Internal helper
 
-	fileprivate func updateNowPlayingInfo() {
+	fileprivate func updateNowPlayingInfoIfNeeded() {
 		if (self.useNowPlayingInfoCenter == true) {
+			// Update the current play time
+			self.currentTrack?.updateNowPlayingInfoPlaybackTime()
 			MPNowPlayingInfoCenter.default().nowPlayingInfo = self.currentTrack?.nowPlayingInfo
 		}
 	}
@@ -416,6 +418,7 @@ open class AudioPlayerManager: NSObject {
 	// MARK: - Plaback time change callback
 
 	func callPlaybackTimeChangeCallbacks() {
+		self.updateNowPlayingInfoIfNeeded()
 		// Increase the current tracks playing time if the player is playing
 		if let _currentTrack = self.currentTrack {
 			for sender in self.playbackPositionChangeCallbacks.keys {
