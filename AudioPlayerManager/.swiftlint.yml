@@ -39,10 +39,14 @@ line_length:
 type_body_length:
   - 400 #warning
   - 500 #error
-  
+
 opt_in_rules:
   - missing_docs
   - force_unwrapping
+
+identifier_name:
+  excluded:
+    - Log(_:file:function:line:)
 
 custom_rules:
   comments_space:
