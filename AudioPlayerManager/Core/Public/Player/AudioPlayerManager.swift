@@ -14,6 +14,15 @@ open class AudioPlayerManager: NSObject {
 
 	// MARK: - PUBLIC -
 
+	/// Strategy which should be used during the buffering.
+	/// - Note: Is only supported by iOS 10+
+	public enum BufferStrategy {
+		/// The player will wait until enough data is loaded to minimize stalling. This will take longer to laod in the beginning but will lead to a smoother playback. Sets `AVPlayer.automaticallyWaitsToMinimizeStalling` to `true`
+		case minimizeStalling
+		/// The player will play as soon as the buffer isn't empty. Sets `AVPlayer.automaticallyWaitsToMinimizeStalling` to `false`
+		case playImmediately
+	}
+
 	// MARK: - Properties
 
 	open static let shared						= AudioPlayerManager()
@@ -27,7 +36,27 @@ open class AudioPlayerManager: NSObject {
 	open static var detailedLog					= true
 
 	/// Set this to true to use the systems `MPNowPlayingInfoCenter` (control center and lock screen). The default value is `true`.
-	open var useNowPlayingInfoCenter				= true
+	open var useNowPlayingInfoCenter			= true
+
+	/// Decides whether the audio player should wait until enough data is loaded to minimize stalling or if it should play as soon as the buffer is not empty. The default is `BufferStrategy.minimizeStalling`.
+	/// - Note: Is only supported in iOS 10+
+	open var bufferStrategy						= BufferStrategy.minimizeStalling {
+		didSet {
+			if #available(iOS 10.0, *) {
+				self.player?.automaticallyWaitsToMinimizeStalling = self.bufferStrategy == .minimizeStalling
+			}
+		}
+	}
+
+	/// Overrides the `preferredForwardBufferDuration` of `AVPlayerItem`. The default is `0` which let AVPlayer decide about the duration. 
+	/// - Note: Is only supported in iOS 10+
+	open var preferredForwardBufferDuration		= TimeInterval(0) {
+		didSet {
+			if #available(iOS 10.0, *) {
+				self.player?.currentItem?.preferredForwardBufferDuration = self.preferredForwardBufferDuration
+			}
+		}
+	}
 
 	// Set this to true to receive control events
 	open var useRemoteControlEvents				= true {
@@ -39,7 +68,7 @@ open class AudioPlayerManager: NSObject {
 	// The `NSTimeInterval` of the players update interval. Eg. the PlaybackTimeChangeCallbacks will be called then.
 	open var playingTimeRefreshRate				: TimeInterval = 0.1
 
-	open var currentTrack							: AudioTrack? {
+	open var currentTrack						: AudioTrack? {
 		return self.queue.currentTrack
 	}
 
@@ -247,15 +276,6 @@ open class AudioPlayerManager: NSObject {
 		self.forward()
 	}
 
-	override open func observeValue(forKeyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-		if (object as? NSObject == self.player) {
-			if (forKeyPath == Keys.status) {
-				if self.player?.status == AVPlayerStatus.readyToPlay {
-					self.play(updateNowPlayingInfo: true)
-				}
-			}
-		}
-	}
 
 	// MARK: - Playback time change callback
 
@@ -327,10 +347,6 @@ open class AudioPlayerManager: NSObject {
 
 	// MARK: - Properties
 
-	fileprivate struct Keys {
-		static let status	= "status"
-	}
-
 	fileprivate let audioPlayerManagerStateChangedPrefix	= "AudioPlayerManager.\(UUID().uuidString).playerStateChanged"
 
 	fileprivate var player									: AVPlayer?
@@ -348,8 +364,6 @@ open class AudioPlayerManager: NSObject {
 	fileprivate var playbackPositionChangeTimer				: Timer?
 	fileprivate var stopPlaybackTimeChangeTimer				= false
 
-	fileprivate var addedPlayerStateObserver				= false
-
 	// MARK: - Initializaiton
 
 	fileprivate func setupAudioSession() {
@@ -358,9 +372,8 @@ open class AudioPlayerManager: NSObject {
 	}
 
 	fileprivate func initPlayer() {
-		if let _player = self.player {
-			_player.addObserver(self, forKeyPath: Keys.status, options: NSKeyValueObservingOptions.new, context: nil)
-			self.addedPlayerStateObserver = true
+		if #available(iOS 10.0, *) {
+			self.player?.automaticallyWaitsToMinimizeStalling = self.bufferStrategy == .minimizeStalling
 		}
 
 		if (self.player?.responds(to: #selector(setter: AVAudioMixing.volume)) == true) {
@@ -383,10 +396,6 @@ open class AudioPlayerManager: NSObject {
 	fileprivate func restartCurrentTrack() {
 		Log("restartCurrentTrack")
 		if (self.player != nil) {
-			if (self.addedPlayerStateObserver == true) {
-				self.addedPlayerStateObserver = false
-				self.player?.removeObserver(self, forKeyPath: Keys.status, context: nil)
-			}
 			self.stop()
 		}
 
@@ -395,8 +404,12 @@ open class AudioPlayerManager: NSObject {
 			self.initPlayer()
 			_currentTrack.loadResource()
 			if let _playerItem = _currentTrack.avPlayerItem() {
+				if #available(iOS 10.0, *) {
+					_playerItem.preferredForwardBufferDuration = self.preferredForwardBufferDuration
+				}
 				_currentTrack.prepareForPlaying(_playerItem)
 				self.player?.replaceCurrentItem(with: _playerItem)
+				self.play(updateNowPlayingInfo: true)
 			}
 		}
 	}
