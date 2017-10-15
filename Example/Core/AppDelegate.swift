@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
 
-	// MARK: Remote control
+	// MARK: - Remote control
 
 	override func remoteControlReceived(with event: UIEvent?) {
 		AudioPlayerManager.shared.remoteControlReceivedWithEvent(event)

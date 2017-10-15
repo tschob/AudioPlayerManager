@@ -12,9 +12,9 @@ import MediaPlayer
 
 class MultiplePlayerInstancesTableViewCell: UITableViewCell {
 
-	@IBOutlet fileprivate weak var titleLabel: UILabel?
-	@IBOutlet weak var playIconImageView: UIImageView?
-	@IBOutlet weak var stopIconImageView: UIImageView?
+	@IBOutlet fileprivate weak var titleLabel			: UILabel?
+	@IBOutlet fileprivate weak var playIconImageView	: UIImageView?
+	@IBOutlet fileprivate weak var stopIconImageView	: UIImageView?
 
 	func setup(with mediaItem: MPMediaItem, isPlaying: Bool) {
 		self.titleLabel?.text = mediaItem.title

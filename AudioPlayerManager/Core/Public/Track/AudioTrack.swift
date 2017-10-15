@@ -18,7 +18,7 @@ open class AudioTrack : NSObject {
 
 	open var playerItem						: AVPlayerItem?
 
-	open var nowPlayingInfo					: [String : NSObject]?
+	open var nowPlayingInfo					: [String: NSObject]?
 
 	// MARK: - Lifecycle
 
@@ -26,7 +26,7 @@ open class AudioTrack : NSObject {
 		// Reloads the resource in the child class if necessary.
 	}
 
-	open func getPlayerItem() -> AVPlayerItem? {
+	open func avPlayerItem() -> AVPlayerItem? {
 		// Return the AVPlayerItem in the subclasses
 		return nil
 	}
@@ -35,7 +35,7 @@ open class AudioTrack : NSObject {
 
 	open func initNowPlayingInfo() {
 		// Init the now playing info here
-		self.nowPlayingInfo = [String : NSObject]()
+		self.nowPlayingInfo = [String: NSObject]()
 		self.updateNowPlayingInfoPlaybackDuration()
 	}
 
@@ -126,7 +126,7 @@ open class AudioTrack : NSObject {
 		return nil
 	}
 
-	// MARK: NSTimeInterval
+	// MARK: - NSTimeInterval
 
 	class func displayableString(from timeInterval: TimeInterval) -> String {
 		let dateComponentsFormatter = DateComponentsFormatter()
