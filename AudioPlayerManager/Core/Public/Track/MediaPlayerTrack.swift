@@ -55,7 +55,7 @@ open class MediaPlayerTrack: AudioTrack {
 		}
 	}
 
-	open override func getPlayerItem() -> AVPlayerItem? {
+	open override func avPlayerItem() -> AVPlayerItem? {
 		if let _url = self.mediaItem?.assetURL {
 			return AVPlayerItem(url: _url)
 		}

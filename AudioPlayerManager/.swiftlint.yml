@@ -1,105 +1,226 @@
 ###
 # Swiftlint configuration file.
-# Latest version supported: 0.11.1
+# Latest version supported: 0.21.0
 # Any newer version hasn't been checked yet and might not follow the style guide.
 ###
 
 disabled_rules: # rule identifiers to exclude from running
-  - colon	# exaclty one space after the : >>> let abc: Void\n
+  - colon # exaclty one space after the : >>> let abc: Void\n
   - control_statement # no rounded brackets around conditions. we would need this the other way around
   - todo # TODO can be written in the code but should be linked to a ticket on JIRA.
-  - nesting # func nesting max 1 level
+  - unused_closure_parameter
+  - redundant_string_enum_value
+  - vertical_parameter_alignment
 
 excluded: # paths to ignore during linting. overridden by `included`.
   - Carthage
   - Pods
   - External
+  - Submodules
+  - Generated
+  - Core/Model/CoreData
+  - App/Model/CoreData
+  - Database/Model
+  - fastlane
+
+opt_in_rules:
+  - valid_docs
+  - force_unwrapping
+  - conditional_returns_on_newline
+  - private_outlet
+  - vertical_whitespace
+  - closure_spacing
+  - explicit_init
+  - redundant_nil_coalescing
+  - nimble_operator
+  - attributes
+  - closure_end_indentation
+  - empty_count
+  - first_where
+  - implicitly_unwrapped_optional
+  - unneeded_parentheses_in_closure_argument
+  - multiline_parameters
+  - fatal_error_message
+  - let_var_whitespace
+  - redundant_string_enum_value
 
 # rule parameters
-function_parameter_count:
-  - 6 #warning
-  - 8 #error
+file_length:
+  warning: 600
+  error: 800
+  ignore_comment_only_lines: true
 
 cyclomatic_complexity:
-  - 20 #warning
-  - 35 #error
+  ignores_case_statements: true
+  warning: 10
+  error: 20
 
-file_length:
-  - 600 #warning
-  - 800 #error
+nesting:
+  type_level:
+    warning: 6
+  statement_level:
+    warning: 6
 
 function_body_length:
-  - 40 #warning
-  - 80 #error
+  warning: 40
+  error: 80
 
-line_length:
-  - 300 #warning
-  - 350 #error
+line_length: 300
 
 type_body_length:
-  - 400 #warning
-  - 500 #error
-  
-opt_in_rules:
-  - missing_docs
-  - force_unwrapping
+  warning: 400
+  error: 500
+
+large_tuple:
+  warning: 4
+  error: 6
+
+identifier_name:
+  excluded:
+    - to
+    - id
+    - by
+    - of
+    - at
+    - !str on
+    - x
+    - y
+    - L
+
+private_outlet:
+  allow_private_set: true
 
 custom_rules:
+  extra_whitespace:
+    name: "Extra whitespaces"
+    regex: '([^\n/ \t]  |    | \t)'
+    message: "Indentation should be done with tabs. Only whitespaces in comments and up to three whitespaces at the start of a line or after tabs are allowed."
+    severity: warning
+    match_kinds:
+      - string
+      - keyword
+      - parameter
+      - typeidentifier
+      - number
+      - identifier
+  unnecessary_datatype:
+    name: "Unnecessary Datatype"
+    regex: '(?m-s)(let|var).*(:\s\[+(\w|:| |\t)+\]+\s*=\s*\[:*\])'
+    message: "Unnecessary datatype. Use '= [DataType]()' instead of ': [DataType] = []'"
+    severity: warning
+  missing_closure_name:
+    name: "Missing closure name"
+    regex: '^\s*\}\) \{.*'
+    message: "Add the missing closure name"
+    severity: warning
+  empty_commented_line:
+    name: "Empty Commented Out Line"
+    regex: '(\t+| +)//\n'
+    message: "Remove useless comment lines or use /* format */"
+    severity: warning
   comments_space:
     name: "Space After Comment"
-    regex: "(^ *//\w+)"
-    message: "There should be a space after //"
-    severity: error
+    regex: '(//\w+|///\w+)'
+    message: "There should be a space between the start of a comment and the first character."
+    severity: warning
+    match_kinds:
+      - comment
+      - doccomment
+      - doccomment.field
   comments_capitalized_ignore_possible_code:
     name: "Capitalize First Word In Comment"
-    regex: "(^ +// +(?!swiftlint)[a-z]+)"
+    regex: '(// +(?!swiftlint)[a-z]+)'
     message: "The first word of a comment should be capitalized"
-    severity: error
+    severity: warning
+    match_kinds:
+      - comment
+      - doccomment
   empty_first_line:
     name: "Empty First Line"
-    regex: "(^[ a-zA-Z ]*(?:protocol|extension|class|struct) (?!(?:var|let))[ a-zA-Z:]*\{\n *\S+)"
-    message: "There should be an empty line after a declaration"
-    severity: error
-  empty_line_after_guard:
-    name: "Empty Line After Guard"
-    regex: "(^ *guard[ a-zA-Z0-9=?.\(\),><!]*\{[ a-zA-Z0-9=?.\(\),><!]*\}\n *(?!(?:return|guard))\S+)"
-    message: "There should be an empty line after a guard"
-    severity: error
-  empty_line_after_super:
-    name: "Empty Line After Super"
-    regex: "(^ *super\.[ a-zA-Z0-9=?.\(\)\{\}:,><!]*\n *(?!(?:\}|return))\S+)"
-    message: "There should be an empty line after super"
-    severity: error
-  multiple_empty_lines:
-    name: "Multiple Empty Lines"
-    regex: "((?:\s*\n){3,})"
-    message: "There are too many line breaks"
-    severity: error
+    regex: '(extension|class) (?!(?:func))[^\{]*\{[^\n]*\n[\t ]*\w+'
+    message: "There should be an empty line after a class or extension declaration."
+    severity: warning
+    match_kinds:
+      - keyword
+      - typeidentifier
+      - identifier
+      - typeidentifier
+      - argument
+      - string
+      - objectliteral
+      - placeholder
+      - parameter
+      - attribute.builtin
+  unnecessary_leading_void_in:
+    name: "Unnecessary -> Void in at the end of the line"
+    regex: '(-> (Void|\(\)) in$)'
+    message: "Unnecessary '-> Void in' at the end of the line. Use only 'in'"
+    severity: warning
   unnecessary_type:
     name: "Unnecessary Type"
-    regex: "[ a-zA-Z0-9]*(?:let|var) [ a-zA-Z0-9]*: ([a-zA-Z0-9]*)[\? ]*= \1"
+    regex: '(?sm)[ \ta-zA-Z0-9]?(?:let|var){1} [ \ta-zA-Z0-9]+?:[ \t]+?([a-zA-Z0-9]+?)[\t ]+?=[\t ]?\1'
     message: "Type Definition Not Needed"
-    severity: error
-
-####### enabled rules #######
-#  - comma # k,v >> k, v
-#  - file_length # max number of lines per file
-#  - force_cast # as!
-#  - force_try # try!
-#  - function_body_length # max length of function body
-#  - leading_whitespace # empty lines with whitespaces only
-#  - legacy_constructor # e.g CGPointMake(...) >>> CGPoint(x: ..., y: ...)
-#  - line_length # max length of a line
-#  - opening_brace # [].map(){ ... } >>> [].map() { ... }
-#  - operator_function_whitespace # func  thing () {...} >>> func thing() {...}
-#  - return_arrow_whitespace # func thing()->Bool >>> func thing() -> Bool
-#  - statement_position # }else if { >>> } else if {
-#  - trailing_newline # new line at the end of a file
-#  - trailing_semicolon # no ;
-#  - trailing_whitespace # no trailing whitespaced
-#  - type_body_length # max body length
-#  - type_name # types should start with a capital letter
-#  - valid_docs # docs should match the method signature
-#  - variable_name_min_length # variables should have a 3 letter minimum name and 40 maximum.
-#  - variable_name # variables should start with a lower case character or a capitalized one if `static`.
-#  - cyclomatic_complexity # limit the number of entries inside an enum or struct.
+    severity: warning
+  empty_closure_params:
+    name: "Empty closure params"
+    regex: '\{ (\(\) -> Void in)$'
+    message: "`() -> Void in` should be avoided"
+    severity: warning
+  single_line_body:
+    name: "Single Line Body"
+    regex: '(?i-sm)((if|while|do|for)*? \{(?!\n|.?(s|g)et).+?\}\n)'
+    message: "Single line bodies are not allowed"
+    severity: warning
+  missing_closure_datatype:
+    name: "Missing Closure Data Type"
+    regex: '(\{[\s]{1}(\[weak [\w]+?\][\s]{1})*?\([^:]+?\)[\s]{1}in)'
+    message: "Data Type in Closure is missing"
+    severity: warning
+  invalid_mark_format:
+    name: "Invalid MARK Format"
+    regex: '(?m-s)(\/\/[\s]*?MARK(?!(\:[\s]{1}\-[\s]{1}){1}))'
+    message: "Use format: MARK: - Your Info"
+    severity: warning
+  unnecessary_space:
+    name: "Unnecessary Space"
+    regex: '(\[[a-zA-Z0-9]+? {1}: {1}[a-zA-Z0-9]+?\])'
+    message: "Unnecessary space. use [DataType: DataType]."
+    severity: warning
+  missing_space:
+    name: "Missing Space"
+    regex: '(\[[a-zA-Z0-9]+?:[a-zA-Z0-9]+?\])'
+    message: "Missing space. use [DataType: DataType]."
+    severity: warning
+  get_prefixed_function:
+    name: "Get prefixed function"
+    regex: '(?-smxi)(func get[A-Z0-9][\w]+?(\())'
+    message: "You should not prefix your functions with the word get."
+    severity: warning
+  lowercase_constants:
+    name: "Lowercase Constants"
+    regex: '[ \t]let[ \t]*[A-Z][\w]*[ \t]*(=|:)'
+    message: "Constants should begin with a lowercase character."
+    severity: warning
+    match_kinds:
+      - argument
+      - attribute.builtin
+      - attribute.id
+      - buildconfig.id
+      - buildconfig.keyword
+      - comment
+      - comment.mark
+      - comment.url
+      - doccomment
+      - doccomment.field
+      - identifier
+      - keyword
+      - number
+      - objectliteral
+      - parameter
+      - placeholder
+      - typeidentifier
+  empty_lines_before_declaration_end:
+    name: "Empty lines before declaration end"
+    regex: '\n[ \t]*\n[ \t]*\}([ \t]*\n|\n)'
+    message: "Empty lines before a declaration aren't improving the readability."
+    severity: warning

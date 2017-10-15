@@ -54,6 +54,7 @@ extension MultiplePlayerInstancesViewController: UITableViewDelegate, UITableVie
 			_cell.setup(with: _mediItem, isPlaying: (audioPlayerManager?.isPlaying() ?? false))
 			return _cell
 		}
+
 		return UITableViewCell()
 	}
 
@@ -68,6 +69,7 @@ extension MultiplePlayerInstancesViewController: UITableViewDelegate, UITableVie
 			audioPlayerManager?.useNowPlayingInfoCenter = false
 			self.data[indexPath.row].audioPlayerManager = audioPlayerManager
 		}
+
 		if (audioPlayerManager?.isPlaying() == true) {
 			audioPlayerManager?.stop()
 		} else {

@@ -27,7 +27,7 @@ class AudioTracksQueue: NSObject {
 
 	fileprivate var history					= [AudioTrack]()
 
-	// MARK: Set
+	// MARK: - Set
 
 	func replace(_ tracks: [AudioTrack]?, at startIndex: Int) {
 		if let _tracks = tracks {
@@ -59,10 +59,10 @@ class AudioTracksQueue: NSObject {
 		self.queue.append(contentsOf: tracks)
 	}
 
-	// MARK: Forward
+	// MARK: - Forward
 
 	func canForward() -> Bool {
-		return (self.queue.count > 0 && self.followingTrack() != nil)
+		return (self.queue.isEmpty == false && self.followingTrack() != nil)
 	}
 
 	func forward() -> Bool {
@@ -90,7 +90,7 @@ class AudioTracksQueue: NSObject {
 		return nil
 	}
 
-	// MARK: Rewind
+	// MARK: - Rewind
 
 	func canRewind() -> Bool {
 		return (self.previousTrack != nil)
@@ -109,7 +109,7 @@ class AudioTracksQueue: NSObject {
 		return false
 	}
 
-	// MARK: Get
+	// MARK: - Get
 
 	func count() -> Int {
 		return self.queue.count

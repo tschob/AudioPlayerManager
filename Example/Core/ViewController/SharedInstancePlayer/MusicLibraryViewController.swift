@@ -12,7 +12,7 @@ import MediaPlayer
 
 class MusicLibraryViewController: UIViewController {
 
-	var data		: [MPMediaItem]	= []
+	var data = [MPMediaItem]()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()

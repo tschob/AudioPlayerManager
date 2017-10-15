@@ -47,6 +47,7 @@ open class AudioURLTrack: AudioTrack {
 				reducedStartIndex -= 1
 			}
 		}
+
 		return (tracks: reducedTracks, startIndex: reducedStartIndex)
 	}
 
@@ -55,19 +56,20 @@ open class AudioURLTrack: AudioTrack {
 	override func prepareForPlaying(_ avPlayerItem: AVPlayerItem) {
 		super.prepareForPlaying(avPlayerItem)
 		// Listen to the timedMetadata initialization. We can extract the meta data then
-		self.playerItem?.addObserver(self, forKeyPath: Keys.TimedMetadata, options: NSKeyValueObservingOptions.initial, context: nil)
+		self.playerItem?.addObserver(self, forKeyPath: Keys.timedMetadata, options: NSKeyValueObservingOptions.initial, context: nil)
 	}
 
 	override func cleanupAfterPlaying() {
 		// Remove the timedMetadata observer as the AVPlayerItem will be released now
-		self.playerItem?.removeObserver(self, forKeyPath: Keys.TimedMetadata, context: nil)
+		self.playerItem?.removeObserver(self, forKeyPath: Keys.timedMetadata, context: nil)
 		super.cleanupAfterPlaying()
 	}
 
-	open override func getPlayerItem() -> AVPlayerItem? {
+	open override func avPlayerItem() -> AVPlayerItem? {
 		if let _url = self.url {
 			return AVPlayerItem(url: _url)
 		}
+
 		return nil
 	}
 
@@ -111,7 +113,7 @@ open class AudioURLTrack: AudioTrack {
 	// MARK: - PRIVATE -
 
 	fileprivate struct Keys {
-		static let TimedMetadata		= "timedMetadata"
+		static let timedMetadata		= "timedMetadata"
 	}
 
 	fileprivate func extractMetadata() {
@@ -138,7 +140,7 @@ open class AudioURLTrack: AudioTrack {
 
 	fileprivate func mediaItemArtwork(from image: UIImage) -> MPMediaItemArtwork {
 		if #available(iOS 10.0, *) {
-			return MPMediaItemArtwork.init(boundsSize: image.size, requestHandler: { (size: CGSize) -> UIImage in
+			return MPMediaItemArtwork(boundsSize: image.size, requestHandler: { (size: CGSize) -> UIImage in
 				return image
 			})
 		} else {
@@ -151,11 +153,10 @@ open class AudioURLTrack: AudioTrack {
 
 extension AudioURLTrack {
 
-	override open func observeValue(forKeyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-		if (forKeyPath == Keys.TimedMetadata) {
+	override open func observeValue(forKeyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+		if (forKeyPath == Keys.timedMetadata) {
 			// Extract the meta data if the timedMetadata changed
 			self.extractMetadata()
 		}
 	}
-
 }

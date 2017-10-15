@@ -6,7 +6,7 @@ use_frameworks!
 
 target 'Example' do
 	pod 'AudioPlayerManager', :path => '../'
-	pod 'SwiftLint', '~> 0.16.0'
+	pod 'SwiftLint', '~> 0.21.0'
 end
 
 post_install do |installer|
