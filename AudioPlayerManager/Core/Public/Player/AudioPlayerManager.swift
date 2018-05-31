@@ -151,13 +151,7 @@ open class AudioPlayerManager: NSObject {
 	open func replace(with audioTracks: [AudioTrack], at startIndex: Int) {
 		Log("replace(audioTracks: \(audioTracks.count) tracks, startIndex: \(startIndex))")
 		self.stop()
-		var reducedTracks = [] as [AudioTrack]
-		for index in 0..<audioTracks.count {
-			let audioTrack = audioTracks[index]
-			reducedTracks.append(audioTrack)
-		}
-
-		self.queue.replace(reducedTracks, at: startIndex)
+		self.queue.replace(audioTracks, at: startIndex)
 		self.queueGeneration += 1
 	}
 
@@ -225,11 +219,11 @@ open class AudioPlayerManager: NSObject {
 	// MARK: - Rewind
 
 	open func canRewind() -> Bool {
-		guard let _currentTrack = self.currentTrack else {
+		guard let currentTrack = self.currentTrack else {
 			return false
 		}
 
-		if ((_currentTrack.currentTimeInSeconds() > Float(1)) || self.canRewindInQueue()) {
+		if ((currentTrack.currentTimeInSeconds() > Float(1)) || self.canRewindInQueue()) {
 			return true
 		}
 
