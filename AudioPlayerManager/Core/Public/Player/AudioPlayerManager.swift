@@ -43,7 +43,7 @@ open class AudioPlayerManager: NSObject {
 	open var bufferStrategy						= BufferStrategy.minimizeStalling {
 		didSet {
 			if #available(iOS 10.0, *) {
-				self.player?.automaticallyWaitsToMinimizeStalling = self.bufferStrategy == .minimizeStalling
+				self.player.automaticallyWaitsToMinimizeStalling = self.bufferStrategy == .minimizeStalling
 			}
 		}
 	}
@@ -53,7 +53,7 @@ open class AudioPlayerManager: NSObject {
 	open var preferredForwardBufferDuration		= TimeInterval(0) {
 		didSet {
 			if #available(iOS 10.0, *) {
-				self.player?.currentItem?.preferredForwardBufferDuration = self.preferredForwardBufferDuration
+				self.player.currentItem?.preferredForwardBufferDuration = self.preferredForwardBufferDuration
 			}
 		}
 	}
@@ -98,6 +98,7 @@ open class AudioPlayerManager: NSObject {
 	open func setup() {
 		self.setupRemoteControlEvents()
 		self.setupAudioSession()
+		self.setupPlayer()
 	}
 
 	// MARK: - Control playback
@@ -117,17 +118,15 @@ open class AudioPlayerManager: NSObject {
 	}
 
 	open func play(updateNowPlayingInfo: Bool = false) {
-		if let _player = self.player {
-			_player.play()
-			if (updateNowPlayingInfo == true || self.didStopPlayback == true) {
-				self.updateNowPlayingInfoIfNeeded()
-			}
-			self.didStopPlayback = false
-			self.startPlaybackTimeChangeTimer()
-			self.callPlayStateChangeCallbacks()
-			if let _currentTrack = self.currentTrack {
-				NotificationCenter.default.post(name: Notification.Name(rawValue: self.playerStateChangedNotificationKey(track: _currentTrack)), object: nil)
-			}
+		self.player.play()
+		if (updateNowPlayingInfo == true || self.didStopPlayback == true) {
+			self.updateNowPlayingInfoIfNeeded()
+		}
+		self.didStopPlayback = false
+		self.startPlaybackTimeChangeTimer()
+		self.callPlayStateChangeCallbacks()
+		if let _currentTrack = self.currentTrack {
+			NotificationCenter.default.post(name: Notification.Name(rawValue: self.playerStateChangedNotificationKey(track: _currentTrack)), object: nil)
 		}
 	}
 
@@ -185,14 +184,12 @@ open class AudioPlayerManager: NSObject {
 	// MARK: - Pause
 
 	open func pause() {
-		if let _player = self.player {
-			_player.pause()
-			self.stopPlaybackTimeChangeTimer = true
-			self.callPlaybackTimeChangeCallbacks()
-			self.callPlayStateChangeCallbacks()
-			if let _currentTrack = self.currentTrack {
-				NotificationCenter.default.post(name: Notification.Name(rawValue: self.playerStateChangedNotificationKey(track: _currentTrack)), object: nil)
-			}
+		self.player.pause()
+		self.stopPlaybackTimeChangeTimer = true
+		self.callPlaybackTimeChangeCallbacks()
+		self.callPlayStateChangeCallbacks()
+		if let _currentTrack = self.currentTrack {
+			NotificationCenter.default.post(name: Notification.Name(rawValue: self.playerStateChangedNotificationKey(track: _currentTrack)), object: nil)
 		}
 	}
 
@@ -202,7 +199,7 @@ open class AudioPlayerManager: NSObject {
 			if (clearQueue == true) {
 				self.clearQueue()
 			} else {
-				self.player?.seek(to: CMTimeMake(0, 1))
+				self.player.seek(to: CMTimeMake(0, 1))
 				self.pause()
 			}
 			self.callPlayStateChangeCallbacks()
@@ -252,7 +249,7 @@ open class AudioPlayerManager: NSObject {
 			}
 		} else {
 			// Move to the beginning of the track if we aren't in the beginning.
-			self.player?.seek(to: CMTimeMake(0, 1))
+			self.player.seek(to: CMTimeMake(0, 1))
 			// Update the now playing info to show the new playback time
 			self.updateNowPlayingInfoIfNeeded()
 			// Call the callbacks to inform about the new time
@@ -261,7 +258,7 @@ open class AudioPlayerManager: NSObject {
 	}
 
 	open func seek(toTime time: CMTime) {
-		self.player?.seek(to: time)
+		self.player.seek(to: time)
 	}
 
 	open func seek(toProgress progress: Float) {
@@ -312,11 +309,7 @@ open class AudioPlayerManager: NSObject {
 	// MARK: - Helper
 
 	open func isPlaying() -> Bool {
-		guard let _player = self.player else {
-			return false
-		}
-
-		return _player.rate > 0
+		return (self.player.rate > 0)
 	}
 
 	// MARK: - INTERNAL -
@@ -349,7 +342,7 @@ open class AudioPlayerManager: NSObject {
 
 	fileprivate let audioPlayerManagerStateChangedPrefix	= "AudioPlayerManager.\(UUID().uuidString).playerStateChanged"
 
-	fileprivate var player									: AVPlayer?
+	fileprivate var player									= AVPlayer()
 
 	fileprivate var queue									= AudioTracksQueue()
 
@@ -371,16 +364,17 @@ open class AudioPlayerManager: NSObject {
 		let _ = try? AVAudioSession.sharedInstance().setActive(true)
 	}
 
-	fileprivate func initPlayer() {
+	fileprivate func setupPlayer() {
 		if #available(iOS 10.0, *) {
-			self.player?.automaticallyWaitsToMinimizeStalling = self.bufferStrategy == .minimizeStalling
+			self.player.automaticallyWaitsToMinimizeStalling = self.bufferStrategy == .minimizeStalling
 		}
 
-		if (self.player?.responds(to: #selector(setter: AVAudioMixing.volume)) == true) {
-			self.player?.volume = 1.0
+		if (self.player.responds(to: #selector(setter: AVAudioMixing.volume)) == true) {
+			self.player.volume = 1.0
 		}
-		self.player?.allowsExternalPlayback = true
-		self.player?.usesExternalPlaybackWhileExternalScreenIsActive = true
+
+		self.player.allowsExternalPlayback = true
+		self.player.usesExternalPlaybackWhileExternalScreenIsActive = true
 	}
 
 	fileprivate func setupRemoteControlEvents() {
@@ -400,15 +394,13 @@ open class AudioPlayerManager: NSObject {
 		}
 
 		if let _currentTrack = self.queue.currentTrack {
-			self.player = AVPlayer()
-			self.initPlayer()
 			_currentTrack.loadResource()
 			if let _playerItem = _currentTrack.avPlayerItem() {
 				if #available(iOS 10.0, *) {
 					_playerItem.preferredForwardBufferDuration = self.preferredForwardBufferDuration
 				}
 				_currentTrack.prepareForPlaying(_playerItem)
-				self.player?.replaceCurrentItem(with: _playerItem)
+				self.player.replaceCurrentItem(with: _playerItem)
 				self.play(updateNowPlayingInfo: true)
 			}
 		}
@@ -433,7 +425,7 @@ open class AudioPlayerManager: NSObject {
 	private func clearQueue() {
 		self.queue.replace(nil, at: 0)
 		self.queueGeneration += 1
-		self.player?.replaceCurrentItem(with: nil)
+		self.player.replaceCurrentItem(with: nil)
 	}
 
 	// MARK: - Plaback time change callback
@@ -450,6 +442,7 @@ open class AudioPlayerManager: NSObject {
 				}
 			}
 		}
+
 		if (self.stopPlaybackTimeChangeTimer == true) {
 			self.playbackPositionChangeTimer?.invalidate()
 		}
