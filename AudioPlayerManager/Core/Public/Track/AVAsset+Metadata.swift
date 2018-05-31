@@ -37,7 +37,9 @@ public extension AVAsset {
 	open func loadDuration(completion: @escaping ((NSNumber?) -> Void)) {
 		self.loadAttributeAsynchronously(.duration) {
 			guard let durationInSeconds = self.loadedAttributeValue(for: .duration) as CMTime? else {
-				completion(nil)
+				DispatchQueue.main.async {
+					completion(nil)
+				}
 				return
 			}
 
@@ -45,14 +47,18 @@ public extension AVAsset {
 			let timeInSeconds = CMTimeGetSeconds(durationInSeconds)
 			// Check ig the time isn't NaN. This can happen eg. for podcasts
 			let duration = ((timeInSeconds.isNaN == false) ? NSNumber(value: Float(timeInSeconds)) : nil)
-			completion(duration)
+			DispatchQueue.main.async {
+				completion(duration)
+			}
 		}
 	}
 
 	open func loadMetadata(completion: @escaping (([AVMetadataItem]) -> Void)) {
 		self.loadAttributeAsynchronously(.metadata) {
 			let metadataItems = self.loadedAttributeValue(for: .metadata) as [AVMetadataItem]?
-			completion(metadataItems ?? [])
+			DispatchQueue.main.async {
+				completion(metadataItems ?? [])
+			}
 		}
 	}
 }
