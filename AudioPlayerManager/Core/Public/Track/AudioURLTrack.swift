@@ -7,14 +7,13 @@
 //
 
 import Foundation
-import AVFoundation
 import MediaPlayer
 
-open class AudioURLTrack: AudioTrack {
+open class AudioURLTrack	: AudioTrack {
 
 	// MARK: - Properties
 
-	open var url		: URL?
+	open var url			: URL?
 
 	// MARK: - Initialization
 
@@ -78,6 +77,7 @@ open class AudioURLTrack: AudioTrack {
 	open override func initNowPlayingInfo() {
 		super.initNowPlayingInfo()
 
+		// Import `MediaPlayer` framework for the property title key.
 		self.nowPlayingInfo?[MPMediaItemPropertyTitle] = self.url?.lastPathComponent as NSObject?
 	}
 
@@ -87,6 +87,7 @@ open class AudioURLTrack: AudioTrack {
 		if let _urlAbsoluteString = self.url?.absoluteString {
 			return _urlAbsoluteString
 		}
+
 		return super.identifier()
 	}
 
@@ -101,57 +102,24 @@ open class AudioURLTrack: AudioTrack {
 	open class func firstPlayableItem(_ urls: [URL?], at startIndex: Int) -> (track: AudioURLTrack, index: Int)? {
 		// Iterate through all URLs and check whether it's not nil
 		for index in startIndex..<urls.count {
-			if let _track = AudioURLTrack(url: urls[index]) {
+			if let track = AudioURLTrack(url: urls[index]) {
 				// Create the track from the first playable URL and return it.
-				return (track: _track, index: index)
+				return (track: track, index: index)
 			}
 		}
+
 		// There is no playable URL -> reuturn nil then
 		return nil
-	}
-
-	// MARK: - PRIVATE -
-
-	fileprivate struct Keys {
-		static let timedMetadata		= "timedMetadata"
-	}
-
-	fileprivate func extractMetadata() {
-		Log("Extracting meta data of player item with url: \(url)")
-		for metadataItem in (self.playerItem?.asset.commonMetadata ?? []) {
-			if let _key = metadataItem.commonKey {
-				switch _key {
-				case AVMetadataCommonKeyTitle		: self.nowPlayingInfo?[MPMediaItemPropertyTitle] = metadataItem.stringValue as NSObject?
-				case AVMetadataCommonKeyAlbumName	: self.nowPlayingInfo?[MPMediaItemPropertyAlbumTitle] = metadataItem.stringValue as NSObject?
-				case AVMetadataCommonKeyArtist		: self.nowPlayingInfo?[MPMediaItemPropertyArtist] = metadataItem.stringValue as NSObject?
-				case AVMetadataCommonKeyArtwork		:
-					if
-						let _data = metadataItem.dataValue,
-						let _image = UIImage(data: _data) {
-							self.nowPlayingInfo?[MPMediaItemPropertyArtwork] = self.mediaItemArtwork(from: _image)
-					}
-				default								: continue
-				}
-			}
-		}
-		// Inform the player about the updated meta data
-		AudioPlayerManager.shared.didUpdateMetadata()
-	}
-
-	fileprivate func mediaItemArtwork(from image: UIImage) -> MPMediaItemArtwork {
-		if #available(iOS 10.0, *) {
-			return MPMediaItemArtwork(boundsSize: image.size, requestHandler: { (size: CGSize) -> UIImage in
-				return image
-			})
-		} else {
-			return MPMediaItemArtwork(image: image)
-		}
 	}
 }
 
 // MARK: - KVO
 
 extension AudioURLTrack {
+
+	fileprivate struct Keys {
+		static let timedMetadata = "timedMetadata"
+	}
 
 	override open func observeValue(forKeyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
 		if (forKeyPath == Keys.timedMetadata) {
