@@ -6,7 +6,6 @@
 //
 
 import AVFoundation
-import MediaPlayer
 
 public enum DynamicAttribute {
 

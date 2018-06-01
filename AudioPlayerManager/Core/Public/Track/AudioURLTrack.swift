@@ -77,6 +77,7 @@ open class AudioURLTrack	: AudioTrack {
 	open override func initNowPlayingInfo() {
 		super.initNowPlayingInfo()
 
+		// Import `MediaPlayer` framework for the property title key.
 		self.nowPlayingInfo?[MPMediaItemPropertyTitle] = self.url?.lastPathComponent as NSObject?
 	}
 
