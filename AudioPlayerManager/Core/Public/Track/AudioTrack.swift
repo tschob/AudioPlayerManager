@@ -120,7 +120,7 @@ open class AudioTrack : NSObject {
 
 	open func updateNowPlayingInfoPlaybackTime() {
 		let currentTime = self.currentTimeInSeconds()
-		// Check ig the time isn't NaN.
+		// Check if the time isn't NaN.
 		let currentTimeAsNumber : NSNumber? = ((currentTime.isNaN == false) ? NSNumber(value: Float(currentTime)) : nil)
 		self.nowPlayingInfo?[MPNowPlayingInfoPropertyElapsedPlaybackTime] = currentTimeAsNumber
 	}

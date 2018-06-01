@@ -14,7 +14,7 @@ extension AudioURLTrack {
 
 	internal func extractMetadata() {
 		Log("Extracting meta data of player item with url: \(self.url)")
-		self.playerItem?.asset.loadMetadata() { [weak self] (items: [AVMetadataItem]) in
+		self.playerItem?.asset.load(.commonMetadata, completion: { [weak self] (items: [AVMetadataItem]) in
 			let parsedMetadata = self?.parseMetadataItems(items)
 			self?.nowPlayingInfo?.merge((parsedMetadata ?? [:]), uniquingKeysWith: { (_, new) -> NSObject in
 				return new
@@ -22,7 +22,7 @@ extension AudioURLTrack {
 
 			// Inform the player about the updated meta data
 			AudioPlayerManager.shared.didUpdateMetadata()
-		}
+		})
 	}
 
 	/// Extract necessary info from loaded metadata items.

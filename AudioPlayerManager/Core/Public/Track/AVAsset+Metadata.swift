@@ -8,33 +8,42 @@
 import AVFoundation
 import MediaPlayer
 
+public enum DynamicAttribute {
+
+	case duration
+	case commonMetadata
+	case metadata
+
+	var key: String {
+		switch self {
+		case .duration 			: return "duration"
+		case .commonMetadata 	: return "commonMetadata"
+		case .metadata 			: return "metadata"
+		}
+	}
+}
+
 public extension AVAsset {
 
-	private enum DynamicAttribute: String {
-
-		case duration = "duration"
-		case metadata = "commonMetadata"
-	}
-
 	private func loadAttributeAsynchronously(_ attribute: DynamicAttribute, completion: (() -> Void)?) {
-		self.loadValuesAsynchronously(forKeys: [attribute.rawValue], completionHandler: completion)
+		self.loadValuesAsynchronously(forKeys: [attribute.key], completionHandler: completion)
 	}
 
 	private func loadedAttributeValue<T>(for attribute: DynamicAttribute) -> T? {
 		var error : NSError? = nil
-		let status = self.statusOfValue(forKey: attribute.rawValue, error: &error)
+		let status = self.statusOfValue(forKey: attribute.key, error: &error)
 		if let error = error {
-			Log("Error loading asset value for key '\(attribute.rawValue)': \(error)")
+			Log("Error loading asset value for key '\(attribute.key)': \(error)")
 		}
 
 		guard (status == .loaded) else {
 			return nil
 		}
 
-		return self.value(forKey: attribute.rawValue) as? T
+		return self.value(forKey: attribute.key) as? T
 	}
 
-	open func loadDuration(completion: @escaping ((NSNumber?) -> Void)) {
+	open func loadDuration(completion: @escaping ((_ duration: NSNumber?) -> Void)) {
 		self.loadAttributeAsynchronously(.duration) {
 			guard let durationInSeconds = self.loadedAttributeValue(for: .duration) as CMTime? else {
 				DispatchQueue.main.async {
@@ -45,7 +54,7 @@ public extension AVAsset {
 
 			// Read duration from asset
 			let timeInSeconds = CMTimeGetSeconds(durationInSeconds)
-			// Check ig the time isn't NaN. This can happen eg. for podcasts
+			// Check if the time isn't NaN. This can happen eg. for podcasts
 			let duration = ((timeInSeconds.isNaN == false) ? NSNumber(value: Float(timeInSeconds)) : nil)
 			DispatchQueue.main.async {
 				completion(duration)
@@ -53,9 +62,9 @@ public extension AVAsset {
 		}
 	}
 
-	open func loadMetadata(completion: @escaping (([AVMetadataItem]) -> Void)) {
-		self.loadAttributeAsynchronously(.metadata) {
-			let metadataItems = self.loadedAttributeValue(for: .metadata) as [AVMetadataItem]?
+	open func load(_ attribute: DynamicAttribute, completion: @escaping ((_ items: [AVMetadataItem]) -> Void)) {
+		self.loadAttributeAsynchronously(attribute) {
+			let metadataItems = self.loadedAttributeValue(for: attribute) as [AVMetadataItem]?
 			DispatchQueue.main.async {
 				completion(metadataItems ?? [])
 			}
