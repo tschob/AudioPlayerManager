@@ -100,12 +100,12 @@ open class AudioTrack : NSObject {
 
 	// MARK: - Lifecycle
 
-	func prepareForPlaying(_ playerItem: AVPlayerItem) {
+	open func prepareForPlaying(_ playerItem: AVPlayerItem) {
 		self.playerItem = playerItem
 		self.initNowPlayingInfo()
 	}
 
-	func cleanupAfterPlaying() {
+	open func cleanupAfterPlaying() {
 		self.playerItem = nil
 		self.nowPlayingInfo?.removeAll()
 	}
@@ -134,14 +134,14 @@ open class AudioTrack : NSObject {
 
 	// MARK: - NSTimeInterval
 
-	class func displayableString(from seconds: Float?) -> String {
+	open class func displayableString(from seconds: Float?) -> String {
 		guard let _seconds = seconds else {
 			return AudioTrack.Formats.durationStringForNilObject
 		}
 		return self.displayableString(from: TimeInterval(_seconds))
 	}
 
-	class func displayableString(from timeInterval: TimeInterval) -> String {
+	open class func displayableString(from timeInterval: TimeInterval) -> String {
 		let dateComponentsFormatter = DateComponentsFormatter()
 		dateComponentsFormatter.zeroFormattingBehavior = DateComponentsFormatter.ZeroFormattingBehavior.pad
 		if (timeInterval >= 60 * 60) {

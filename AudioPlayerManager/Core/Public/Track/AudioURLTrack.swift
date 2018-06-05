@@ -52,13 +52,13 @@ open class AudioURLTrack	: AudioTrack {
 
 	// MARK: - Lifecycle
 
-	override func prepareForPlaying(_ avPlayerItem: AVPlayerItem) {
+	open override func prepareForPlaying(_ avPlayerItem: AVPlayerItem) {
 		super.prepareForPlaying(avPlayerItem)
 		// Listen to the timedMetadata initialization. We can extract the meta data then
 		self.playerItem?.addObserver(self, forKeyPath: Keys.timedMetadata, options: NSKeyValueObservingOptions.initial, context: nil)
 	}
 
-	override func cleanupAfterPlaying() {
+	open override func cleanupAfterPlaying() {
 		// Remove the timedMetadata observer as the AVPlayerItem will be released now
 		self.playerItem?.removeObserver(self, forKeyPath: Keys.timedMetadata, context: nil)
 		super.cleanupAfterPlaying()
