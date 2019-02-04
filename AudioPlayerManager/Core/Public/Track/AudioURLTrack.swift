@@ -38,9 +38,9 @@ open class AudioURLTrack	: AudioTrack {
 		var reducedStartIndex = startIndex
 		// Iterate through all given URLs and create the tracks
 		for index in 0..<urls.count {
-			let _url = urls[index]
-			if let _playerItem = AudioURLTrack(url: _url) {
-				reducedTracks.append(_playerItem)
+			let url = urls[index]
+			if let playerItem = AudioURLTrack(url: url) {
+				reducedTracks.append(playerItem)
 			} else if (index <= startIndex && reducedStartIndex > 0) {
 				// There is a problem with the URL. Ignore the URL and shift the start index if it is higher than the current index
 				reducedStartIndex -= 1
@@ -65,8 +65,8 @@ open class AudioURLTrack	: AudioTrack {
 	}
 
 	open override func avPlayerItem() -> AVPlayerItem? {
-		if let _url = self.url {
-			return AVPlayerItem(url: _url)
+		if let url = self.url {
+			return AVPlayerItem(url: url)
 		}
 
 		return nil
@@ -84,8 +84,8 @@ open class AudioURLTrack	: AudioTrack {
 	// MARK: - Helper
 
 	open override func identifier() -> String? {
-		if let _urlAbsoluteString = self.url?.absoluteString {
-			return _urlAbsoluteString
+		if let urlAbsoluteString = self.url?.absoluteString {
+			return urlAbsoluteString
 		}
 
 		return super.identifier()

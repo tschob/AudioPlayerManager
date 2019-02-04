@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34D8D60422087DEC00ADAC7D /* AudioURLTrack+Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D8D60322087DEC00ADAC7D /* AudioURLTrack+Metadata.swift */; };
+		34D8D60622087E1300ADAC7D /* AVAsset+Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D8D60522087E1300ADAC7D /* AVAsset+Metadata.swift */; };
 		3A48663D1D50B5BA00CC4A04 /* AudioPlayerManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A48663C1D50B5BA00CC4A04 /* AudioPlayerManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3A4866431D50B80400CC4A04 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4866421D50B80400CC4A04 /* MediaPlayer.framework */; };
 		3A7BFA411D9EC5DA007E521D /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BFA3E1D9EC5DA007E521D /* Log.swift */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		34D8D60322087DEC00ADAC7D /* AudioURLTrack+Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioURLTrack+Metadata.swift"; sourceTree = "<group>"; };
+		34D8D60522087E1300ADAC7D /* AVAsset+Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVAsset+Metadata.swift"; sourceTree = "<group>"; };
 		3A48660C1D50A7D700CC4A04 /* AudioPlayerManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioPlayerManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A48663C1D50B5BA00CC4A04 /* AudioPlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlayerManager.h; sourceTree = "<group>"; };
 		3A48663E1D50B6A000CC4A04 /* AudioPlayerManager-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AudioPlayerManager-Info.plist"; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 				3ACAE0EE1D52403F009B20AD /* AudioTrack.swift */,
 				3ACAE0EF1D52403F009B20AD /* MediaPlayerTrack.swift */,
 				3ACAE0F01D52403F009B20AD /* AudioURLTrack.swift */,
+				34D8D60322087DEC00ADAC7D /* AudioURLTrack+Metadata.swift */,
+				34D8D60522087E1300ADAC7D /* AVAsset+Metadata.swift */,
 			);
 			path = Track;
 			sourceTree = "<group>";
@@ -185,12 +191,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Hans Seiffert";
 				TargetAttributes = {
 					3A48660B1D50A7D700CC4A04 = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -250,8 +256,10 @@
 				3ACAE0F91D52403F009B20AD /* AudioURLTrack.swift in Sources */,
 				3ACAE0F81D52403F009B20AD /* MediaPlayerTrack.swift in Sources */,
 				3ACAE0F51D52403F009B20AD /* AudioPlayerManager+URL.swift in Sources */,
+				34D8D60622087E1300ADAC7D /* AVAsset+Metadata.swift in Sources */,
 				3A7BFA431D9EC5DA007E521D /* MediaLibraryHelper.swift in Sources */,
 				3ACAE0F21D52403F009B20AD /* MPMediaItem+AudioPlayerManager.swift in Sources */,
+				34D8D60422087DEC00ADAC7D /* AudioURLTrack+Metadata.swift in Sources */,
 				3ACAE0F41D52403F009B20AD /* AudioPlayerManager+RemoteControl.swift in Sources */,
 				3ACAE0F31D52403F009B20AD /* AudioPlayerManager+MPMediaItem.swift in Sources */,
 			);
@@ -269,14 +277,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -321,14 +337,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -379,7 +403,8 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0.1;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -402,7 +427,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.seiffert.hans.swift.audioplayermanager;
 				PRODUCT_NAME = AudioPlayerManager;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0.1;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
