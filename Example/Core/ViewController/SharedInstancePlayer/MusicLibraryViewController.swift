@@ -20,7 +20,9 @@ class MusicLibraryViewController: UIViewController {
 		AudioPlayerManager.shared.setup()
 
 		let tempData = MPMediaQuery.songs().items ?? []
+
 		self.data = []
+
 		for mediaItem in tempData {
 			if (mediaItem.isCloudItem == false && mediaItem.assetURL != nil) {
 				self.data.append(mediaItem)
@@ -41,7 +43,9 @@ extension MusicLibraryViewController: UITableViewDelegate, UITableViewDataSource
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
 		let cell = tableView.dequeueReusableCell(withIdentifier: "musicLibraryCell", for: indexPath)
+
 		cell.textLabel?.text = self.data[indexPath.row].title
 		return cell
 	}

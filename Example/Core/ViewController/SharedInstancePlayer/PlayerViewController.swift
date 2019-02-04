@@ -33,11 +33,13 @@ class PlayerViewController: UIViewController {
 
 		// Listen to the player state updates. This state is updated if the play, pause or queue state changed.
 		AudioPlayerManager.shared.addPlayStateChangeCallback(self, callback: { [weak self] (track: AudioTrack?) in
+
 			self?.updateButtonStates()
 			self?.updateSongInformation(with: track)
 		})
 		// Listen to the playback time changed. Thirs event occurs every `AudioPlayerManager.PlayingTimeRefreshRate` seconds.
 		AudioPlayerManager.shared.addPlaybackTimeChangeCallback(self, callback: { [weak self] (track: AudioTrack?) in
+
 			self?.updatePlaybackTime(track)
 		})
 	}
@@ -57,8 +59,10 @@ class PlayerViewController: UIViewController {
 
 	func updateButtonStates() {
 		self.rewindButton?.isEnabled = AudioPlayerManager.shared.canRewind()
+
 		let imageName = (AudioPlayerManager.shared.isPlaying() == true ? "ic_pause" : "ic_play")
-		self.playPauseButton?.setImage(UIImage(named: imageName), for: UIControlState())
+
+		self.playPauseButton?.setImage(UIImage(named: imageName), for: UIControl.State())
 		self.playPauseButton?.isEnabled = AudioPlayerManager.shared.canPlay()
 		self.forwardButton?.isEnabled = AudioPlayerManager.shared.canForward()
 	}
@@ -98,10 +102,10 @@ extension PlayerViewController {
 	}
 
 	@IBAction func didChangeTimeSliderValue(_ sender: Any) {
-		guard let _newProgress = self.timeSlider?.value else {
+		guard let newProgress = self.timeSlider?.value else {
 			return
 		}
 
-		AudioPlayerManager.shared.seek(toProgress: _newProgress)
+		AudioPlayerManager.shared.seek(toProgress: newProgress)
 	}
 }

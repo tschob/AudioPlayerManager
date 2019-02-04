@@ -27,7 +27,9 @@ extension URLViewController: UITableViewDelegate, UITableViewDataSource {
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
 		let cell = tableView.dequeueReusableCell(withIdentifier: "urlLibraryCell", for: indexPath)
+
 		cell.textLabel?.text = self.data[indexPath.row]
 		return cell
 	}
