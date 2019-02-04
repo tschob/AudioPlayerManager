@@ -38,8 +38,8 @@ open class MediaPlayerTrack: AudioTrack {
 		var updatedIndex = startIndex
 		for index in 0..<mediaItems.count {
 			let mediaItem = mediaItems[index]
-			if let _playerItem = MediaPlayerTrack(mediaItem: mediaItem) {
-				reducedTracks.append(_playerItem)
+			if let playerItem = MediaPlayerTrack(mediaItem: mediaItem) {
+				reducedTracks.append(playerItem)
 			} else if (index <= startIndex && updatedIndex > 0) {
 				updatedIndex -= 1
 			}
@@ -50,14 +50,14 @@ open class MediaPlayerTrack: AudioTrack {
 	// MARK: - Lifecycle
 
 	open override func loadResource() {
-		if let _mediaItemPersitentID = self.mediaItemPersitentID {
-			self.mediaItem = HSMediaLibraryHelper.mediaItem(persistentID: _mediaItemPersitentID)
+		if let mediaItemPersitentID = self.mediaItemPersitentID {
+			self.mediaItem = HSMediaLibraryHelper.mediaItem(persistentID: mediaItemPersitentID)
 		}
 	}
 
 	open override func avPlayerItem() -> AVPlayerItem? {
-		if let _url = self.mediaItem?.assetURL {
-			return AVPlayerItem(url: _url)
+		if let url = self.mediaItem?.assetURL {
+			return AVPlayerItem(url: url)
 		}
 		return nil
 	}
@@ -94,8 +94,8 @@ open class MediaPlayerTrack: AudioTrack {
 			// Check whether it's playable
 			if (mediaItem.isPlayable() == true) {
 				// Create the player item from the first playable track and return it.
-				if let _track = MediaPlayerTrack(mediaItem: mediaItem) {
-					return (track: _track, index: index)
+				if let track = MediaPlayerTrack(mediaItem: mediaItem) {
+					return (track: track, index: index)
 				}
 			}
 		}
@@ -104,8 +104,8 @@ open class MediaPlayerTrack: AudioTrack {
 	}
 
 	open override func identifier() -> String? {
-		if let _mediaItemPersitentID = self.mediaItemPersitentID {
-			return "\(_mediaItemPersitentID)"
+		if let mediaItemPersitentID = self.mediaItemPersitentID {
+			return "\(mediaItemPersitentID)"
 		}
 		return super.identifier()
 	}

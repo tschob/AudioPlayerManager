@@ -30,16 +30,16 @@ class AudioTracksQueue: NSObject {
 	// MARK: - Set
 
 	func replace(_ tracks: [AudioTrack]?, at startIndex: Int) {
-		if let _tracks = tracks {
+		if let tracks = tracks {
 			// Add the current track to the history
-			if let _currentTrack = self.currentTrack {
-				self.history.append(_currentTrack)
+			if let currentTrack = self.currentTrack {
+				self.history.append(currentTrack)
 			}
 			// Replace the tracks in the queue with the new ones
-			self.queue = _tracks
+			self.queue = tracks
 			self.currentItemQueueIndex = startIndex
 			self.currentTrack?.cleanupAfterPlaying()
-			self.currentTrack = _tracks[startIndex]
+			self.currentTrack = tracks[startIndex]
 		} else {
 			self.queue.removeAll()
 			self.currentTrack?.cleanupAfterPlaying()
@@ -67,16 +67,16 @@ class AudioTracksQueue: NSObject {
 
 	func forward() -> Bool {
 		if (self.canForward() == true),
-			let _currentTrack = self.currentTrack,
-			let _followingTrack = self.followingTrack() {
+			let currentTrack = self.currentTrack,
+			let followingTrack = self.followingTrack() {
 				// Add current track to the history
-				_currentTrack.cleanupAfterPlaying()
+				currentTrack.cleanupAfterPlaying()
 				// Replace the current track with the new one
-				self.currentTrack = _followingTrack
+				self.currentTrack = followingTrack
 				// Adjust the current track index
 				self.currentItemQueueIndex += 1
 				// Add the former track to the history
-				self.history.append(_currentTrack)
+				self.history.append(currentTrack)
 				return true
 		}
 		return false
@@ -98,8 +98,8 @@ class AudioTracksQueue: NSObject {
 
 	func rewind() -> Bool {
 		if (self.canRewind() == true),
-			let _currentTrack = self.currentTrack {
-				_currentTrack.cleanupAfterPlaying()
+			let currentTrack = self.currentTrack {
+				currentTrack.cleanupAfterPlaying()
 				// Replace the current track with the former one
 				self.currentTrack = self.previousTrack
 				// Adjust the current index
@@ -118,8 +118,8 @@ class AudioTracksQueue: NSObject {
 	// History
 
 	fileprivate func appendCurrentPlayingItemToQueue() {
-		if let _currentTrack = self.currentTrack {
-			self.history.append(_currentTrack)
+		if let currentTrack = self.currentTrack {
+			self.history.append(currentTrack)
 		}
 	}
 }

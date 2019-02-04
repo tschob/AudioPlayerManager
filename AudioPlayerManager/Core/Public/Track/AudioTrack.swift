@@ -46,26 +46,26 @@ open class AudioTrack : NSObject {
 	// MARK: - Helper
 
 	open func durationInSeconds() -> Float? {
-		guard let _playerItem = self.playerItem, _playerItem.duration != kCMTimeIndefinite else {
+		guard let playerItem = self.playerItem, playerItem.duration != CMTime.indefinite else {
 			return nil
 		}
-		return Float(CMTimeGetSeconds(_playerItem.duration))
+		return Float(CMTimeGetSeconds(playerItem.duration))
 	}
 
 	open func currentProgress() -> Float {
-		guard let _durationInSeconds = self.durationInSeconds(), _durationInSeconds > 0 else {
+		guard let durationInSeconds = self.durationInSeconds(), durationInSeconds > 0 else {
 			return Float(0)
 		}
-		return self.currentTimeInSeconds() / _durationInSeconds
+		return self.currentTimeInSeconds() / durationInSeconds
 	}
 
 	open func currentTimeInSeconds() -> Float {
-		guard let _playerItem = self.playerItem else {
+		guard let playerItem = self.playerItem else {
 			return Float(0)
 		}
 
 		// Return the current time, use the duration if the current time is higher than the duration, but greater than 0.0
-		let currentTime = Float(CMTimeGetSeconds(_playerItem.currentTime()))
+		let currentTime = Float(CMTimeGetSeconds(playerItem.currentTime()))
 		let duration = self.durationInSeconds() ?? 0.0
 		guard (duration <= 0.0 || currentTime <= duration) else {
 			return duration
@@ -85,10 +85,10 @@ open class AudioTrack : NSObject {
 	}
 
 	open func displayableTimeLeftString() -> String {
-		guard let _durationInSeconds = self.durationInSeconds() else {
+		guard let durationInSeconds = self.durationInSeconds() else {
 			return AudioTrack.Formats.durationStringForNilObject
 		}
-		let timeLeft = _durationInSeconds - self.currentTimeInSeconds()
+		let timeLeft = durationInSeconds - self.currentTimeInSeconds()
 		return "-\(AudioTrack.displayableString(from: timeLeft))"
 	}
 
@@ -135,10 +135,10 @@ open class AudioTrack : NSObject {
 	// MARK: - NSTimeInterval
 
 	open class func displayableString(from seconds: Float?) -> String {
-		guard let _seconds = seconds else {
+		guard let seconds = seconds else {
 			return AudioTrack.Formats.durationStringForNilObject
 		}
-		return self.displayableString(from: TimeInterval(_seconds))
+		return self.displayableString(from: TimeInterval(seconds))
 	}
 
 	open class func displayableString(from timeInterval: TimeInterval) -> String {
@@ -152,4 +152,3 @@ open class AudioTrack : NSObject {
 		return dateComponentsFormatter.string(from: timeInterval) ?? AudioTrack.Formats.durationStringForNilObject
 	}
 }
-

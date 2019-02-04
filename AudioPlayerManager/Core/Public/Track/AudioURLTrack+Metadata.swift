@@ -13,7 +13,7 @@ import MediaPlayer
 extension AudioURLTrack {
 
 	internal func extractMetadata() {
-		Log("Extracting meta data of player item with url: \(self.url)")
+		log("Extracting meta data of player item with url: \(self.url)")
 		self.playerItem?.asset.load(.commonMetadata, completion: { [weak self] (items: [AVMetadataItem]) in
 			let parsedMetadata = self?.parseMetadataItems(items)
 			self?.nowPlayingInfo?.merge((parsedMetadata ?? [:]), uniquingKeysWith: { (_, new) -> NSObject in
@@ -36,10 +36,10 @@ extension AudioURLTrack {
 		for metadataItem in items {
 			if let key = metadataItem.commonKey {
 				switch key {
-				case AVMetadataCommonKeyTitle		: info[MPMediaItemPropertyTitle] = metadataItem.stringValue as NSObject?
-				case AVMetadataCommonKeyAlbumName	: info[MPMediaItemPropertyAlbumTitle] = metadataItem.stringValue as NSObject?
-				case AVMetadataCommonKeyArtist		: info[MPMediaItemPropertyArtist] = metadataItem.stringValue as NSObject?
-				case AVMetadataCommonKeyArtwork		: info[MPMediaItemPropertyArtwork] = self.mediaItemArtwork(from: metadataItem.dataValue)
+				case .commonKeyTitle		: info[MPMediaItemPropertyTitle] = metadataItem.stringValue as NSObject?
+				case .commonKeyAlbumName	: info[MPMediaItemPropertyAlbumTitle] = metadataItem.stringValue as NSObject?
+				case .commonKeyArtist		: info[MPMediaItemPropertyArtist] = metadataItem.stringValue as NSObject?
+				case .commonKeyArtwork		: info[MPMediaItemPropertyArtwork] = self.mediaItemArtwork(from: metadataItem.dataValue)
 				default								: continue
 				}
 			}
