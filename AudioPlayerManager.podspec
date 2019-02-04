@@ -20,6 +20,7 @@ Pod::Spec.new do |s|
 
   s.platform              = :ios
   s.ios.deployment_target = '8.0'
+  s.swift_version         = '4.2'
 
   s.source_files = 'AudioPlayerManager/**/*.{swift,h}'
   s.public_header_files = 'AudioPlayerManager/**/*.h'
