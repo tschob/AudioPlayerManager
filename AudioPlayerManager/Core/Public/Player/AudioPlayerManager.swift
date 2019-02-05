@@ -25,15 +25,15 @@ open class AudioPlayerManager: NSObject {
 
 	// MARK: - Properties
 
-	open static let shared						= AudioPlayerManager()
+	public static let shared						= AudioPlayerManager()
 
 	// MARK: - Configuration
 
 	/// Set this to true if the `AudioPlayerManager` log should be enabled. The default is `false`.
-	open static var verbose						= true
+	public static var verbose						= true
 
 	/// Set this to true if the `AudioPlayerManager` log should contain detailed information about the calling class, function and line. The default is `true`
-	open static var detailedLog					= true
+	public static var detailedLog					= true
 
 	/// Set this to true to use the systems `MPNowPlayingInfoCenter` (control center and lock screen). The default value is `true`.
 	open var useNowPlayingInfoCenter			= true
@@ -80,11 +80,11 @@ open class AudioPlayerManager: NSObject {
 
 	open class func makeStandalonePlayer(useNowPlayingInfoCenter: Bool?, useRemoteControlEvents: Bool?) -> AudioPlayerManager {
 		let manager = AudioPlayerManager()
-		if let _useRemoteControlEvents = useRemoteControlEvents {
-			manager.useRemoteControlEvents = _useRemoteControlEvents
+		if let useRemoteControlEvents = useRemoteControlEvents {
+			manager.useRemoteControlEvents = useRemoteControlEvents
 		}
-		if let _useNowPlayingInfoCenter = useNowPlayingInfoCenter {
-			manager.useNowPlayingInfoCenter = _useNowPlayingInfoCenter
+		if let useNowPlayingInfoCenter = useNowPlayingInfoCenter {
+			manager.useNowPlayingInfoCenter = useNowPlayingInfoCenter
 		}
 		return manager
 	}
@@ -125,31 +125,31 @@ open class AudioPlayerManager: NSObject {
 		self.didStopPlayback = false
 		self.startPlaybackTimeChangeTimer()
 		self.callPlayStateChangeCallbacks()
-		if let _currentTrack = self.currentTrack {
-			NotificationCenter.default.post(name: Notification.Name(rawValue: self.playerStateChangedNotificationKey(track: _currentTrack)), object: nil)
+		if let currentTrack = self.currentTrack {
+			NotificationCenter.default.post(name: Notification.Name(rawValue: self.playerStateChangedNotificationKey(track: currentTrack)), object: nil)
 		}
 	}
 
 	open func play(_ audioTrack: AudioTrack) {
-		Log("play(audioTrack: \(audioTrack))")
+		log("play(audioTrack: \(audioTrack))")
 		self.stop()
 		self.play([audioTrack], at: 0)
 	}
 
 	open func play(_ audioTracks: [AudioTrack], at startIndex: Int) {
-		Log("play(audioTracks: \(audioTracks.count) tracks, startIndex: \(startIndex))")
+		log("play(audioTracks: \(audioTracks.count) tracks, startIndex: \(startIndex))")
 		self.replace(with: audioTracks, at: startIndex)
 		// Start playing the new track
 		self.restartCurrentTrack()
 	}
 
 	open func replace(with audioTrack: AudioTrack) {
-		Log("replace(audioTrack: \(audioTrack))")
+		log("replace(audioTrack: \(audioTrack))")
 		self.replace(with: [audioTrack], at: 0)
 	}
 
 	open func replace(with audioTracks: [AudioTrack], at startIndex: Int) {
-		Log("replace(audioTracks: \(audioTracks.count) tracks, startIndex: \(startIndex))")
+		log("replace(audioTracks: \(audioTracks.count) tracks, startIndex: \(startIndex))")
 		self.stop()
 		self.queue.replace(audioTracks, at: startIndex)
 		self.queueGeneration += 1
@@ -157,21 +157,21 @@ open class AudioPlayerManager: NSObject {
 
 	open func prepend(_ audioTracks: [AudioTrack], toQueue generation: Int) {
 		if (self.queueGeneration == generation) {
-			Log("Queue generation (\(generation)) gets prepended with \(audioTracks.count) tracks.")
+			log("Queue generation (\(generation)) gets prepended with \(audioTracks.count) tracks.")
 			self.queue.prepend(audioTracks)
 			self.callPlayStateChangeCallbacks()
 		} else {
-			Log("Queue generation (\(generation)) isn't the same as the current (\(self.queueGeneration)). Won't prepend \(audioTracks.count) tracks.")
+			log("Queue generation (\(generation)) isn't the same as the current (\(self.queueGeneration)). Won't prepend \(audioTracks.count) tracks.")
 		}
 	}
 
 	open func append(_ audioTracks: [AudioTrack], toQueue generation: Int) {
 		if (self.queueGeneration == generation) {
-			Log("Queue generation (\(generation)) gets appended with \(audioTracks.count) tracks.")
+			log("Queue generation (\(generation)) gets appended with \(audioTracks.count) tracks.")
 			self.queue.append(audioTracks)
 			self.callPlayStateChangeCallbacks()
 		} else {
-			Log("Queue generation (\(generation)) isn't the same as the current (\(self.queueGeneration)). Won't append \(audioTracks.count) tracks.")
+			log("Queue generation (\(generation)) isn't the same as the current (\(self.queueGeneration)). Won't append \(audioTracks.count) tracks.")
 		}
 	}
 
@@ -182,8 +182,8 @@ open class AudioPlayerManager: NSObject {
 		self.stopPlaybackTimeChangeTimer = true
 		self.callPlaybackTimeChangeCallbacks()
 		self.callPlayStateChangeCallbacks()
-		if let _currentTrack = self.currentTrack {
-			NotificationCenter.default.post(name: Notification.Name(rawValue: self.playerStateChangedNotificationKey(track: _currentTrack)), object: nil)
+		if let currentTrack = self.currentTrack {
+			NotificationCenter.default.post(name: Notification.Name(rawValue: self.playerStateChangedNotificationKey(track: currentTrack)), object: nil)
 		}
 	}
 
@@ -193,7 +193,7 @@ open class AudioPlayerManager: NSObject {
 			if (clearQueue == true) {
 				self.clearQueue()
 			} else {
-				self.player.seek(to: CMTimeMake(0, 1))
+				self.player.seek(to: CMTimeMake(value: 0, timescale: 1))
 				self.pause()
 			}
 			self.callPlayStateChangeCallbacks()
@@ -231,19 +231,19 @@ open class AudioPlayerManager: NSObject {
 	}
 
 	open func rewind() {
-		guard let _currentTrack = self.currentTrack else {
+		guard let currentTrack = self.currentTrack else {
 			self.stop()
 			return
 		}
 
-		if (_currentTrack.currentTimeInSeconds() <= Float(1) && self.canRewindInQueue() == true) {
+		if (currentTrack.currentTimeInSeconds() <= Float(1) && self.canRewindInQueue() == true) {
 			self.stop()
 			if (self.queue.rewind() == true) {
 				self.restartCurrentTrack()
 			}
 		} else {
 			// Move to the beginning of the track if we aren't in the beginning.
-			self.player.seek(to: CMTimeMake(0, 1))
+			self.player.seek(to: CMTimeMake(value: 0, timescale: 1))
 			// Update the now playing info to show the new playback time
 			self.updateNowPlayingInfoIfNeeded()
 			// Call the callbacks to inform about the new time
@@ -257,23 +257,23 @@ open class AudioPlayerManager: NSObject {
 
 	open func seek(toProgress progress: Float) {
 		let progressInSeconds = Int64(progress * (self.currentTrack?.durationInSeconds() ?? 0))
-		let time = CMTimeMake(progressInSeconds, 1)
+		let time = CMTimeMake(value: progressInSeconds, timescale: 1)
 		self.seek(toTime: time)
 	}
 
 	// MARK: - Internal helper
 
+	@objc
 	open func trackDidFinishPlaying() {
 		self.forward()
 	}
-
 
 	// MARK: - Playback time change callback
 
 	open func addPlaybackTimeChangeCallback(_ sender: AnyObject, callback: @escaping (_ track: AudioTrack) -> Void) {
 		let uid = "\(Unmanaged.passUnretained(sender).toOpaque())"
-		if var _callbacks = self.playbackPositionChangeCallbacks[uid] {
-			_callbacks.append(callback)
+		if var callbacks = self.playbackPositionChangeCallbacks[uid] {
+			callbacks.append(callback)
 		} else {
 			self.playbackPositionChangeCallbacks[uid] = [callback]
 		}
@@ -288,8 +288,8 @@ open class AudioPlayerManager: NSObject {
 
 	open func addPlayStateChangeCallback(_ sender: AnyObject, callback: @escaping (_ track: AudioTrack?) -> Void) {
 		let uid = "\(Unmanaged.passUnretained(sender).toOpaque())"
-		if var _callbacks = self.playStateChangeCallbacks[uid] {
-			_callbacks.append(callback)
+		if var callbacks = self.playStateChangeCallbacks[uid] {
+			callbacks.append(callback)
 		} else {
 			self.playStateChangeCallbacks[uid] = [callback]
 		}
@@ -344,8 +344,8 @@ open class AudioPlayerManager: NSObject {
 
 	// MARK: - Callbacks
 	// swiftlint:disable syntactic_sugar
-	fileprivate var playStateChangeCallbacks				= Dictionary<String, [((_ track: AudioTrack?) -> (Void))]>()
-	fileprivate var playbackPositionChangeCallbacks			= Dictionary<String, [((_ track: AudioTrack) -> (Void))]>()
+	fileprivate var playStateChangeCallbacks				= Dictionary<String, [((_ track: AudioTrack?) -> Void)]>()
+	fileprivate var playbackPositionChangeCallbacks			= Dictionary<String, [((_ track: AudioTrack) -> Void)]>()
 	// swiftlint:enable syntactic_sugar
 
 	fileprivate var playbackPositionChangeTimer				: Timer?
@@ -354,8 +354,13 @@ open class AudioPlayerManager: NSObject {
 	// MARK: - Initializaiton
 
 	fileprivate func setupAudioSession() {
-		let _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-		let _ = try? AVAudioSession.sharedInstance().setActive(true)
+		if #available(iOS 10.0, *) {
+			_ = try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+		} else {
+			// Workaround until https://forums.swift.org/t/using-methods-marked-unavailable-in-swift-4-2/14949 isn't fixed
+			AVAudioSession.sharedInstance().perform(NSSelectorFromString("setCategory:error:"), with: AVAudioSession.Category.playback)
+		}
+		_ = try? AVAudioSession.sharedInstance().setActive(true)
 	}
 
 	fileprivate func setupPlayer() {
@@ -382,19 +387,19 @@ open class AudioPlayerManager: NSObject {
 	// MARK: - Play
 
 	fileprivate func restartCurrentTrack() {
-		Log("restartCurrentTrack")
+		log("restartCurrentTrack")
 		if (self.player != nil) {
 			self.stop()
 		}
 
-		if let _currentTrack = self.queue.currentTrack {
-			_currentTrack.loadResource()
-			if let _playerItem = _currentTrack.avPlayerItem() {
+		if let currentTrack = self.queue.currentTrack {
+			currentTrack.loadResource()
+			if let playerItem = currentTrack.avPlayerItem() {
 				if #available(iOS 10.0, *) {
-					_playerItem.preferredForwardBufferDuration = self.preferredForwardBufferDuration
+					playerItem.preferredForwardBufferDuration = self.preferredForwardBufferDuration
 				}
-				_currentTrack.prepareForPlaying(_playerItem)
-				self.player.replaceCurrentItem(with: _playerItem)
+				currentTrack.prepareForPlaying(playerItem)
+				self.player.replaceCurrentItem(with: playerItem)
 				self.play(updateNowPlayingInfo: true)
 			}
 		}
@@ -424,14 +429,15 @@ open class AudioPlayerManager: NSObject {
 
 	// MARK: - Plaback time change callback
 
+	@objc
 	func callPlaybackTimeChangeCallbacks() {
 		self.updateNowPlayingInfoIfNeeded()
 		// Increase the current tracks playing time if the player is playing
-		if let _currentTrack = self.currentTrack {
+		if let currentTrack = self.currentTrack {
 			for sender in self.playbackPositionChangeCallbacks.keys {
-				if let _callbacks = self.playbackPositionChangeCallbacks[sender] {
-					for playbackPositionChangeClosure in _callbacks {
-						playbackPositionChangeClosure(_currentTrack)
+				if let callbacks = self.playbackPositionChangeCallbacks[sender] {
+					for playbackPositionChangeClosure in callbacks {
+						playbackPositionChangeClosure(currentTrack)
 					}
 				}
 			}
@@ -452,8 +458,8 @@ open class AudioPlayerManager: NSObject {
 
 	func callPlayStateChangeCallbacks() {
 		for sender in self.playStateChangeCallbacks.keys {
-			if let _callbacks = self.playStateChangeCallbacks[sender] {
-				for playStateChangeClosure in _callbacks {
+			if let callbacks = self.playStateChangeCallbacks[sender] {
+				for playStateChangeClosure in callbacks {
 					playStateChangeClosure(self.currentTrack)
 				}
 			}

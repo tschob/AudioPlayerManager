@@ -12,8 +12,8 @@ extension AudioPlayerManager {
 	// MARK: - Play
 
 	public func play(mediaItem item: MPMediaItem) {
-		if let _track = MediaPlayerTrack(mediaItem: item) {
-			self.play(_track)
+		if let track = MediaPlayerTrack(mediaItem: item) {
+			self.play(track)
 		}
 	}
 
@@ -61,8 +61,8 @@ extension AudioPlayerManager {
 
 	public func isPlaying(persistentID pid: MPMediaEntityPersistentID) -> Bool {
 		if (self.isPlaying() == true),
-			let _currentTrack = self.currentTrack as? MediaPlayerTrack {
-			return ("\(pid)" == _currentTrack.identifier())
+			let currentTrack = self.currentTrack as? MediaPlayerTrack {
+			return ("\(pid)" == currentTrack.identifier())
 		}
 		return false
 	}

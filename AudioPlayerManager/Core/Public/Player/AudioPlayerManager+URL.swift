@@ -21,8 +21,8 @@ extension AudioPlayerManager {
 	}
 
 	public func play(url urlToPlay: URL?) {
-		if let _track = AudioURLTrack(url: urlToPlay) {
-			self.play(_track)
+		if let track = AudioURLTrack(url: urlToPlay) {
+			self.play(track)
 		}
 	}
 

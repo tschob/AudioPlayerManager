@@ -15,9 +15,9 @@ public enum DynamicAttribute {
 
 	var key: String {
 		switch self {
-		case .duration 			: return "duration"
-		case .commonMetadata 	: return "commonMetadata"
-		case .metadata 			: return "metadata"
+		case .duration			: return "duration"
+		case .commonMetadata	: return "commonMetadata"
+		case .metadata			: return "metadata"
 		}
 	}
 }
@@ -29,10 +29,10 @@ public extension AVAsset {
 	}
 
 	private func loadedAttributeValue<T>(for attribute: DynamicAttribute) -> T? {
-		var error : NSError? = nil
+		var error : NSError?
 		let status = self.statusOfValue(forKey: attribute.key, error: &error)
 		if let error = error {
-			Log("Error loading asset value for key '\(attribute.key)': \(error)")
+			log("Error loading asset value for key '\(attribute.key)': \(error)")
 		}
 
 		guard (status == .loaded) else {
@@ -42,7 +42,7 @@ public extension AVAsset {
 		return self.value(forKey: attribute.key) as? T
 	}
 
-	open func loadDuration(completion: @escaping ((_ duration: NSNumber?) -> Void)) {
+	public func loadDuration(completion: @escaping ((_ duration: NSNumber?) -> Void)) {
 		self.loadAttributeAsynchronously(.duration) {
 			guard let durationInSeconds = self.loadedAttributeValue(for: .duration) as CMTime? else {
 				DispatchQueue.main.async {
@@ -61,7 +61,7 @@ public extension AVAsset {
 		}
 	}
 
-	open func load(_ attribute: DynamicAttribute, completion: @escaping ((_ items: [AVMetadataItem]) -> Void)) {
+	public func load(_ attribute: DynamicAttribute, completion: @escaping ((_ items: [AVMetadataItem]) -> Void)) {
 		self.loadAttributeAsynchronously(attribute) {
 			let metadataItems = self.loadedAttributeValue(for: attribute) as [AVMetadataItem]?
 			DispatchQueue.main.async {
