@@ -13,7 +13,7 @@ import MediaPlayer
 extension AudioURLTrack {
 
 	internal func extractMetadata() {
-		log("Extracting meta data of player item with url: \(self.url)")
+		log("Extracting meta data of player item with url: \(String(describing: self.url))")
 		self.playerItem?.asset.load(.commonMetadata, completion: { [weak self] (items: [AVMetadataItem]) in
 			let parsedMetadata = self?.parseMetadataItems(items)
 			self?.nowPlayingInfo?.merge((parsedMetadata ?? [:]), uniquingKeysWith: { (_, new) -> NSObject in
