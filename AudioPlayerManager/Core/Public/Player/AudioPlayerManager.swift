@@ -379,11 +379,59 @@ open class AudioPlayerManager: NSObject {
 	fileprivate func setupRemoteControlEvents() {
 		if (self.useRemoteControlEvents == true) {
 			UIApplication.shared.beginReceivingRemoteControlEvents()
+            
+            let commandCenter = MPRemoteCommandCenter.shared()
+            commandCenter.nextTrackCommand.isEnabled = true
+            commandCenter.previousTrackCommand.isEnabled = true
+            commandCenter.pauseCommand.isEnabled = true
+            commandCenter.playCommand.isEnabled = true
+            commandCenter.togglePlayPauseCommand.isEnabled = true
+
+            if #available(iOS 9.1, *) {
+                commandCenter.changePlaybackPositionCommand.isEnabled = true
+                
+                commandCenter.changePlaybackPositionCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+                    if let seekEvent = event as? MPChangePlaybackPositionCommandEvent {
+                        print("change positin to \(seekEvent.positionTime)")
+                        self.seek(toTime: CMTime(seconds: seekEvent.positionTime, preferredTimescale: CMTimeScale(1000)))
+                    } else {
+                        print("failure with \(String(describing: event))")
+                        return .commandFailed
+                    }
+                    return .success
+                }
+            } else {
+                // Fallback on earlier versions
+            }
+            
+            commandCenter.playCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+                self.play()
+                return .success
+            }
+            
+            commandCenter.pauseCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+                self.pause()
+                return .success
+            }
+            
+            commandCenter.nextTrackCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+                self.forward()
+                return .success
+            }
+            
+            commandCenter.previousTrackCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+                self.rewind()
+                return .success
+            }
+            
+            commandCenter.togglePlayPauseCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+                self.togglePlayPause()
+                return .success
+            }
 		} else {
 			UIApplication.shared.endReceivingRemoteControlEvents()
 		}
 	}
-
 	// MARK: - Play
 
 	fileprivate func restartCurrentTrack() {
