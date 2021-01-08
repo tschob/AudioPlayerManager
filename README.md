@@ -1,3 +1,5 @@
+**⚠️ This library is no longer maintained. Feel free to fork it, add the code to your project and modify it or use alternatives. It's too much overhead for me to maintain it as I don't have a project anymore in which I use it. ⚠️**
+
 # AudioPlayerManager
 
 [![Build Status](https://travis-ci.org/tschob/AudioPlayerManager.svg?branch=master)](https://travis-ci.org/tschob/AudioPlayerManager)
